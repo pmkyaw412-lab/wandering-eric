@@ -833,8 +833,9 @@ h1:lang(my),h2:lang(my),h3:lang(my),h4:lang(my){line-height:1.45;letter-spacing:
 .acct{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1.5px solid var(--rule);border-radius:12px;background:#fff;color:var(--ink);font:500 15px/1 var(--f);cursor:pointer;flex:none;-webkit-tap-highlight-color:transparent}
 .acct:hover{border-color:var(--soft)}
 .acct svg{width:20px;height:20px;flex:none}
-.acct.in{width:44px;padding:0;border-radius:50%;overflow:hidden;border-color:var(--ink)}
-.acct.in img{width:100%;height:100%;object-fit:cover;display:block}
+.acct.in{border:0;background:none;border-radius:50%;align-self:center;height:44px;width:44px}
+.acct.in img,.acct.in .ini{width:34px;height:34px;border-radius:50%;object-fit:cover;display:grid;place-items:center;border:1.5px solid var(--ink);box-sizing:border-box;background:var(--desk);flex:none}
+.acct.in:hover img,.acct.in:hover .ini{box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--ink)}
 .acct .ini{font-weight:600;font-size:16px}
 .acct.busy{opacity:.55;pointer-events:none}
 @media (max-width:430px){
@@ -842,6 +843,7 @@ h1:lang(my),h2:lang(my),h3:lang(my),h4:lang(my){line-height:1.45;letter-spacing:
   .top .in{gap:8px}
   .tcls{padding:0 10px;font-size:14.5px}
   .sbtn,.acct{width:42px;min-width:0}
+  .acct.in img,.acct.in .ini{width:32px;height:32px}
 }
 @media (max-width:374px){.top .in{gap:6px}.tcls{padding:0 9px}}
 
