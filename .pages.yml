@@ -1,0 +1,78 @@
+# Pages CMS (https://app.pagescms.org): a writing dashboard for the blog.
+# Sign in with GitHub, pick this repository, and this file tells the editor what a post looks like.
+# Every Save is a commit to the repository; the site rebuilds and the post is live about a minute later.
+
+media:
+  input: media
+  output: media
+  extensions: [png, jpg, jpeg, webp, gif, svg]
+
+content:
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: posts
+    filename: "{fields.slug}.md"
+    view:
+      primary: title
+      fields: [title, date, lang, draft]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+        options:
+          maxlength: 120
+      - name: slug
+        label: Web address
+        description: Letters a to z, numbers and hyphens only, for example eju-maths-course-2. It becomes the link to the post (#/blog/eju-maths-course-2) and cannot be changed later without breaking the old link.
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9]+(-[a-z0-9]+)*$"
+          message: "Use lowercase letters, numbers and hyphens, such as eju-maths-course-2"
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: lang
+        label: Language of this post
+        type: select
+        required: true
+        default: my
+        options:
+          values:
+            - name: my
+              label: မြန်မာ (Burmese)
+            - name: en
+              label: English
+            - name: ja
+              label: 日本語 (Japanese)
+      - name: summary
+        label: Summary
+        description: One or two sentences shown in the list of posts and in search.
+        type: text
+      - name: cover
+        label: Cover image
+        description: Optional. Shown at the top of the post and beside it in the list.
+        type: image
+      - name: tags
+        label: Tags
+        description: Optional, for example EJU maths, universities, life in Japan.
+        type: string
+        list: true
+      - name: draft
+        label: Draft
+        description: Keep the post off the live site until you switch this off.
+        type: boolean
+        default: false
+      - name: body
+        label: Post
+        description: Write as you like. For maths, put it between dollar signs, like $x^2$, or $$ on its own lines for a big formula.
+        type: rich-text
+        options:
+          format: markdown

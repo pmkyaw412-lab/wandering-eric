@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Each signed-in student owns exactly one document, users/<their uid>.
+    // Nobody else can read it, and it holds only the fields the site writes.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['saved','sschol','frec','stars','steps','docs','stmt','essay','target','elig','mq','flang','fess','fdiag','updatedAt','v'])
+        && request.resource.data.size() <= 20;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

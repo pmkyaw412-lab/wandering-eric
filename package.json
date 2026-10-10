@@ -1,0 +1,15 @@
+{
+  "name": "wandering-eric",
+  "version": "11.0.0",
+  "private": true,
+  "description": "Wandering Eric: the EJU and admission guide, with Eric's blog",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "npx --yes serve dist"
+  },
+  "dependencies": {
+    "myanmar-tools": "1.1.3",
+    "yaml": "^2.6.0"
+  }
+}
