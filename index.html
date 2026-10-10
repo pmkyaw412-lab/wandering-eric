@@ -953,6 +953,42 @@ h1:lang(my),h2:lang(my),h3:lang(my),h4:lang(my){line-height:1.45;letter-spacing:
 .hposts .pm{font-size:14px;color:var(--lead);grid-column:2}
 @media (max-width:430px){.hposts li{grid-template-columns:1fr}.hposts .pm{grid-column:1}}
 @media print{.acct,.acmenu,.afoot .acts,.bfilt{display:none!important}}
+
+/* ---------- small phones and overlays (QA, Oct 2026) ---------- */
+/* grid columns may shrink below their content, so a wide answer sheet or an unrendered formula
+   scrolls inside its own box instead of widening the whole page */
+.hero .in>*,.two>*{min-width:0}
+/* the buttons keep their size; on narrow screens the brand gives way instead of the search button */
+.top .in>.tcls,.top .in>.sbtn,.top .in>#acct{flex:none}
+@media (max-width:374px){
+  .brand{gap:7px}
+  .brand b{font-size:16px}
+}
+@media (max-width:359px){
+  .wrap,.top .in{padding:0 14px}
+  .chips.scrollx{margin-right:-14px;padding-right:14px}
+  .top .in{gap:6px}
+  .brand{flex:0 1 auto;min-width:0;gap:6px}
+  .brand>span{min-width:0}
+  .brand .mk{width:12px;height:18px}
+  .brand b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tcls{padding:0 8px;font-size:14px}
+  .sbtn,.acct,.acct.in{width:40px;height:40px}
+  /* eleven ovals at a 24px pitch still meet WCAG 2.5.8 */
+  .sheet{margin-left:-10px;margin-right:-10px;padding-left:8px;padding-right:8px}
+  .arow{gap:5px}
+  .arow .lab{width:22px}
+  .arow .ovs{gap:3px}
+  .arow .ov{--w:21px;--h:31px}
+}
+/* while search or a dialog is open the page underneath stays put */
+html.lock{overflow:hidden;scrollbar-gutter:stable}
+.ovl{overscroll-behavior:contain;touch-action:none}
+.sp{max-height:78vh;max-height:78dvh}
+.sp .res{touch-action:pan-y;overscroll-behavior:contain}
+.dlgbg{overflow-y:auto;overscroll-behavior:contain;place-items:start center}
+.dlgbg>.dlg{margin-block:auto}
+.dlg.inapp .link{display:block;margin:12px 0 0;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--desk);font-size:14px;overflow-wrap:anywhere;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -3446,12 +3482,19 @@ function shortErr(e){var c=e&&e.code||"";
 }
 function signIn(){
   if(!fbOn()){toast("Sign-in is not set up yet.");return}
+  if(INAPP){if(DLGOPEN!=="signin")inAppDlg();return}
+  if(FB.busy)return;
   FB.busy=true;FB.err="";paintAcct();paintDlgBusy();
-  fbLoad().then(function(m){var p=new m.GoogleAuthProvider();p.setCustomParameters({prompt:"select_account"});return m.signInWithPopup(FB.auth,p)})
-    .then(function(r){FB.busy=false;closeDlg();toast("Signed in as "+(r.user.displayName||r.user.email)+". Your saved items now follow you.")})
+  function popup(m){var p=new m.GoogleAuthProvider();p.setCustomParameters({prompt:"select_account"});return m.signInWithPopup(FB.auth,p)}
+  /* Phones only allow a pop-up during the tap itself. When Firebase is already here, open it right away;
+     otherwise it opens after the download, and if the browser blocks it then, a second tap works. */
+  var late=!FB.m,run;
+  try{run=late?fbLoad().then(popup):popup(FB.m)}catch(e){run=Promise.reject(e)}
+  run.then(function(r){FB.busy=false;closeDlg();toast("Signed in as "+(r.user.displayName||r.user.email)+". Your saved items now follow you.")})
     .catch(function(e){FB.busy=false;var c=e&&e.code||"";paintAcct();paintDlgBusy();
       if(c==="auth/popup-closed-by-user"||c==="auth/cancelled-popup-request"||c==="auth/user-cancelled")return;
-      FB.err=shortErr(e);var el=$("#dlgerr");if(el)el.textContent=FB.err;else toast("Couldn't sign in. "+FB.err)});
+      FB.err=(c==="auth/popup-blocked"&&late&&FB.m)?"Sign-in is ready now. Tap Continue with Google again to open the Google window.":shortErr(e);
+      var el=$("#dlgerr");if(el)el.textContent=FB.err;else toast("Couldn't sign in. "+FB.err)});
 }
 function signOut(){closeDlg();if(!FB.m)return;FB.m.signOut(FB.auth).then(function(){toast("Signed out. What you saved stays on this device.")},function(e){toast("Couldn't sign out. "+shortErr(e))})}
 function cloudPick(){var o={};CLOUD.forEach(function(k){o[k]=S[k]});return o}
@@ -3521,7 +3564,21 @@ function dlgKey(e){if(e.key==="Escape"){e.preventDefault();closeDlg();return}
   if(e.key==="Tab"){var f=$$("#dlg a,#dlg button,#dlg input");if(!f.length)return;var first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}
 function openDlg(kind,html,focusSel){DLGFOCUS=document.activeElement;var box=document.getElementById("dlg");box.innerHTML=html;DLGOPEN=kind;document.addEventListener("keydown",dlgKey,true);
   var bg=box.querySelector(".dlgbg");if(bg)bg.onclick=function(e){if(e.target===this)closeDlg()};var f=box.querySelector(focusSel);if(f)f.focus()}
+/* Google refuses to sign anyone in inside Facebook, Messenger, Instagram, LINE and other in-app browsers */
+var INAPP=/FBAN|FBAV|FB_IAB|FBIOS|Instagram|\bLine\/|MicroMessenger|; wv\)/i.test(navigator.userAgent||"");
+function inAppDlg(){
+  var url=location.href;
+  openDlg("signin",'<div class="dlgbg"><div class="dlg signin inapp" role="dialog" aria-modal="true" aria-labelledby="sit" aria-describedby="sid"><h2 id="sit">Open this page in your browser to sign in</h2>'+
+    '<p id="sid">Google doesn\'t allow signing in inside the Facebook, Messenger or Instagram browser. Tap the menu (⋯) and choose Open in browser, or copy the link and paste it into Safari or Chrome.</p>'+
+    '<span class="link">'+esc(url)+'</span>'+
+    '<p class="fine">Everything on this site works without signing in. What you save stays in this browser.</p>'+
+    '<div class="acts"><button class="btn" data-act="copypage" id="dlgbtn">Copy the link</button><button class="btn ghost" data-act="dlgclose">Not now</button></div>'+
+    '<p class="fine" id="dlgerr" role="status"></p></div></div>','#dlgbtn');
+}
 function signInDlg(){
+  if(INAPP){inAppDlg();return}
+  /* start downloading Firebase now, so that Continue with Google can open the Google window straight from the tap */
+  if(fbOn()&&!FB.m)fbLoad().catch(function(){});
   openDlg("signin",'<div class="dlgbg"><div class="dlg signin" role="dialog" aria-modal="true" aria-labelledby="sit" aria-describedby="sid"><h2 id="sit">Keep your saved items on every device</h2>'+
     '<p id="sid">Sign in with your Google account and this site remembers you on your phone and your laptop. What comes along:</p>'+
     '<ul class="syncs"><li>'+oval(true)+'<span>Your list of universities, with statuses and compare ticks</span></li><li>'+oval(true)+'<span>Saved scholarships</span></li><li>'+oval(true)+'<span>Formula progress, the review list and starred words</span></li><li>'+oval(true)+'<span>Document ticks, your statement and essay drafts, the JASSO checker</span></li></ul>'+
@@ -3796,7 +3853,9 @@ document.addEventListener("click",function(ev){
     case "search":openSearch();break;
     /* ---- account ---- */
     case "acct":if(DLGOPEN){closeDlg();break}if(FB.user)acctMenu();else signInDlg();break;
-    case "signin":if(!DLGOPEN&&!FB.busy)signInDlg();signIn();break;
+    case "signin":if(!DLGOPEN&&!FB.busy){signInDlg();if(!FB.m)break}signIn();break;
+    case "copypage":{var pu=location.href;var pfin=function(ok){var m=$("#dlgerr");if(m)m.textContent=ok?"Link copied. Paste it into Safari or Chrome.":"Couldn't copy here. Press and hold the link above to copy it."};
+      try{navigator.clipboard.writeText(pu).then(function(){pfin(true)},function(){pfin(false)})}catch(e){pfin(false)}break}
     case "signout":signOut();break;
     case "delcloud":deleteCloud();break;
     case "dlgclose":closeDlg();break;
@@ -3935,6 +3994,10 @@ function searchRes(q){
 
 /* ================= boot ================= */
 window.addEventListener("hashchange",render);
+/* lock the page underneath whenever search or any dialog is showing, however it was opened or closed */
+(function(){var d=document.getElementById("dlg"),o=document.getElementById("ovl"),h=document.documentElement;
+  function sync(){h.classList.toggle("lock",!!(d.firstElementChild||o.firstElementChild))}
+  if(window.MutationObserver){var mo=new MutationObserver(sync);mo.observe(d,{childList:true});mo.observe(o,{childList:true})}})();
 var hadKatex=false;
 function boot(){loadState();hadKatex=!!window.katex;render();booted=true;paintAcct();if(fbOn()&&lsGet(AUTHKEY)==="1")fbLoad().catch(function(){});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fitMath()})}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();

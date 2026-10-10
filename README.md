@@ -32,4 +32,4 @@ Then open the address it prints. The blog needs the site served over http (not o
 
 Signing in with Google is optional. It is done with Firebase Authentication, and the student's saved items live in one Firestore document, `users/<uid>`, that only that student can read or write (see `firestore.rules`). The Firebase settings are in `FBC` near the end of `index.html`; they are safe to publish, because the rules protect the data. The Firestore database is in Tokyo (`asia-northeast1`).
 
-Firebase is only downloaded by the browser when someone clicks Sign in, or on later visits for someone who has signed in before.
+Firebase is only downloaded by the browser when someone opens the sign-in sheet (so the Google window can open straight from the tap, which phones require), or on later visits for someone who has signed in before. Inside the Facebook, Messenger, Instagram or LINE browsers, where Google refuses to sign anyone in, the sheet instead explains how to open the page in Safari or Chrome.
