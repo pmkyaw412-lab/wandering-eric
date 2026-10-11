@@ -535,6 +535,10 @@ a:hover .xi{color:var(--ink)}
 .mq .hint{color:var(--lead);font-size:15px;margin:0 0 12px 52px}
 .mq .chips{margin-left:52px}
 .mres{margin-top:30px}
+.msort{display:flex;gap:16px;align-items:flex-end;justify-content:space-between;margin:8px 0 16px}
+.msort .intro{margin:0;flex:1 1 auto}
+.msort .field{flex:0 0 220px;margin:0}
+@media (max-width:600px){.msort{flex-direction:column;align-items:stretch;gap:12px}.msort .field{flex:none}}
 .subjlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .subjlist li{display:grid;grid-template-columns:240px 1fr;gap:4px 22px;padding:14px 0;border-bottom:1px solid var(--rule)}
 .subjlist b{font-weight:500}
@@ -856,20 +860,26 @@ h1:lang(my),h2:lang(my),h3:lang(my),h4:lang(my){line-height:1.45;letter-spacing:
 @media (max-width:420px){.tabs a{font-size:11px;letter-spacing:0}}
 
 /* account menu and sign-in sheet */
-.acmenu{position:fixed;z-index:70;top:72px;right:28px;width:min(330px,calc(100% - 32px));background:#fff;border:1.5px solid var(--ink);border-radius:16px;padding:8px;box-shadow:0 24px 60px rgba(0,0,0,.07)}
-.acmenu .who{display:flex;gap:12px;align-items:center;padding:10px 12px 12px;border-bottom:1px solid var(--rule);margin-bottom:6px;min-width:0}
-.acmenu .who img,.acmenu .who .ini{width:40px;height:40px;border-radius:50%;flex:none;object-fit:cover;border:1.5px solid var(--ink)}
-.acmenu .who .ini{display:grid;place-items:center;font-weight:600;background:var(--desk)}
-.acmenu .who div{min-width:0}
-.acmenu .who b{display:block;font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.acmenu .who span{display:block;font-size:13.5px;color:var(--lead);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.acmenu a,.acmenu button{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:10px;background:none;font:500 15px/1.2 var(--f);color:var(--ink);text-decoration:none;cursor:pointer;text-align:left}
-.acmenu a:hover,.acmenu button:hover{background:var(--desk)}
-.acmenu .state{font-size:13.5px;color:var(--lead);padding:6px 12px 10px;line-height:1.45}
-.acmenu .state.err{color:var(--no)}
+.acmenu{position:fixed;z-index:70;top:72px;right:28px;width:min(320px,calc(100vw - 32px));max-height:calc(100dvh - 96px);overflow:auto;background:#fff;border:1px solid var(--rule);border-radius:16px;padding:6px;box-shadow:0 1px 2px rgba(0,0,0,.06),0 18px 48px rgba(0,0,0,.14)}
+.acmenu .who{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:12px;align-items:center;padding:12px 12px 10px}
+.acmenu .who img,.acmenu .who .ini{width:44px;height:44px;border-radius:50%;object-fit:cover;background:var(--desk)}
+.acmenu .who .ini{display:grid;place-items:center;font:600 18px/1 var(--f);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.acmenu .who .nm{min-width:0}
+.acmenu .who b{display:block;font:600 16px/1.3 var(--f);letter-spacing:-.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acmenu .who .em{display:block;font:400 13px/1.35 var(--f);color:var(--lead);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.acmenu .astate{display:flex;gap:8px;align-items:flex-start;margin:0 12px 6px;padding:9px 11px;border-radius:10px;background:var(--desk);font:400 12.5px/1.45 var(--f);color:var(--lead);white-space:normal}
+.acmenu .astate svg{width:15px;height:15px;flex:none;margin-top:2px}
+.acmenu .astate.err{background:var(--no2);color:var(--no)}
+.acmenu .grp{padding:4px 0;border-top:1px solid var(--rule2)}
+.acmenu .grp:first-of-type{border-top:0}
+.acmenu a,.acmenu button{display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:10px;background:none;font:400 15px/1.25 var(--f);color:var(--ink);text-decoration:none;cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent}
+.acmenu a:hover,.acmenu button:hover,.acmenu a:active,.acmenu button:active{background:var(--desk)}
+.acmenu a svg,.acmenu button svg{width:19px;height:19px;flex:none;color:var(--lead)}
+.acmenu .write{font-weight:500}
+.acmenu .write svg{color:var(--ink)}
 .acmenu .danger{color:var(--no)}
-.acmenu .n{margin-left:auto;color:var(--lead);font-weight:400;font-size:14px;font-variant-numeric:tabular-nums}
-@media (max-width:900px){.acmenu{top:64px;right:18px}}
+.acmenu .n{margin-left:auto;color:var(--lead);font-size:14px;font-variant-numeric:tabular-nums}
+@media (max-width:900px){.acmenu{top:64px;right:16px}}
 .dlg.signin{width:min(440px,100%);max-height:calc(100vh - 32px);overflow:auto}
 .dlg.signin p{margin-bottom:12px}
 .dlg.signin .syncs{list-style:none;margin:0 0 6px;padding:0;color:var(--lead)}
@@ -997,6 +1007,158 @@ html.lock{overflow:hidden;scrollbar-gutter:stable}
 .dlgbg{overflow-y:auto;overscroll-behavior:contain;place-items:start center}
 .dlgbg>.dlg{margin-block:auto}
 .dlg.inapp .link{display:block;margin:12px 0 0;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--desk);font-size:14px;overflow-wrap:anywhere;color:var(--ink)}
+
+/* ================= v13: writing desk =================
+   A quiet page to write on: the post is edited in the same type it is read in (.prose), with one sticky bar
+   for status and Publish, and the formatting tools right under it. */
+.desk .tabs,.desk .foot{display:none}
+/* while writing, the site header scrolls away so the editor's own bar and tools get the room */
+.desk .top{position:relative}
+.desk .edtop{top:0}
+.desk .toast{bottom:calc(20px + env(safe-area-inset-bottom))}
+.adminbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin:0 0 18px;padding:12px 14px 12px 16px;border:1px solid var(--rule);border-radius:14px;background:var(--desk);font-size:15px;color:var(--lead)}
+.adminbar>span{display:inline-flex;gap:8px;align-items:center}
+.adminbar .acts{gap:8px}
+.editpost{float:right;margin-top:10px}
+@media (max-width:600px){.editpost{float:none;margin:14px 0 0}}
+.dkhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:40px 0 20px}
+.dkhead h1{margin:0;font-size:clamp(1.9rem,4vw,2.6rem);letter-spacing:-.028em}
+.dkhead p{margin:6px 0 0;color:var(--lead);max-width:34em}
+.dkhead .btn svg{width:18px;height:18px}
+.dkseg{margin:0 0 14px}
+.dkseg .n{color:var(--lead);font-weight:400;margin-left:4px;font-size:13.5px}
+.dklist{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.dklist li{border-bottom:1px solid var(--rule)}
+.dklist a.row{display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:6px 14px;padding:16px 6px 16px 4px;text-decoration:none;color:inherit;align-items:center;border-radius:10px}
+.dklist a.row:hover{background:var(--desk)}
+.dklist .t{font-weight:600;font-size:1.08rem;line-height:1.38;letter-spacing:-.01em;overflow-wrap:anywhere}
+.dklist .t:lang(my){line-height:1.7}
+.dklist .t.untitled{color:var(--soft);font-weight:500}
+.dklist .m{grid-column:1;font-size:14px;color:var(--lead);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.dklist .go{grid-row:1/3;grid-column:2;color:var(--soft);display:grid;place-items:center}
+.pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:12px;font:500 12.5px/1 var(--f);background:var(--rule2);color:var(--lead);white-space:nowrap}
+.pill.live{background:var(--ok2);color:var(--ok)}
+.pill.live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.chg{background:var(--hl2);color:#6B5600}
+.pill+.pill{margin-left:-8px}
+.dkhow{margin:34px 0 70px;padding:20px 22px;border-radius:16px;background:var(--desk);max-width:var(--read)}
+.dkhow h2{font-size:1.05rem;margin:0 0 8px}
+.dkhow ul{margin:0;padding-left:1.2em;color:var(--lead);font-size:15px;line-height:1.6}
+.dkhow li+li{margin-top:6px}
+.dkhow b{color:var(--ink);font-weight:600}
+kbd{font:500 12.5px/1 var(--f);border:1px solid var(--rule);border-bottom-width:2px;border-radius:5px;padding:2px 6px;background:#fff;color:var(--ink)}
+.dkerr{padding:18px;border:1px solid var(--no2);background:var(--no2);border-radius:14px;color:var(--no)}
+.dkerr p{margin:0 0 10px}
+.dkgate{max-width:520px;margin:48px 0 90px;padding:30px 28px;border:1px solid var(--rule);border-radius:20px}
+.dkgate h1{font-size:1.7rem;letter-spacing:-.02em;margin:14px 0 8px}
+.dkgate p{color:var(--lead);margin:0 0 18px}
+.dkmark{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--hl)}
+.dkmark svg{width:24px;height:24px}
+
+/* the editor */
+.edtop{position:sticky;top:66px;z-index:30;background:rgba(255,255,255,.96);-webkit-backdrop-filter:saturate(1.3) blur(10px);backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid var(--rule)}
+.edtop .in{max-width:var(--wrap);margin:0 auto;padding:0 28px;height:58px;display:flex;align-items:center;gap:10px}
+.edtop .back{display:inline-flex;align-items:center;gap:2px;margin-left:-6px;padding:0 8px 0 2px;min-height:44px;font-weight:500;font-size:15.5px;text-decoration:none;color:var(--ink);border-radius:10px;flex:none}
+.edtop .back:hover{background:var(--desk)}
+.edtop .st{font-size:13.5px;color:var(--lead);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
+.edtop .st.ok{color:var(--ok)}
+.edtop .st.err{color:var(--no);white-space:normal;line-height:1.3;font-size:12.5px}
+.edtop .acts{margin-left:auto;gap:8px;flex:none;flex-wrap:nowrap}
+.edtop .btn{min-height:40px;padding:0 16px;font-size:15px;border-radius:10px}
+.edtop .btn.ghost{box-shadow:none;border-width:1.5px;border-color:var(--rule)}
+.edtop .btn.ghost:hover{border-color:var(--ink)}
+.edtop .btn.ghost[aria-pressed=true]{background:var(--hl);border-color:var(--ink)}
+.edtop .btn svg{width:19px;height:19px}
+.edtop #edpub{min-width:96px}
+.edtop .btn[disabled]{opacity:.45;cursor:default}
+.edtools{display:flex;gap:2px;align-items:center;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:var(--wrap);margin:0 auto;padding:4px 22px 6px;border-top:1px solid var(--rule2)}
+.edtools::-webkit-scrollbar{display:none}
+.edtools button{flex:none;min-width:42px;height:42px;padding:0 9px;border:0;border-radius:10px;background:none;color:var(--ink);font:600 16px/1 var(--f);display:inline-grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.edtools button:hover{background:var(--desk)}
+.edtools button[aria-pressed=true]{background:var(--hl)}
+.edtools svg{width:20px;height:20px}
+.edtools .th{font-size:19px;font-weight:700;letter-spacing:-.02em}
+.edtools .th.s{font-size:14.5px}
+.edtools .tp{font-size:18px;font-weight:500;color:var(--lead)}
+.edtools b{font-size:17px;font-weight:700}
+.edtools .ti{font:italic 600 17px/1 Georgia,"Times New Roman",serif}
+.edtools .tm{font-size:19px;font-weight:500}
+.edtools .sep{flex:none;width:1px;height:22px;background:var(--rule);margin:0 5px}
+.edtbl{display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none;max-width:var(--wrap);margin:0 auto;padding:6px 22px 8px;border-top:1px solid var(--rule2);font-size:13.5px;color:var(--lead)}
+.edtbl[hidden]{display:none}
+.edtbl::-webkit-scrollbar{display:none}
+.edtbl span{flex:none;font-weight:500;margin-right:4px}
+.edtbl button{flex:none;height:34px;padding:0 12px;border:1px solid var(--rule);border-radius:9px;background:#fff;font:500 13.5px/1 var(--f);color:var(--ink);cursor:pointer}
+.edtbl button:hover{border-color:var(--ink)}
+.edtbl .dg{color:var(--no)}
+.edcol{max-width:var(--read);margin:0 auto;padding:22px 0 90px}
+.ednote{display:flex;gap:8px;align-items:center;margin:0 0 14px;padding:9px 12px;border-radius:10px;background:var(--hl2);font-size:14px}
+.edlang{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0 18px;font-size:14px;color:var(--lead)}
+.chip.sm{min-height:36px;padding:0 12px;font-size:14px}
+.edtitle{display:block;width:100%;border:0;outline:0;resize:none;overflow:hidden;padding:0;margin:0 0 6px;background:none;font:600 clamp(1.9rem,4.3vw,2.7rem)/1.2 var(--f);letter-spacing:-.028em;color:var(--ink)}
+.edtitle:lang(my){font-size:clamp(1.6rem,3.8vw,2.3rem);line-height:1.55;letter-spacing:0}
+.edtitle:lang(ja){font-family:var(--fj);line-height:1.4;letter-spacing:0}
+.edtitle::placeholder{color:#B4B8BE}
+.edbody{position:relative;min-height:46vh;outline:0;caret-color:var(--ink);padding-bottom:30px}
+.edbody.isempty::before{content:attr(data-ph);position:absolute;top:14px;left:0;color:#B4B8BE;pointer-events:none}
+.edbody:focus-visible{box-shadow:none}
+.edbody img{cursor:pointer;margin:0}
+.edbody img.broken{min-height:80px;min-width:120px;background:var(--desk)}
+.edbody p:has(>img:only-child),.edbody p:has(>.mchip[data-d="1"]:only-child){text-align:center}
+.edbody a{color:inherit}
+.edbody table{display:table}
+.edbody td,.edbody th{min-width:90px}
+.edbody td:empty::after,.edbody th:empty::after{content:"\200b"}
+.mchip{display:inline-block;max-width:100%;padding:1px 4px;margin:0 1px;border-radius:7px;background:var(--hl2);cursor:pointer;user-select:none;-webkit-user-select:none;vertical-align:baseline;overflow-x:auto;overflow-y:hidden}
+.mchip:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.mchip .katex-display{margin:0}
+.mchip[data-d="1"]{padding:6px 12px}
+.edset{margin-top:26px;border:1px solid var(--rule);border-radius:16px;background:#fff}
+.edset summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;gap:4px 14px;flex-wrap:wrap;align-items:baseline;border-radius:16px}
+.edset summary::-webkit-details-marker{display:none}
+.edset summary>span:first-child{font-weight:600}
+.edset summary::after{content:"";margin-left:auto;width:9px;height:9px;border-right:2px solid var(--lead);border-bottom:2px solid var(--lead);transform:rotate(45deg) translateY(-3px);align-self:center}
+.edset[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
+.edset .in{padding:2px 18px 20px;display:grid;gap:18px}
+.edset .hint{font-size:13.5px;color:var(--lead);margin:0}
+.edset .hint.bad{color:var(--no)}
+.edta{height:auto;min-height:72px;padding:11px 14px;line-height:1.5;resize:none;overflow:hidden}
+.slugrow{display:flex;align-items:center;height:48px;border:1.5px solid #7D828A;border-radius:11px;background:#fff;overflow:hidden}
+.slugrow:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px var(--hl)}
+.slugrow span{padding:0 2px 0 14px;color:var(--lead);font-size:15px;white-space:nowrap}
+.slugrow input{flex:1;min-width:0;height:100%;border:0;outline:0;padding:0 14px 0 0;font:400 16px/1 var(--f);background:none;color:var(--ink)}
+.slugrow.locked{background:var(--desk);border-color:var(--rule)}
+.covbox img{display:block;width:100%;max-height:280px;object-fit:cover;border-radius:12px;border:1px solid var(--rule);background:var(--desk);margin-bottom:10px}
+.covbox .acts{gap:14px}
+.btn svg{flex:none}
+.eddanger{display:flex;gap:10px;flex-wrap:wrap;padding-top:6px;border-top:1px solid var(--rule2)}
+.eddanger:empty{display:none}
+.btn.dangerghost{color:var(--no)}
+.prevbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:18px 0 0;padding:10px 14px;border-radius:12px;background:var(--hl2);font-size:14.5px;max-width:var(--read)}
+.prevbar .linkbtn{margin-left:auto}
+.dlg.edd{width:min(520px,100%)}
+.dlg.edd .field label{margin-bottom:0}
+.edtex{height:auto;min-height:76px;padding:11px 14px;font:15px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;resize:vertical;margin-top:6px}
+.fkeys{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.fkeys button{min-width:44px;height:38px;padding:0 10px;border:1px solid var(--rule);border-radius:9px;background:#fff;font:500 15px/1 var(--f);color:var(--ink);cursor:pointer}
+.fkeys button:hover{border-color:var(--ink)}
+.fprev{min-height:64px;display:grid;place-items:center;margin:14px 0 0;padding:12px;border:1px dashed var(--rule);border-radius:12px;overflow-x:auto;background:#fff}
+.dlg.edd .fine{font-size:13.5px;color:var(--no);margin:8px 0 0;min-height:1em}
+.edthumb{display:block;max-width:100%;max-height:220px;margin:4px auto 0;border-radius:10px;border:1px solid var(--rule)}
+@media (max-width:900px){
+  .edtop .in{padding:0 14px 0 18px;height:54px;gap:8px}
+  .edtools,.edtbl{padding-left:12px;padding-right:12px}
+}
+@media (max-width:600px){
+  .edtop .iconic{padding:0;width:42px;min-width:42px}
+  .edtop .iconic .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .edtop #edpub{min-width:0;padding:0 14px}
+  .edtop .back span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .edcol{padding-top:16px}
+  .dkgate{padding:24px 20px;margin-top:28px}
+  .dklist a.row{padding:14px 2px}
+}
+@media print{.edtop,.edset{display:none!important}}
 </style>
 </head>
 <body>
@@ -1286,7 +1448,7 @@ var U={q:0,marks:{},checked:{},
   fg:"m1",ftopic:"",fq:"",fmode:"list",fc:0,fshow:false,fknown:0,fdeck:null,quiz:null,
   xo:{},tq:"",tcat:"",tstar:false,
   dq:"",dtypes:{N:1,P:1,R:1,F:1},dreg:-1,dpref:0,dfield:"",dvf:-1,deju:false,dpre:false,den:false,dtop:"",dqs:false,dsort:"rank",dpage:0,dpanel:null,
-  lview:"list",mshow:false,mpage:0,gtab:"all",
+  lview:"list",mshow:false,mpage:0,msort:"rank",gtab:"all",
   icat:"general",ii:0,ishow:false,itime:0,itimer:null,eshape:0,emin:60,eleft:null,etimer:null,
   open:{},faqOpen:-1,prev:null,undo:null,
   sq:"",slv:{},sfr:"",samt:0,sorg:{},smm:false,stu:false,ssort:"gov",spage:0,spanel:false};
@@ -1300,7 +1462,21 @@ var ICON={
   user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg>',
   cloud:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.5a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 9.5a4 4 0 0 1 .5 9H7z"/></svg>',
   out:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M15 16l4-4-4-4M19 12H9"/></svg>',
-  link:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7L12.5 19.5"/></svg>'
+  link:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7L12.5 19.5"/></svg>',
+  pen:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="M14.5 7.5l3 3"/></svg>',
+  doc:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5M9.5 13h6M9.5 16.5h6"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>',
+  back:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>',
+  image:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m20.5 15.5-4.5-4.5-9 8.5"/></svg>',
+  ul:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9.5 6.5H20M9.5 12H20M9.5 17.5H20"/><circle cx="5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="5" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="5" cy="17.5" r="1.1" fill="currentColor" stroke="none"/></svg>',
+  ol:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6.5h10M10 12h10M10 17.5h10"/><path d="M4.2 5.3 5.5 4.5v4.2" stroke-width="1.5"/><path d="M4 11.2c.3-.6.9-.9 1.5-.8.7.1 1 .7.8 1.3-.2.5-2.3 2.1-2.3 2.1h2.5" stroke-width="1.5"/><path d="M4 16.5h2.2l-1.3 1.4c.8 0 1.4.4 1.4 1s-.6 1.1-1.3 1.1c-.5 0-.9-.2-1.1-.5" stroke-width="1.5"/></svg>',
+  quote:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5v14"/><path d="M9.5 8h9.5M9.5 12h9.5M9.5 16h6"/></svg>',
+  table:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M3.5 14.5h17M12 9.5v10"/></svg>',
+  hr:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16"/><path d="M8 7h8M8 17h8" stroke-opacity=".35"/></svg>',
+  undo:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4.5 9.5 9 5"/><path d="M4.5 9.5H14a5.5 5.5 0 0 1 0 11h-3"/></svg>',
+  redo:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14l4.5-4.5L15 5"/><path d="M19.5 9.5H10a5.5 5.5 0 0 0 0 11h3"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  ext2:'<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>'
 };
 
 /* ================= shared pieces ================= */
@@ -1315,7 +1491,7 @@ var DLGFOCUS=null;
 function confirmDlg(o){
   DLGFOCUS=document.activeElement;
   var box=document.getElementById("dlg");
-  box.innerHTML='<div class="dlgbg"><div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dlgt" aria-describedby="dlgd"><h2 id="dlgt">'+mix(o.title)+'</h2><p id="dlgd">'+mix(o.body)+'</p><div class="acts"><button class="btn ghost sm" data-dlg="no">Cancel</button><button class="btn sm danger" data-dlg="yes">'+esc(o.ok)+'</button></div></div></div>';
+  box.innerHTML='<div class="dlgbg"><div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dlgt" aria-describedby="dlgd"><h2 id="dlgt">'+mix(o.title)+'</h2><p id="dlgd">'+mix(o.body)+'</p><div class="acts"><button class="btn ghost sm" data-dlg="no">Cancel</button><button class="btn sm'+(o.safe?'':' danger')+'" data-dlg="yes">'+esc(o.ok)+'</button></div></div></div>';
   var no=box.querySelector('[data-dlg="no"]'),yes=box.querySelector('[data-dlg="yes"]');
   function close(run){box.innerHTML="";document.removeEventListener("keydown",key,true);if(run)o.run();else if(DLGFOCUS&&DLGFOCUS.focus)DLGFOCUS.focus()}
   function key(e){if(e.key==="Escape"){e.preventDefault();close(false)}if(e.key==="Tab"){e.preventDefault();(document.activeElement===no?yes:no).focus()}}
@@ -3101,7 +3277,17 @@ function mResults(){
   var q=S.mq;
   var list=SCH.filter(function(s){return mMatch(s)});
   function score(s){var n=0;q.f.forEach(function(c){if(s.fd.indexOf(c)>=0)n+=10});if(q.en==="y"&&(s.fl&4))n+=6;if(q.intl==="y"&&(s.ta||s.tu))n+=6;if(s.fl&1)n+=1;return n}
-  return list.sort(function(a,b){return score(b)-score(a)||(q.intl==="y"?rankKey(a)-rankKey(b):0)||locCmp(a,b)});
+  if(U.msort==="match")return list.sort(function(a,b){return score(b)-score(a)||(q.intl==="y"?rankKey(a)-rankKey(b):0)||rankCmp(a,b)});
+  return sortList(list,U.msort||"rank");
+}
+var MSORTS=[["rank","Ranking"],["match","Best match"],["loc","North to south"],["name","Name, A to Z"],["intl","International students"]];
+function mSortNote(q){
+  var m=U.msort||"rank";
+  if(m==="rank")return 'Highest ranked first: QS 2027 places, then how selective each university is.';
+  if(m==="match")return 'Closest matches first'+(q.intl==="y"||q.en==="y"?', with your “if possible” wishes counted in':'')+'.';
+  if(m==="intl")return 'The most popular with international students first.';
+  if(m==="name")return 'In alphabetical order.';
+  return 'From Hokkaido in the north to Okinawa in the south.';
 }
 function matchPage(){
   var q=S.mq;
@@ -3121,7 +3307,7 @@ function matchPage(){
     if(q.f.length)subj='<h3 style="margin:26px 0 8px">EJU subjects to plan for</h3><ul class="subjlist">'+q.f.map(function(c){return '<li><b>'+esc(FNAME[c])+'</b><span>'+mix(D.SUBJ_FIELD[c])+'</span></li>'}).join("")+'</ul>';
     var uo=mUniOnly();
     h+='<section class="mres" aria-labelledby="mrh"><h2 id="mrh" tabindex="-1">'+(total?(uo?plural(total,"university","universities"):plural(total,"school"))+' fit your answers':'No '+(uo?'universities':'schools')+' fit all your answers')+'</h2>'+
-      '<p class="intro" style="margin:8px 0 16px">'+(total?'Closest matches first'+(q.intl==="y"||q.en==="y"?', with your “if possible” wishes counted in':'')+'. Save any that interest you.':'Try fewer regions, or mark more kinds of school.')+'</p>'+
+      (total?'<div class="msort"><p class="intro">'+mSortNote(q)+' Save any that interest you.</p><div class="field"><label for="msort">Sort by</label><select class="inp" id="msort" data-in="msort">'+MSORTS.map(function(o){return '<option value="'+o[0]+'"'+((U.msort||"rank")===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join("")+'</select></div></div>':'<p class="intro" style="margin:8px 0 16px">Try fewer regions, or mark more kinds of school.</p>')+
       (total?'<div class="frame"><ul>'+shown.map(function(s){return urow(s)}).join("")+'</ul>'+pager(total,U.mpage,"mpage")+'</div>':'')+subj+'</section>';
   }
   return h;
@@ -3161,8 +3347,6 @@ function guidePage(){
   '<div class="block" id="g-qs"><h2>Top 30 in Japan in the QS ranking</h2><p class="intro">The highest-placed Japanese universities in the QS World University Rankings 2027, grouped by where they place in the world. Eight universities share 30th place, so the last group has eight.</p>'+qsList+
     '<p class="src">'+ext(QSURL,"QS World University Rankings 2027")+', published in June 2026, checked on 7 October 2026. QS ranks 41 Japanese universities in all. It weighs reputation surveys and research heavily, so a high place says little about teaching, fees or how a university looks after international students.</p>'+
     '<p style="margin-top:14px"><button class="linkbtn" data-act="quickqs">Show these in the search</button></p></div>';
-oin("、")+'</p>'+
-    '<p class="src">Recognised institutions: '+ext(SRC.nic,"NIC-Japan")+'. Checked on '+fmtL(D.CHECKED_SCHOOLS)+'.</p></div>';
 }
 
 /* ================= APPLY ================= */
@@ -3227,7 +3411,7 @@ function essay(){
 function faq(){return head("Questions and answers","Short, checked answers to what students ask most. Each links back to the official page where it matters.")+'<div class="wrap read faq" style="padding-bottom:60px">'+faqList(D.FAQ)+'</div>'}
 
 /* ================= SCHOLARSHIPS: open to students from Myanmar (checked 6 October 2026) ================= */
-var SCHOL=[{"i":0,"id":"mext-research","en":"MEXT Scholarship: research students (Embassy)","ja":"文部科学省奨学金 研究留学生（大使館推薦）","org":"gov","lv":"G","fr":"M","big":"¥143,000 to ¥145,000","per":"a month, plus tuition and airfare","hi":145000,"tu":1,"mm":1,"who":"Graduate study. Apply through MAJA in Yangon, then the Embassy. Under 35.","mo":"Apr to May","how":"Embassy","url":"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html"},{"i":1,"id":"mext-ug","en":"MEXT Scholarship: undergraduate (Embassy)","ja":"文部科学省奨学金 学部留学生（大使館推薦）","org":"gov","lv":"U","fr":"M","big":"¥117,000","per":"a month, plus tuition and airfare","hi":117000,"tu":1,"mm":1,"who":"Starts with a year of Japanese. Live in Myanmar, apply through MAJA, then the Embassy. Under 25.","mo":"Apr to May","how":"Embassy","url":"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html"},{"i":2,"id":"mext-kosen","en":"MEXT Scholarship: college of technology (Embassy)","ja":"文部科学省奨学金 高等専門学校留学生（大使館推薦）","org":"gov","lv":"K","fr":"M","big":"¥117,000","per":"a month, plus tuition and airfare","hi":117000,"tu":1,"mm":1,"who":"Entry to year 3 of a kosen after a year of Japanese. Apply through MAJA, then the Embassy.","mo":"Apr to May","how":"Embassy","url":"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html"},{"i":3,"id":"mext-stc","en":"MEXT Scholarship: specialized training college (Embassy)","ja":"文部科学省奨学金 専修学校留学生（大使館推薦）","org":"gov","lv":"V","fr":"M","big":"¥117,000","per":"a month, plus tuition and airfare","hi":117000,"tu":1,"mm":1,"who":"Vocational school after a year of Japanese. Apply through MAJA, then the Embassy.","mo":"Apr to May","how":"Embassy","url":"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html"},{"i":4,"id":"mext-uni-abroad","en":"MEXT Scholarship: university recommendation (from abroad)","ja":"文部科学省奨学金 大学推薦（海外採用）","org":"gov","lv":"UG","fr":"M","big":"¥117,000 to ¥145,000","per":"a month, plus tuition and airfare","hi":145000,"tu":1,"mm":0,"who":"Your university in Myanmar needs an exchange agreement with the Japanese university.","mo":"Set by each university","how":"Japanese university","url":"https://www.studyinjapan.go.jp/en/planning/scholarships/mext-scholarships/"},{"i":5,"id":"mext-uni-japan","en":"MEXT Scholarship: university recommendation (in Japan)","ja":"文部科学省奨学金 大学推薦（国内採用）","org":"gov","lv":"UG","fr":"J","big":"¥117,000 to ¥145,000","per":"a month, plus tuition","hi":145000,"tu":1,"mm":0,"who":"For privately financed students already enrolled. Very few places.","mo":"Set by each university","how":"Your school","url":"https://www.mext.go.jp/a_menu/koutou/ryugaku/1266486.htm"},{"i":6,"id":"jica-lcdp","en":"JICA LCDP master's programme (Myanmar-Japan Center)","ja":"ミャンマー民間セクター長期人材育成プログラム","org":"gov","lv":"G","fr":"M","big":"¥117,000 to ¥148,000","per":"a month, plus tuition and airfare","hi":148000,"tu":1,"mm":1,"who":"Myanmar private-sector staff with 2+ years' work who took MJC courses. Check for a new call.","mo":"Sep to Oct (last call)","how":"Myanmar-Japan Center","url":"https://myanmarjapancenter.com/scholarship-program/"},{"i":7,"id":"jasso-honors","en":"JASSO Honors Scholarship","ja":"文部科学省外国人留学生学習奨励費","org":"jasso","lv":"LVKJUG","fr":"J","big":"¥48,000","per":"a month (language schools ¥30,000)","hi":48000,"tu":0,"mm":0,"who":"Open to the most students. Your school recommends you. Student visa needed; kosen from year 3.","mo":"Apr to May or Aug to Oct","how":"Your school","url":"https://www.jasso.go.jp/en/ryugaku/scholarship_j/shoreihi/about.html"},{"i":8,"id":"jasso-eju","en":"JASSO Honors Scholarship: EJU reservation","ja":"学習奨励費 予約制度（日本留学試験）","org":"jasso","lv":"VKJU","fr":"MJ","big":"¥48,000","per":"a month","hi":48000,"tu":0,"mm":0,"who":"Tick the box when you register for the EJU (held in Yangon). Top scorers get a scholarship reserved. Kosen from year 3.","mo":"EJU registration: Feb to Mar, Jul","how":"EJU form","url":"https://www.jasso.go.jp/en/ryugaku/scholarship_j/shoreihi/yoyaku_eju/index.html"},{"i":9,"id":"jasso-exchange","en":"JASSO Student Exchange Support Program","ja":"海外留学支援制度（協定受入）","org":"jasso","lv":"VKJUG","fr":"M","big":"¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Exchange study of up to one year through your home university's agreement.","mo":"Set by your university","how":"Home university","url":"https://www.jasso.go.jp/en/ryugaku/scholarship_j/ukeire.html"},{"i":10,"id":"adb-jsp","en":"ADB-Japan Scholarship Program","ja":"アジア開発銀行・日本奨学金プログラム","org":"intl","lv":"G","fr":"M","big":"Full scholarship","per":"tuition, a living allowance and travel","hi":null,"tu":1,"mm":1,"who":"Master's at 17 Japanese universities. 2+ years' work, 35 or under.","mo":"Set by each university","how":"Japanese university","url":"https://www.adb.org/work-with-us/careers/japan-scholarship-program"},{"i":11,"id":"jj-wbgsp","en":"Joint Japan/World Bank Graduate Scholarship","ja":"世界銀行・日本 大学院奨学金","org":"intl","lv":"G","fr":"M","big":"Full scholarship","per":"tuition, a living allowance and airfare","hi":null,"tu":1,"mm":1,"who":"Master's in development fields after admission to a partner programme. 3+ years' work.","mo":"Jan to Feb, Mar to May","how":"Direct","url":"https://www.worldbank.org/en/programs/scholarships/jj-wbgsp"},{"i":12,"id":"aichi","en":"Aichi Scholarship Program","ja":"愛知県 Aichi Scholarship Program","org":"local","lv":"G","fr":"M","big":"¥150,000","per":"a month, plus school fees and travel","hi":150000,"tu":1,"mm":0,"who":"Master's in Aichi for people who want to work for an Aichi company. Under 35.","mo":"Mar to May","how":"Aichi graduate school","url":"https://www.pref.aichi.jp/soshiki/kokusai/aichi-scholarship-program.html"},{"i":13,"id":"kitami","en":"Kitami City support for international students","ja":"北見市外国人留学生修学支援金","org":"local","lv":"VJUG","fr":"J","big":"¥200,000","per":"a year","hi":16667,"tu":0,"mm":0,"who":"Live and study in Kitami, Hokkaido.","mo":"May","how":"Your school","url":"https://www.city.kitami.lg.jp/administration/education/detail.php?content=9543"},{"i":14,"id":"iwate","en":"Iwate international student ambassadors","ja":"いわて留学生大使","org":"local","lv":"KJUG","fr":"J","big":"¥20,000","per":"a month","hi":20000,"tu":0,"mm":0,"who":"Study in Iwate and help with exchange events.","mo":"Apr","how":"Your school","url":"http://iwate-ia.or.jp/?p=2-8-intl_student_ambassador"},{"i":15,"id":"yamagata","en":"Yamagata Prefecture scholarship","ja":"山形県私費外国人留学生奨学金","org":"local","lv":"LVKJUG","fr":"J","big":"¥20,000","per":"a month (language schools ¥10,000)","hi":20000,"tu":0,"mm":0,"who":"Study in Yamagata and hope to work there.","mo":"Apr to May, Oct to Nov","how":"Your school","url":"https://int-students-yamagata.jp/en/study/"},{"i":16,"id":"shinjuku","en":"Shinjuku City study grant","ja":"新宿区外国人留学生学習奨励費","org":"local","lv":"VJUG","fr":"J","big":"¥240,000","per":"a year","hi":20000,"tu":0,"mm":0,"who":"Live and study in Shinjuku, Tokyo, for a year or more.","mo":"May to Jun","how":"Direct","url":"https://www.city.shinjuku.lg.jp/tabunka/file02_00001.html"},{"i":17,"id":"kawasaki","en":"Kawasaki study grant","ja":"川崎市国際交流協会 外国人留学生修学奨励金","org":"local","lv":"VKJUG","fr":"J","big":"¥100,000","per":"a year","hi":8333,"tu":0,"mm":0,"who":"Live in Kawasaki and study at one of 18 schools there.","mo":"Apr to May","how":"Your school","url":"https://www.kian.or.jp/len/topics/josei-rgk.shtml"},{"i":18,"id":"shiga","en":"Biwako Scholarship (Shiga)","ja":"滋賀県国際協会 びわこ奨学金","org":"local","lv":"JUG","fr":"J","big":"¥20,000","per":"a month","hi":20000,"tu":0,"mm":0,"who":"Study in Shiga for about a year or more; some volunteer work.","mo":"Apr to May","how":"Your school","url":"https://www.s-i-a.or.jp/projects/multicultural"},{"i":19,"id":"kyoto-city","en":"Kyoto City International Foundation scholarship","ja":"京都市国際交流協会 張鳳俊奨学金","org":"local","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":1,"who":"Asian students at designated universities in Kyoto. Myanmar is named.","mo":"Apr to May","how":"Your school","url":"https://www.kcif.or.jp/web/en/support/scholarship/"},{"i":20,"id":"kobe","en":"Kobe International Students Scholarship","ja":"神戸市留学生奨学金（神戸・菅原奨学金）","org":"local","lv":"UG","fr":"J","big":"¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Undergraduates in year 3 or 4 and graduate students at universities in Kobe.","mo":"Feb to Mar","how":"Your school","url":"https://www.kicc.jp/en/aboutus/shien"},{"i":21,"id":"himeji","en":"Himeji City scholarship","ja":"姫路市海外留学生奨学金","org":"local","lv":"JUG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Live and study in Himeji.","mo":"Apr to Jun","how":"Your school","url":"https://www.city.himeji.lg.jp/kurashi/0000003762.html"},{"i":22,"id":"hiroshima-ic","en":"Hiroshima International Center scholarships","ja":"ひろしま国際センター 留学生奨学金","org":"local","lv":"KJUG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Study in Hiroshima Prefecture. A 6-month award for new arrivals too.","mo":"Apr, Oct","how":"Your school","url":"https://hiroshima-ic.or.jp/support/"},{"i":23,"id":"hiroshima-city","en":"Hiroshima Scholarship","ja":"広島平和文化センター ひろしま奨学金","org":"local","lv":"LVJUG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Live and study in Hiroshima City on a course of 2 years or more.","mo":"Apr to May","how":"Your school","url":"https://h-ircd.jp/scholarship.html"},{"i":24,"id":"fukuoka-satooya","en":"Fukuoka Asian Students Foster Parent Scholarship","ja":"福岡アジア留学生里親奨学金","org":"local","lv":"VKJUG","fr":"J","big":"¥20,000","per":"a month","hi":20000,"tu":0,"mm":0,"who":"Asian students in Fukuoka Prefecture, matched with a local sponsor.","mo":"Apr to May","how":"Your school","url":"https://fief.or.jp/lifeguide/student/foster-parent/"},{"i":25,"id":"fukuoka-future","en":"Fukuoka City Future Development Scholarship","ja":"福岡よかトピア国際交流財団 留学生育英奨学金","org":"local","lv":"UG","fr":"J","big":"¥300,000 to ¥500,000","per":"a year","hi":41667,"tu":0,"mm":0,"who":"Study in the Fukuoka area.","mo":"Apr to May","how":"Your school","url":"https://www.fcif.or.jp/en/en-money/international-student-scholarship/"},{"i":26,"id":"fukuoka-fcif","en":"Fukuoka City International Foundation Scholarship","ja":"福岡市国際財団奨学金","org":"local","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"8 Fukuoka universities. JLPT N3+ and you want to work in Fukuoka.","mo":"Apr to May","how":"Your school","url":"https://www.fcif.or.jp/en/en-money/international-student-scholarship/"},{"i":27,"id":"tokushima-miki","en":"Miki Takeo International Scholarship Fund","ja":"三木武夫国際育英基金","org":"found","lv":"KJUG","fr":"J","big":"¥300,000","per":"a year","hi":25000,"tu":0,"mm":0,"who":"Privately financed students living in Tokushima.","mo":"Apr to May","how":"Direct","url":"https://www.awabank.co.jp/kojin/news/2026/news20260401a/"},{"i":28,"id":"atsumi","en":"Atsumi International Foundation","ja":"渥美国際交流財団","org":"found","lv":"G","fr":"J","big":"¥250,000","per":"a month","hi":250000,"tu":0,"mm":0,"who":"Doctoral students finishing their degree in Kanto or Kansai.","mo":"Sep","how":"Direct","url":"https://www.aisf.or.jp/jp/"},{"i":29,"id":"iizuka","en":"Iizuka Takeshi Scholarship","ja":"飯塚毅育英会","org":"found","lv":"UG","fr":"J","big":"¥60,000","per":"a month","hi":60000,"tu":0,"mm":0,"who":"Study in Tochigi. Under 29. Essay and interview in Japanese.","mo":"Oct","how":"Direct","url":"https://www.iizuka-takeshi-ikuei.or.jp/scholarship/college/foreign_en.html"},{"i":30,"id":"ichihara","en":"Ichihara International Scholarship Foundation","ja":"市原国際奨学財団","org":"found","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Universities in Aichi. Report and interview in Japanese.","mo":"Jul to Oct","how":"Your school","url":"https://www.ichihara-isf.or.jp/grantinaid/application-abroad.html"},{"i":31,"id":"ito","en":"ITO Foundation for International Education Exchange","ja":"伊藤国際教育交流財団","org":"found","lv":"G","fr":"J","big":"¥200,000","per":"a month","hi":200000,"tu":0,"mm":0,"who":"Students starting a master's, any field. Japanese needed.","mo":"Oct","how":"Direct","url":"https://www.itofound.or.jp/外国人奨学金制度/3-募集について外国人"},{"i":32,"id":"iwaki","en":"Iwaki Scholarship Foundation","ja":"岩城留学生奨学会","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"Asian students in medicine, pharmacy or chemistry at about 6 Kanto universities.","mo":"Nov to Dec","how":"Your school","url":"https://iwakizaidan.org/"},{"i":33,"id":"iwatani","en":"Iwatani International Scholarship","ja":"岩谷直治記念財団 岩谷国際奨学金","org":"found","lv":"G","fr":"J","big":"¥150,000","per":"a month","hi":150000,"tu":0,"mm":1,"who":"East and Southeast Asian students in science, engineering or agriculture.","mo":"Dec","how":"Direct","url":"https://www.iwatani-foundation.or.jp/"},{"i":34,"id":"innertrip","en":"Inner Trip Foundation","ja":"インナートリップ国際交流協会","org":"found","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Asian students in Greater Tokyo; undergraduates from year 3. About JLPT N2.","mo":"Dec to Feb","how":"Your school","url":"https://itf.or.jp/scholarship"},{"i":35,"id":"urakami","en":"Urakami Scholarship for Displaced Students","ja":"浦上奨学会 海外からの避難奨学生","org":"found","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":1,"who":"Students displaced by conflict at 23 universities. JASSO lists Myanmar; your university decides.","mo":"Mar to May","how":"Your school","url":"https://www.urakami-shougakukai.or.jp/requirement/refugee/"},{"i":36,"id":"sgh","en":"SGH Foundation Scholarship","ja":"SGH財団 奨学金","org":"found","lv":"UG","fr":"J","big":"¥120,000 to ¥180,000","per":"a month","hi":180000,"tu":0,"mm":1,"who":"ASEAN students, Myanmar included.","mo":"Feb to Apr","how":"Your school","url":"https://www.sgh-foundation.or.jp/en/scholar/employment/"},{"i":37,"id":"emori","en":"Emori Asian Student Scholarship","ja":"江守アジア留学生育英会","org":"found","lv":"UG","fr":"J","big":"¥70,000 to ¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Asian students at national and public universities in Fukui.","mo":"Apr to May","how":"Your school","url":"https://www.u-fukui.ac.jp/international/inbound/scholarship/private/"},{"i":38,"id":"lsh","en":"LSH Asia Scholarship","ja":"LSHアジア奨学会","org":"found","lv":"L","fr":"J","big":"¥20,000","per":"a month for 5 months","hi":20000,"tu":0,"mm":0,"who":"Asian students at Japanese language schools. Short essay in Japanese.","mo":"Jul","how":"Your school","url":"https://lsh-foundation.or.jp/guidance-2/"},{"i":39,"id":"otsuka","en":"Otsuka Toshimi Scholarship Foundation","ja":"大塚敏美育英奨学財団","org":"found","lv":"UG","fr":"J","big":"¥1 million to ¥2 million","per":"a year","hi":166667,"tu":0,"mm":0,"who":"Health-related fields or business. Undergraduates from year 3.","mo":"Mar to Apr","how":"Direct","url":"https://www.otsukafoundation.org/english/guide/index.html"},{"i":40,"id":"okamoto","en":"Okamoto Scholarship Foundation","ja":"岡本国際奨学交流財団","org":"found","lv":"UG","fr":"J","big":"¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Students in Chiba Prefecture; undergraduates from year 3.","mo":"Jan","how":"Direct","url":"http://www.osf-family.com/business.html"},{"i":41,"id":"odakyu","en":"Odakyu Foundation Ando Kinen Scholarship","ja":"小田急財団 安藤記念奨学金","org":"found","lv":"G","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Graduate students at 3 universities that change each year.","mo":"Apr","how":"Your school","url":"https://www.odakyu-zaidan.or.jp/scholarship/index_en.html"},{"i":42,"id":"kato-asao","en":"Kato Asao International Scholarship Foundation","ja":"加藤朝雄国際奨学財団","org":"found","lv":"G","fr":"J","big":"¥130,000 to ¥150,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"Asian graduate students at 13 universities in Kansai and Aichi.","mo":"Mar","how":"Your school","url":"https://katoasaofoundation.jp/system.html"},{"i":43,"id":"kamiyama","en":"Kamiyama Scholarship Foundation","ja":"上山奨学財団","org":"found","lv":"UG","fr":"J","big":"¥200,000","per":"a year","hi":16667,"tu":0,"mm":0,"who":"Universities in Aichi.","mo":"Apr to May","how":"Your school","url":"https://www.kamiyama-foundation.or.jp/scholarship-guidelines/"},{"i":44,"id":"kamei","en":"Kamei Memorial Foundation","ja":"亀井記念財団","org":"found","lv":"UG","fr":"J","big":"¥50,000 to ¥60,000","per":"a month","hi":60000,"tu":0,"mm":0,"who":"Schools in Miyagi; undergraduates from year 3.","mo":"Apr to May","how":"Your school","url":"https://kmfo.or.jp/application/"},{"i":45,"id":"shinmaywa","en":"Kawanishi Memorial ShinMaywa Education Foundation","ja":"川西記念新明和教育財団","org":"found","lv":"G","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Graduate students in Hyogo.","mo":"Jan to Feb","how":"Your school","url":"https://www.kawanishi-shinmaywa.or.jp/project/scholarship/"},{"i":46,"id":"kambayashi","en":"Kambayashi Scholarship Foundation","ja":"神林留学生奨学会","org":"found","lv":"G","fr":"J","big":"¥140,000","per":"a month","hi":140000,"tu":0,"mm":0,"who":"Asian graduate students (year 2+) at 37 universities, many in art and music.","mo":"Jan to Mar","how":"Your school","url":"https://www.kambayashi-zaidan.or.jp/scholarship/"},{"i":47,"id":"kyoritsu","en":"Kyoritsu Foundation Scholarship","ja":"共立国際交流奨学財団 共立財団奨学金","org":"found","lv":"VJUG","fr":"J","big":"¥110,000","per":"a month","hi":110000,"tu":0,"mm":1,"who":"Asian students, Myanmar included.","mo":"Nov to Jan","how":"Your school","url":"https://kif-org.com/scholarship/application.html"},{"i":48,"id":"kyoritsu-m","en":"Kyoritsu Maintenance Scholarship","ja":"共立国際交流奨学財団 共立メンテナンス奨学金","org":"found","lv":"LVJU","fr":"J","big":"¥70,000","per":"a month","hi":70000,"tu":0,"mm":1,"who":"Asian students, Myanmar included. Open to language school students.","mo":"Nov to Jan","how":"Your school","url":"https://kif-org.com/scholarship/application.html"},{"i":49,"id":"kubota","en":"The Kubota Fund","ja":"公益信託久保田豊基金","org":"found","lv":"VKJUG","fr":"J","big":"Up to ¥150,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"Developing countries, Myanmar included. Engineering, environment or development.","mo":"Dec to Jan","how":"Direct","url":"https://www.kubota-fund.org/"},{"i":50,"id":"kddi","en":"KDDI Foundation Scholarship","ja":"KDDI財団 奨学金","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":1,"who":"Telecom-related fields at 43 universities. Myanmar is a target country.","mo":"Jul","how":"Your school","url":"https://www.kddi-foundation.or.jp/grant/"},{"i":51,"id":"rokko","en":"Rokko Scholarship Fund","ja":"神戸学生青年センター 六甲奨学基金","org":"found","lv":"LVJUG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Asian students at schools in Hyogo, language schools included.","mo":"Feb","how":"Your school","url":"https://ksyc.jp/scholarship/about-rokko-scholarship/"},{"i":52,"id":"kyowa","en":"International Kyowa Scholarship Foundation","ja":"国際協和奨学会","org":"found","lv":"UG","fr":"J","big":"¥120,000","per":"a month","hi":120000,"tu":0,"mm":0,"who":"Universities around Tokyo; undergraduates from year 2.","mo":"Nov","how":"Your school","url":"http://www.iksf.org/scholarship.html"},{"i":53,"id":"ihno","en":"IHNO Scholarship","ja":"国際人材交流支援機構 奨学金","org":"found","lv":"LVJUG","fr":"J","big":"Up to ¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Students at IHNO partner schools. Essay. Apply any time.","mo":"Any time","how":"Direct","url":"https://www.ihno.net/scholarship/"},{"i":54,"id":"sakata","en":"Sakata Agriculture Foundation Scholarship","ja":"サカタアグリ財団 奨学金","org":"found","lv":"UG","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":1,"who":"Agriculture at 44 universities. ASEAN, South Asia and others.","mo":"Apr to May","how":"Your school","url":"https://sakata-agriculture.or.jp/scholarship/"},{"i":55,"id":"sato-art","en":"Sato International Cultural Scholarship","ja":"佐藤国際文化育英財団","org":"found","lv":"UG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Painting and printmaking at 13 art universities.","mo":"Apr to May","how":"Your school","url":"https://sato-museum.la.coocan.jp/english/english_02.html"},{"i":56,"id":"sato-yo","en":"Sato Yo International Scholarship Foundation","ja":"佐藤陽国際奨学財団","org":"found","lv":"UG","fr":"J","big":"¥180,000 to ¥200,000","per":"a month, plus tuition","hi":200000,"tu":1,"mm":1,"who":"South and Southeast Asian students, Myanmar included. Interview in Japanese.","mo":"Jun to Aug, from Dec","how":"Your school","url":"https://sisf.or.jp/en/scholarship-2/foreign-studies-2/self-supporting/"},{"i":57,"id":"shunju","en":"Shunju Scholarship Foundation","ja":"春秋育英会","org":"found","lv":"UG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"East and Southeast Asian students at designated schools.","mo":"Apr to May","how":"Your school","url":"https://ikueikai.com/selection/"},{"i":58,"id":"syunpu","en":"One Seed Scholarship (Syunpu Dormitory)","ja":"春風学寮 一粒の麦奨学基金","org":"found","lv":"G","fr":"J","big":"¥120,000","per":"a month, including the dorm fee","hi":120000,"tu":0,"mm":0,"who":"Male graduate students who live in a small Christian dorm in Tokyo.","mo":"Jan to Feb","how":"Direct","url":"https://gakuryo.org/"},{"i":59,"id":"semmoto","en":"Semmoto Scholarship (master's)","ja":"千本財団 千本奨学金","org":"found","lv":"G","fr":"J","big":"¥120,000","per":"a month","hi":120000,"tu":0,"mm":1,"who":"Myanmar and 8 other countries. Master's at 22 universities.","mo":"Oct to Dec","how":"Direct","url":"https://semmoto.or.jp/en-scholarship-system"},{"i":60,"id":"semmoto-l","en":"Semmoto Scholarship (language school)","ja":"千本財団 日本語学校生奨学金","org":"found","lv":"L","fr":"J","big":"¥50,000","per":"a month, then ¥120,000 at university","hi":120000,"tu":0,"mm":1,"who":"Language school students from Myanmar and 8 other countries. Apply in Japanese.","mo":"Details in Jul, selection in Oct","how":"See the guidelines","url":"https://semmoto.or.jp/en-scholarship-system"},{"i":61,"id":"sojitz","en":"Sojitz Foundation Scholarship","ja":"双日国際交流財団","org":"found","lv":"UG","fr":"J","big":"¥70,000 to ¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"21 universities; undergraduates from year 3. Japanese needed.","mo":"Apr to May","how":"Your school","url":"https://sojitz-zaidan.or.jp/business/invitation/index.html"},{"i":62,"id":"takase","en":"TAKASE Scholarship Foundation","ja":"タカセ国際奨学財団","org":"found","lv":"UG","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"13 universities around Tokyo.","mo":"Jul to Aug","how":"Your school","url":"http://www.takasesf.or.jp/english/scholarship"},{"i":63,"id":"takayama","en":"Takayama International Education Foundation","ja":"高山国際教育財団","org":"found","lv":"LUG","fr":"J","big":"¥130,000 to ¥190,000","per":"a month","hi":190000,"tu":0,"mm":0,"who":"Asian students at designated schools, incl. language school students in their first year.","mo":"Dec to Feb, Mar to May, Aug to Nov","how":"Your school","url":"http://www.takayama-foundation.or.jp/scholarship/"},{"i":64,"id":"eacat","en":"EACAT Scholarship","ja":"東亜留学生育友会","org":"found","lv":"G","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Asian graduate students around Tokyo and Kanagawa; monthly meetings.","mo":"Jan","how":"Direct","url":"https://www.eacat.or.jp/scholarship"},{"i":65,"id":"kagami","en":"Tokio Marine Kagami Scholarship for ASEAN Students","ja":"東京海上各務記念財団 ASEAN奨学生","org":"found","lv":"G","fr":"J","big":"¥180,000 to ¥200,000","per":"a month","hi":200000,"tu":0,"mm":1,"who":"ASEAN graduate students, Myanmar included, at 14 universities.","mo":"Feb to Apr","how":"Your school","url":"http://www.kagami-f.or.jp/"},{"i":66,"id":"ywca","en":"Tokyo YWCA Japanese Mothers Scholarship","ja":"東京YWCA「留学生の母親」運動 奨学金","org":"found","lv":"VJU","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"First and second-year students in Tokyo. Essays and interview in Japanese.","mo":"May","how":"Direct","url":"https://www.tokyo.ywca.or.jp/peace/ryugakusei/scholarship/"},{"i":67,"id":"tepco","en":"TEPCO Memorial Foundation Scholarship","ja":"東電記念財団 奨学金","org":"found","lv":"G","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Doctoral students under 28; energy-related research.","mo":"Apr to Jun","how":"Your school","url":"https://www.tmf-zaidan.or.jp/application/application04.html"},{"i":68,"id":"tonen","en":"Tonen International Scholarship Foundation","ja":"東燃国際奨学財団","org":"found","lv":"G","fr":"J","big":"¥220,000","per":"a month","hi":220000,"tu":0,"mm":0,"who":"Graduate students at designated Tokyo-area universities.","mo":"Oct to Nov","how":"Your school","url":"https://www.tonen-zaidan.or.jp/naiyou/"},{"i":69,"id":"jgc","en":"JGC-Saneyoshi Scholarship","ja":"日揮・実吉奨学会","org":"found","lv":"UG","fr":"J","big":"¥400,000","per":"a year","hi":33333,"tu":0,"mm":0,"who":"Science and engineering at 66 universities.","mo":"Apr to Jun","how":"Your school","url":"https://www.jgcs.or.jp/en/"},{"i":70,"id":"nitori","en":"Nitori International Scholarship Foundation","ja":"似鳥国際奨学財団","org":"found","lv":"UG","fr":"J","big":"¥60,000 to ¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Student visa holders in Japan. Apply online yourself. About 200 places.","mo":"Jan to Apr","how":"Direct","url":"https://www.nitori-shougakuzaidan.com/application"},{"i":71,"id":"ngk","en":"NGK Foundation for International Students","ja":"日本ガイシ留学生基金","org":"found","lv":"UG","fr":"J","big":"¥120,000","per":"a month","hi":120000,"tu":0,"mm":0,"who":"Universities in Aichi.","mo":"Nov to Jan","how":"Your school","url":"https://www.ngk.co.jp/philanthropy/scholarship.html"},{"i":72,"id":"nomura","en":"Nomura Foundation Scholarship","ja":"野村財団 奨学金","org":"found","lv":"G","fr":"MJ","big":"¥200,000","per":"a month","hi":200000,"tu":0,"mm":0,"who":"Humanities and social sciences at 6 universities. You can apply with an offer letter.","mo":"Sep","how":"Direct","url":"https://www.nomurafoundation.or.jp/en/scholar/"},{"i":73,"id":"hasegawa","en":"Hasegawa International Scholarship Foundation","ja":"長谷川留学生奨学財団","org":"found","lv":"UG","fr":"J","big":"¥100,000 to ¥150,000","per":"a month","hi":150000,"tu":0,"mm":1,"who":"Asian students who live and study in Tokyo, at universities the foundation chooses.","mo":"Oct to Nov","how":"Your school","url":"https://www.hasegawa-zaidan.or.jp/scholarship/guideline/"},{"i":74,"id":"hirose","en":"Hirose Foundation Scholarship","ja":"ヒロセ財団 一般奨学金","org":"found","lv":"UG","fr":"J","big":"¥180,000 to ¥200,000","per":"a month","hi":200000,"tu":0,"mm":0,"who":"Asian students at designated universities.","mo":"Jan to Feb","how":"Your school","url":"https://hirose-isf.or.jp/%E5%A5%A8%E5%AD%A6%E9%87%91/scholarship/"},{"i":75,"id":"heiwa","en":"Heiwa Nakajima Foundation Scholarship","ja":"平和中島財団 外国人留学生奨学金","org":"found","lv":"UG","fr":"J","big":"From ¥120,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"About 70 places nationwide; undergraduates from year 2.","mo":"Sep to Oct","how":"Your school","url":"http://www.hnf.jp/shogaku/english/"},{"i":76,"id":"horse","en":"Horse Future Welfare Foundation Scholarship","ja":"ホース未来福祉財団 留学生奨学金","org":"found","lv":"VU","fr":"J","big":"¥35,000","per":"a month","hi":35000,"tu":0,"mm":0,"who":"Schools in Tokyo, after a year of study.","mo":"Mar to Apr","how":"Direct","url":"https://horse-fw.or.jp/2026-international/"},{"i":77,"id":"honjo","en":"Honjo International Scholarship Foundation","ja":"本庄国際奨学財団","org":"found","lv":"G","fr":"MJ","big":"¥180,000 to ¥230,000","per":"a month","hi":230000,"tu":0,"mm":0,"who":"Master's or PhD students who plan to serve their home country. Interview in Japanese.","mo":"Sep to Oct","how":"Direct","url":"https://www.hisf.or.jp/en/scholarship/foreigner/"},{"i":78,"id":"miura","en":"Miura Educational Foundation","ja":"三浦教育振興財団","org":"found","lv":"KUG","fr":"J","big":"¥40,000 to ¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Schools in Ehime.","mo":"Feb, Apr","how":"Your school","url":"https://www.miura-fdn.com/scholarship/"},{"i":79,"id":"mizuho","en":"Mizuho International Foundation Scholarship","ja":"みずほ国際交流奨学財団","org":"found","lv":"UG","fr":"J","big":"¥120,000","per":"a month","hi":120000,"tu":0,"mm":0,"who":"Designated universities; a 2-year award.","mo":"Nov to Dec","how":"Your school","url":"https://mizuhokokusai.la.coocan.jp/schedule.html"},{"i":80,"id":"mgc","en":"Mitsubishi Gas Chemical Memorial Foundation","ja":"三菱ガス化学記念財団","org":"found","lv":"UG","fr":"J","big":"¥150,000 to ¥200,000","per":"a month","hi":200000,"tu":0,"mm":1,"who":"ASEAN students, Myanmar included, in chemistry at 10 universities. JLPT N3+.","mo":"Feb to May, Jul to Oct","how":"Your school","url":"https://www.mgc.co.jp/foundation/activities/index.html"},{"i":81,"id":"mufg","en":"Mitsubishi UFJ Foundation Scholarship","ja":"三菱UFJ国際財団","org":"found","lv":"UG","fr":"J","big":"¥140,000","per":"a month","hi":140000,"tu":0,"mm":0,"who":"Asian students at Tokyo, Hitotsubashi, Waseda, Keio and APU.","mo":"May","how":"Your school","url":"https://www.mitsubishi-ufj-foundation.jp/jinzaiikuseijigyou.html"},{"i":82,"id":"mufg-trust","en":"Mitsubishi UFJ Trust Scholarship","ja":"三菱UFJ信託奨学財団","org":"found","lv":"UG","fr":"J","big":"¥105,000 to ¥135,000","per":"a month","hi":135000,"tu":0,"mm":0,"who":"Designated universities; undergraduates from year 2.","mo":"Mar to May","how":"Your school","url":"https://www.scholarship.or.jp/english/"},{"i":83,"id":"yamaoka","en":"Yamaoka Scholarship Foundation","ja":"山岡育英会","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"Asian graduate students at Ehime, Kagoshima and APU.","mo":"Mar to Apr","how":"Your school","url":"https://www.yanmar.com/jp/about/company/fund/information/international.html"},{"i":84,"id":"yonex","en":"YONEX Sports Foundation Scholarship","ja":"ヨネックススポーツ振興財団","org":"found","lv":"JUG","fr":"J","big":"Up to ¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Athletes, with school and coach recommendations.","mo":"Oct to Dec","how":"Direct","url":"https://www.yonexsports-f.or.jp/scholarship/"},{"i":85,"id":"rotary","en":"Rotary Yoneyama Scholarship (in Japan)","ja":"ロータリー米山記念奨学会","org":"found","lv":"VKJUG","fr":"J","big":"¥70,000 to ¥140,000","per":"a month","hi":140000,"tu":0,"mm":0,"who":"The largest private scholarship, about 700 a year, at designated schools.","mo":"Aug to Oct","how":"Your school","url":"https://www.rotary-yoneyama.or.jp/english/"},{"i":86,"id":"rotary-abroad","en":"Rotary Yoneyama Scholarship (from abroad)","ja":"ロータリー米山記念奨学会 海外からの申請","org":"found","lv":"UG","fr":"M","big":"¥100,000 to ¥140,000","per":"a month, plus up to ¥250,000 for travel","hi":140000,"tu":0,"mm":0,"who":"JLPT N3+. Apply after you have applied to a Japanese university.","mo":"Oct","how":"Direct","url":"https://www.rotary-yoneyama.or.jp/english/overseas"},{"i":87,"id":"rohm","en":"Rohm Music Foundation Scholarship","ja":"ロームミュージックファンデーション 奨学金","org":"found","lv":"JUG","fr":"J","big":"¥300,000","per":"a month","hi":300000,"tu":0,"mm":0,"who":"Music students.","mo":"Jul to Sep","how":"Direct","url":"https://www.rmf.or.jp/jp/recruitment/scholarship/index.html"},{"i":88,"id":"watanuki","en":"Watanuki International Scholarship Foundation","ja":"綿貫国際奨学財団","org":"found","lv":"G","fr":"J","big":"¥250,000","per":"a month","hi":250000,"tu":0,"mm":1,"who":"Asia-Pacific graduate students, Myanmar included, at designated universities.","mo":"Aug to Oct","how":"Your school","url":"https://wisf.sakura.ne.jp/bosyu.html"},{"i":89,"id":"okazaki","en":"Okazaki Kaheita International Scholarship","ja":"岡崎嘉平太国際奨学財団","org":"found","lv":"LG","fr":"M","big":"¥110,000 to ¥130,000","per":"a month, plus tuition and airfare","hi":130000,"tu":1,"mm":1,"who":"Myanmar and 6 other countries take turns, so Myanmar is not recruited every year. Master's, under 25, chosen through 4 universities in Myanmar.","mo":"Check each year","how":"Home university","url":"https://okazakizaidan.or.jp/en/en-summary/"},{"i":90,"id":"jda","en":"Japan Dental Association Fellowship","ja":"日本歯科医師会 国際学術交流基金","org":"found","lv":"G","fr":"M","big":"¥150,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"Dentists and dental researchers from Asia-Pacific or Africa; other funding needed too.","mo":"By 30 Sep","how":"Direct","url":"https://www.jda.or.jp/dentist/international_scientific_exchange_fund/"},{"i":91,"id":"ykk","en":"YKK Leaders 21 (Yoshida Scholarship Foundation)","ja":"吉田育英会 YKK Leaders 21","org":"found","lv":"G","fr":"M","big":"¥200,000","per":"a month, plus tuition","hi":200000,"tu":1,"mm":0,"who":"ASEAN and other countries; science or engineering master's at 10 universities, chosen before arrival.","mo":"Set by each university","how":"Japanese university","url":"https://www.ysf.or.jp/scholarship/visitor/universal/leaders21.php"},{"i":92,"id":"jees-ss","en":"JEES International Scholarship (Study Support)","ja":"JEES留学生奨学金（修学）","org":"found","lv":"KUG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Kosen from year 4, undergraduates from year 2, graduate students.","mo":"Apr to May","how":"Your school","url":"https://www.jees.or.jp/en/foundation/jees-scholarship-ss-en/"},{"i":93,"id":"jees-jlpt","en":"JEES Japanese Language Study Support","ja":"JEES日本語修学支援奨学金","org":"found","lv":"JUG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Passed JLPT N1 or N2 in Japan and need financial help.","mo":"Apr to Jun","how":"Your school","url":"https://www.jees.or.jp/en/foundation/jees-scholarship-jlpt-en/"},{"i":94,"id":"jees-jltct","en":"JEES Promotion of Japanese Language Learning","ja":"JEES日本語教育普及奨学金","org":"found","lv":"JUG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Passed the Japanese Language Teaching Competency Test; aiming to teach Japanese.","mo":"Apr to Jun","how":"Your school","url":"https://www.jees.or.jp/en/foundation/jees-scholarship-jltct-en/"},{"i":95,"id":"jees-jinnai","en":"JEES Jinnai International Student Scholarship","ja":"JEES・神内留学生奨学金","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month (¥120,000 with JLPT N1)","hi":120000,"tu":0,"mm":0,"who":"First-year master's students at designated universities.","mo":"May to Jul","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":96,"id":"jees-toyota","en":"JEES Toyota Tsusho International Student Scholarship","ja":"JEES・豊田通商留学生奨学金","org":"found","lv":"UG","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"Undergraduates from year 3 and graduate students at designated universities.","mo":"Oct to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":97,"id":"seiho","en":"Seiho Scholarship","ja":"生命保険協会留学生奨学金（セイホスカラーシップ）","org":"found","lv":"UG","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":1,"who":"Asian students, Myanmar included; undergraduate year 3 or first-year master's.","mo":"Oct to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":98,"id":"iuchi","en":"Iuchi Scholarship for Myanmarese Students","ja":"井内ミャンマー留学生奨学金","org":"found","lv":"U","fr":"J","big":"¥110,000","per":"a month, plus tuition","hi":110000,"tu":1,"mm":1,"who":"Myanmar students only. First-year undergraduates at designated universities; tuition from the second term, up to 4 years.","mo":"Mar to Apr, Sep to Jan","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":99,"id":"taisei","en":"TAISEI Scholarship for International Students","ja":"大成建設外国人留学生奨学金","org":"found","lv":"UG","fr":"J","big":"¥150,000","per":"a month","hi":150000,"tu":0,"mm":1,"who":"Architecture and civil engineering. Myanmar and 5 other countries.","mo":"Sep to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":100,"id":"jees-aoki","en":"JEES Aoki Corporation International Scholarship","ja":"JEES・青木建設国際奨学金","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"Graduate students at designated universities.","mo":"Oct to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":101,"id":"jees-jinnai-iu","en":"JEES Jinnai International Understanding Scholarship","ja":"JEES・神内国際理解奨学金","org":"found","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Students at designated universities.","mo":"Oct to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":102,"id":"jees-jci","en":"JEES Johnson Controls Scholarship","ja":"JEES・ジョンソンコントロールズ高専生奨学金","org":"found","lv":"K","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Kosen years 4 and 5 and the advanced course, at designated kosen.","mo":"Mar to May","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students-and-japanese-students/"},{"i":103,"id":"jees-ishibashi","en":"JEES Ishibashi Foundation Scholarship (Inbound)","ja":"JEES・石橋財団奨学金（受入）","org":"found","lv":"G","fr":"MJ","big":"¥150,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"Art history graduate students recommended by a Japanese university.","mo":"Feb to Apr, Jun to Sep","how":"Japanese university","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-japanese-students/jees-ishibashi-foundation-scholarship/"}];
+var SCHOL=[{"i":0,"id":"mext-research","en":"MEXT Scholarship: research students (Embassy)","ja":"文部科学省奨学金 研究留学生（大使館推薦）","org":"gov","lv":"G","fr":"M","big":"¥143,000 to ¥145,000","per":"a month, plus tuition and airfare","hi":145000,"tu":1,"mm":1,"who":"Graduate study. Apply through MAJA in Yangon, then the Embassy. Under 35.","mo":"Apr to May","how":"Embassy","url":"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html"},{"i":1,"id":"mext-ug","en":"MEXT Scholarship: undergraduate (Embassy)","ja":"文部科学省奨学金 学部留学生（大使館推薦）","org":"gov","lv":"U","fr":"M","big":"¥117,000","per":"a month, plus tuition and airfare","hi":117000,"tu":1,"mm":1,"who":"Starts with a year of Japanese. Live in Myanmar, apply through MAJA, then the Embassy. Under 25.","mo":"Apr to May","how":"Embassy","url":"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html"},{"i":2,"id":"mext-kosen","en":"MEXT Scholarship: college of technology (Embassy)","ja":"文部科学省奨学金 高等専門学校留学生（大使館推薦）","org":"gov","lv":"K","fr":"M","big":"¥117,000","per":"a month, plus tuition and airfare","hi":117000,"tu":1,"mm":1,"who":"Entry to year 3 of a kosen after a year of Japanese. Apply through MAJA, then the Embassy.","mo":"Apr to May","how":"Embassy","url":"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html"},{"i":3,"id":"mext-stc","en":"MEXT Scholarship: specialized training college (Embassy)","ja":"文部科学省奨学金 専修学校留学生（大使館推薦）","org":"gov","lv":"V","fr":"M","big":"¥117,000","per":"a month, plus tuition and airfare","hi":117000,"tu":1,"mm":1,"who":"Vocational school after a year of Japanese. Apply through MAJA, then the Embassy.","mo":"Apr to May","how":"Embassy","url":"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html"},{"i":4,"id":"mext-uni-abroad","en":"MEXT Scholarship: university recommendation (from abroad)","ja":"文部科学省奨学金 大学推薦（海外採用）","org":"gov","lv":"UG","fr":"M","big":"¥117,000 to ¥145,000","per":"a month, plus tuition and airfare","hi":145000,"tu":1,"mm":0,"who":"Your university in Myanmar needs an exchange agreement with the Japanese university.","mo":"Set by each university","how":"Japanese university","url":"https://www.studyinjapan.go.jp/en/planning/scholarships/mext-scholarships/"},{"i":5,"id":"mext-uni-japan","en":"MEXT Scholarship: university recommendation (in Japan)","ja":"文部科学省奨学金 大学推薦（国内採用）","org":"gov","lv":"UG","fr":"J","big":"¥117,000 to ¥145,000","per":"a month, plus tuition","hi":145000,"tu":1,"mm":0,"who":"For privately financed students already enrolled. Very few places.","mo":"Set by each university","how":"Your school","url":"https://www.mext.go.jp/a_menu/koutou/ryugaku/1266486.htm"},{"i":6,"id":"jica-lcdp","en":"JICA LCDP master's programme (Myanmar-Japan Center)","ja":"ミャンマー民間セクター長期人材育成プログラム","org":"gov","lv":"G","fr":"M","big":"¥117,000 to ¥148,000","per":"a month, plus tuition and airfare","hi":148000,"tu":1,"mm":1,"who":"Myanmar private-sector staff with 2+ years' work who took MJC courses. Check for a new call.","mo":"Sep to Oct (last call)","how":"Myanmar-Japan Center","url":"https://myanmarjapancenter.com/scholarship-program/"},{"i":7,"id":"jasso-honors","en":"JASSO Honors Scholarship","ja":"文部科学省外国人留学生学習奨励費","org":"jasso","lv":"LVKJUG","fr":"J","big":"¥48,000","per":"a month (language schools ¥30,000)","hi":48000,"tu":0,"mm":0,"who":"Open to the most students. Your school recommends you. Student visa needed; kosen from year 3.","mo":"Apr to May or Aug to Oct","how":"Your school","url":"https://www.jasso.go.jp/en/ryugaku/scholarship_j/shoreihi/about.html"},{"i":8,"id":"jasso-eju","en":"JASSO Honors Scholarship: EJU reservation","ja":"学習奨励費 予約制度（日本留学試験）","org":"jasso","lv":"VKJU","fr":"MJ","big":"¥48,000","per":"a month","hi":48000,"tu":0,"mm":0,"who":"Tick the box when you register for the EJU (held in Yangon). Top scorers get a scholarship reserved. Kosen from year 3.","mo":"EJU registration: Feb to Mar, Jul","how":"EJU form","url":"https://www.jasso.go.jp/en/ryugaku/scholarship_j/shoreihi/yoyaku_eju/index.html"},{"i":9,"id":"jasso-exchange","en":"JASSO Student Exchange Support Program","ja":"海外留学支援制度（協定受入）","org":"jasso","lv":"VKJUG","fr":"M","big":"¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Exchange study of up to one year through your home university's agreement.","mo":"Set by your university","how":"Home university","url":"https://www.jasso.go.jp/en/ryugaku/scholarship_j/ukeire.html"},{"i":10,"id":"adb-jsp","en":"ADB-Japan Scholarship Program","ja":"アジア開発銀行・日本奨学金プログラム","org":"intl","lv":"G","fr":"M","big":"Full scholarship","per":"tuition, a living allowance and travel","hi":null,"tu":1,"mm":1,"who":"Master's at 17 Japanese universities. 2+ years' work, 35 or under.","mo":"Set by each university","how":"Japanese university","url":"https://www.adb.org/work-with-us/careers/japan-scholarship-program"},{"i":11,"id":"jj-wbgsp","en":"Joint Japan/World Bank Graduate Scholarship","ja":"世界銀行・日本 大学院奨学金","org":"intl","lv":"G","fr":"M","big":"Full scholarship","per":"tuition, a living allowance and airfare","hi":null,"tu":1,"mm":1,"who":"Master's in development fields after admission to a partner programme. 3+ years' work.","mo":"Jan to Feb, Mar to May","how":"Direct","url":"https://www.worldbank.org/en/programs/scholarships/jj-wbgsp"},{"i":12,"id":"aichi","en":"Aichi Scholarship Program","ja":"愛知県 Aichi Scholarship Program","org":"local","lv":"G","fr":"M","big":"¥150,000","per":"a month, plus school fees and travel","hi":150000,"tu":1,"mm":0,"who":"Master's in Aichi for people who want to work for an Aichi company. Under 35.","mo":"Mar to May","how":"Aichi graduate school","url":"https://www.pref.aichi.jp/soshiki/kokusai/aichi-scholarship-program.html"},{"i":13,"id":"kitami","en":"Kitami City support for international students","ja":"北見市外国人留学生修学支援金","org":"local","lv":"VJUG","fr":"J","big":"¥200,000","per":"a year","hi":16667,"tu":0,"mm":0,"who":"Live and study in Kitami, Hokkaido.","mo":"May","how":"Your school","url":"https://www.city.kitami.lg.jp/administration/education/detail.php?content=9543"},{"i":14,"id":"iwate","en":"Iwate international student ambassadors","ja":"いわて留学生大使","org":"local","lv":"KJUG","fr":"J","big":"¥20,000","per":"a month","hi":20000,"tu":0,"mm":0,"who":"Study in Iwate and help with exchange events.","mo":"Apr","how":"Your school","url":"http://iwate-ia.or.jp/?p=2-8-intl_student_ambassador"},{"i":15,"id":"yamagata","en":"Yamagata Prefecture scholarship","ja":"山形県私費外国人留学生奨学金","org":"local","lv":"LVKJUG","fr":"J","big":"¥20,000","per":"a month (language schools ¥10,000)","hi":20000,"tu":0,"mm":0,"who":"Study in Yamagata and hope to work there.","mo":"Apr to May, Oct to Nov","how":"Your school","url":"https://int-students-yamagata.jp/en/study/"},{"i":16,"id":"shinjuku","en":"Shinjuku City study grant","ja":"新宿区外国人留学生学習奨励費","org":"local","lv":"VJUG","fr":"J","big":"¥240,000","per":"a year","hi":20000,"tu":0,"mm":0,"who":"Live and study in Shinjuku, Tokyo, for a year or more.","mo":"May to Jun","how":"Direct","url":"https://www.city.shinjuku.lg.jp/tabunka/file02_00001.html"},{"i":17,"id":"kawasaki","en":"Kawasaki study grant","ja":"川崎市国際交流協会 外国人留学生修学奨励金","org":"local","lv":"VKJUG","fr":"J","big":"¥100,000","per":"a year","hi":8333,"tu":0,"mm":0,"who":"Live in Kawasaki and study at one of 18 schools there.","mo":"Apr to May","how":"Your school","url":"https://www.kian.or.jp/len/topics/josei-rgk.shtml"},{"i":18,"id":"shiga","en":"Biwako Scholarship (Shiga)","ja":"滋賀県国際協会 びわこ奨学金","org":"local","lv":"JUG","fr":"J","big":"¥20,000","per":"a month","hi":20000,"tu":0,"mm":0,"who":"Study in Shiga for about a year or more; some volunteer work.","mo":"Apr to May","how":"Your school","url":"https://www.s-i-a.or.jp/projects/multicultural"},{"i":19,"id":"kyoto-city","en":"Kyoto City International Foundation scholarship","ja":"京都市国際交流協会 張鳳俊奨学金","org":"local","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":1,"who":"Asian students at designated universities in Kyoto. Myanmar is named.","mo":"Apr to May","how":"Your school","url":"https://www.kcif.or.jp/web/en/support/scholarship/"},{"i":20,"id":"kobe","en":"Kobe International Students Scholarship","ja":"神戸市留学生奨学金（神戸・菅原奨学金）","org":"local","lv":"UG","fr":"J","big":"¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Undergraduates in year 3 or 4 and graduate students at universities in Kobe.","mo":"Feb to Mar","how":"Your school","url":"https://www.kicc.jp/en/aboutus/shien"},{"i":21,"id":"himeji","en":"Himeji City scholarship","ja":"姫路市海外留学生奨学金","org":"local","lv":"JUG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Live and study in Himeji.","mo":"Apr to Jun","how":"Your school","url":"https://www.city.himeji.lg.jp/kurashi/0000003762.html"},{"i":22,"id":"hiroshima-ic","en":"Hiroshima International Center scholarships","ja":"ひろしま国際センター 留学生奨学金","org":"local","lv":"KJUG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Study in Hiroshima Prefecture. A 6-month award for new arrivals too.","mo":"Apr, Oct","how":"Your school","url":"https://hiroshima-ic.or.jp/support/"},{"i":23,"id":"hiroshima-city","en":"Hiroshima Scholarship","ja":"広島平和文化センター ひろしま奨学金","org":"local","lv":"LVJUG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Live and study in Hiroshima City on a course of 2 years or more.","mo":"Apr to May","how":"Your school","url":"https://h-ircd.jp/scholarship.html"},{"i":24,"id":"fukuoka-satooya","en":"Fukuoka Asian Students Foster Parent Scholarship","ja":"福岡アジア留学生里親奨学金","org":"local","lv":"VKJUG","fr":"J","big":"¥20,000","per":"a month","hi":20000,"tu":0,"mm":0,"who":"Asian students in Fukuoka Prefecture, matched with a local sponsor.","mo":"Apr to May","how":"Your school","url":"https://fief.or.jp/lifeguide/student/foster-parent/"},{"i":25,"id":"fukuoka-future","en":"Fukuoka City Future Development Scholarship","ja":"福岡よかトピア国際交流財団 留学生育英奨学金","org":"local","lv":"UG","fr":"J","big":"¥300,000 to ¥500,000","per":"a year","hi":41667,"tu":0,"mm":0,"who":"Study in the Fukuoka area.","mo":"Apr to May","how":"Your school","url":"https://www.fcif.or.jp/en/en-money/international-student-scholarship/"},{"i":26,"id":"fukuoka-fcif","en":"Fukuoka City International Foundation Scholarship","ja":"福岡市国際財団奨学金","org":"local","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"8 Fukuoka universities. JLPT N3+ and you want to work in Fukuoka.","mo":"Apr to May","how":"Your school","url":"https://www.fcif.or.jp/en/en-money/international-student-scholarship/"},{"i":27,"id":"tokushima-miki","en":"Miki Takeo International Scholarship Fund","ja":"三木武夫国際育英基金","org":"found","lv":"KJUG","fr":"J","big":"¥300,000","per":"a year","hi":25000,"tu":0,"mm":0,"who":"Privately financed students living in Tokushima.","mo":"Apr to May","how":"Direct","url":"https://www.awabank.co.jp/kojin/news/2026/news20260401a/"},{"i":28,"id":"atsumi","en":"Atsumi International Foundation","ja":"渥美国際交流財団","org":"found","lv":"G","fr":"J","big":"¥250,000","per":"a month","hi":250000,"tu":0,"mm":0,"who":"Doctoral students finishing their degree in Kanto or Kansai.","mo":"Sep","how":"Direct","url":"https://www.aisf.or.jp/jp/"},{"i":29,"id":"iizuka","en":"Iizuka Takeshi Scholarship","ja":"飯塚毅育英会","org":"found","lv":"UG","fr":"J","big":"¥60,000","per":"a month","hi":60000,"tu":0,"mm":0,"who":"Study in Tochigi. Under 29. Essay and interview in Japanese.","mo":"Oct","how":"Direct","url":"https://www.iizuka-takeshi-ikuei.or.jp/scholarship/college/foreign_en.html"},{"i":30,"id":"ichihara","en":"Ichihara International Scholarship Foundation","ja":"市原国際奨学財団","org":"found","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Universities in Aichi. Report and interview in Japanese.","mo":"Jul to Oct","how":"Your school","url":"https://www.ichihara-isf.or.jp/grantinaid/application-abroad.html"},{"i":31,"id":"ito","en":"ITO Foundation for International Education Exchange","ja":"伊藤国際教育交流財団","org":"found","lv":"G","fr":"J","big":"¥200,000","per":"a month","hi":200000,"tu":0,"mm":0,"who":"Students starting a master's, any field. Japanese needed.","mo":"Oct","how":"Direct","url":"https://www.itofound.or.jp/外国人奨学金制度/3-募集について外国人"},{"i":32,"id":"iwaki","en":"Iwaki Scholarship Foundation","ja":"岩城留学生奨学会","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"Asian students in medicine, pharmacy or chemistry at about 6 Kanto universities.","mo":"Nov to Dec","how":"Your school","url":"https://iwakizaidan.org/"},{"i":33,"id":"iwatani","en":"Iwatani International Scholarship","ja":"岩谷直治記念財団 岩谷国際奨学金","org":"found","lv":"G","fr":"J","big":"¥150,000","per":"a month","hi":150000,"tu":0,"mm":1,"who":"East and Southeast Asian students in science, engineering or agriculture.","mo":"Dec","how":"Direct","url":"https://www.iwatani-foundation.or.jp/"},{"i":34,"id":"innertrip","en":"Inner Trip Foundation","ja":"インナートリップ国際交流協会","org":"found","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Asian students in Greater Tokyo; undergraduates from year 3. About JLPT N2.","mo":"Dec to Feb","how":"Your school","url":"https://itf.or.jp/scholarship"},{"i":35,"id":"urakami","en":"Urakami Scholarship for Displaced Students","ja":"浦上奨学会 海外からの避難奨学生","org":"found","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":1,"who":"Students displaced by conflict at 23 universities. JASSO lists Myanmar; your university decides.","mo":"Mar to May","how":"Your school","url":"https://www.urakami-shougakukai.or.jp/requirement/refugee/"},{"i":36,"id":"sgh","en":"SGH Foundation Scholarship","ja":"SGH財団 奨学金","org":"found","lv":"UG","fr":"J","big":"¥120,000 to ¥180,000","per":"a month","hi":180000,"tu":0,"mm":1,"who":"ASEAN students, Myanmar included.","mo":"Feb to Apr","how":"Your school","url":"https://www.sgh-foundation.or.jp/en/scholar/employment/"},{"i":37,"id":"emori","en":"Emori Asian Student Scholarship","ja":"江守アジア留学生育英会","org":"found","lv":"UG","fr":"J","big":"¥70,000 to ¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Asian students at national and public universities in Fukui.","mo":"Apr to May","how":"Your school","url":"https://www.u-fukui.ac.jp/international/inbound/scholarship/private/"},{"i":38,"id":"lsh","en":"LSH Asia Scholarship","ja":"LSHアジア奨学会","org":"found","lv":"L","fr":"J","big":"¥20,000","per":"a month for 5 months","hi":20000,"tu":0,"mm":0,"who":"Asian students at Japanese language schools. Short essay in Japanese.","mo":"Jul","how":"Your school","url":"https://lsh-foundation.or.jp/guidance-2/"},{"i":39,"id":"otsuka","en":"Otsuka Toshimi Scholarship Foundation","ja":"大塚敏美育英奨学財団","org":"found","lv":"UG","fr":"J","big":"¥1 million to ¥2 million","per":"a year","hi":166667,"tu":0,"mm":0,"who":"Health-related fields or business. Undergraduates from year 3.","mo":"Mar to Apr","how":"Direct","url":"https://www.otsukafoundation.org/english/guide/index.html"},{"i":40,"id":"okamoto","en":"Okamoto Scholarship Foundation","ja":"岡本国際奨学交流財団","org":"found","lv":"UG","fr":"J","big":"¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Students in Chiba Prefecture; undergraduates from year 3.","mo":"Jan","how":"Direct","url":"http://www.osf-family.com/business.html"},{"i":41,"id":"odakyu","en":"Odakyu Foundation Ando Kinen Scholarship","ja":"小田急財団 安藤記念奨学金","org":"found","lv":"G","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Graduate students at 3 universities that change each year.","mo":"Apr","how":"Your school","url":"https://www.odakyu-zaidan.or.jp/scholarship/index_en.html"},{"i":42,"id":"kato-asao","en":"Kato Asao International Scholarship Foundation","ja":"加藤朝雄国際奨学財団","org":"found","lv":"G","fr":"J","big":"¥130,000 to ¥150,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"Asian graduate students at 13 universities in Kansai and Aichi.","mo":"Mar","how":"Your school","url":"https://katoasaofoundation.jp/system.html"},{"i":43,"id":"kamiyama","en":"Kamiyama Scholarship Foundation","ja":"上山奨学財団","org":"found","lv":"UG","fr":"J","big":"¥200,000","per":"a year","hi":16667,"tu":0,"mm":0,"who":"Universities in Aichi.","mo":"Apr to May","how":"Your school","url":"https://www.kamiyama-foundation.or.jp/scholarship-guidelines/"},{"i":44,"id":"kamei","en":"Kamei Memorial Foundation","ja":"亀井記念財団","org":"found","lv":"UG","fr":"J","big":"¥50,000 to ¥60,000","per":"a month","hi":60000,"tu":0,"mm":0,"who":"Schools in Miyagi; undergraduates from year 3.","mo":"Apr to May","how":"Your school","url":"https://kmfo.or.jp/application/"},{"i":45,"id":"shinmaywa","en":"Kawanishi Memorial ShinMaywa Education Foundation","ja":"川西記念新明和教育財団","org":"found","lv":"G","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Graduate students in Hyogo.","mo":"Jan to Feb","how":"Your school","url":"https://www.kawanishi-shinmaywa.or.jp/project/scholarship/"},{"i":46,"id":"kambayashi","en":"Kambayashi Scholarship Foundation","ja":"神林留学生奨学会","org":"found","lv":"G","fr":"J","big":"¥140,000","per":"a month","hi":140000,"tu":0,"mm":0,"who":"Asian graduate students (year 2+) at 37 universities, many in art and music.","mo":"Jan to Mar","how":"Your school","url":"https://www.kambayashi-zaidan.or.jp/scholarship/"},{"i":47,"id":"kyoritsu","en":"Kyoritsu Foundation Scholarship","ja":"共立国際交流奨学財団 共立財団奨学金","org":"found","lv":"VJUG","fr":"J","big":"¥110,000","per":"a month","hi":110000,"tu":0,"mm":1,"who":"Asian students, Myanmar included.","mo":"Nov to Jan","how":"Your school","url":"https://kif-org.com/scholarship/application.html"},{"i":48,"id":"kyoritsu-m","en":"Kyoritsu Maintenance Scholarship","ja":"共立国際交流奨学財団 共立メンテナンス奨学金","org":"found","lv":"LVJU","fr":"J","big":"¥70,000","per":"a month","hi":70000,"tu":0,"mm":1,"who":"Asian students, Myanmar included. Open to language school students.","mo":"Nov to Jan","how":"Your school","url":"https://kif-org.com/scholarship/application.html"},{"i":49,"id":"kubota","en":"The Kubota Fund","ja":"公益信託久保田豊基金","org":"found","lv":"VKJUG","fr":"J","big":"Up to ¥150,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"Developing countries, Myanmar included. Engineering, environment or development.","mo":"Dec to Jan","how":"Direct","url":"https://www.kubota-fund.org/"},{"i":50,"id":"kddi","en":"KDDI Foundation Scholarship","ja":"KDDI財団 奨学金","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":1,"who":"Telecom-related fields at 43 universities. Myanmar is a target country.","mo":"Jul","how":"Your school","url":"https://www.kddi-foundation.or.jp/grant/"},{"i":51,"id":"rokko","en":"Rokko Scholarship Fund","ja":"神戸学生青年センター 六甲奨学基金","org":"found","lv":"LVJUG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Asian students at schools in Hyogo, language schools included.","mo":"Feb","how":"Your school","url":"https://ksyc.jp/scholarship/about-rokko-scholarship/"},{"i":52,"id":"kyowa","en":"International Kyowa Scholarship Foundation","ja":"国際協和奨学会","org":"found","lv":"UG","fr":"J","big":"¥120,000","per":"a month","hi":120000,"tu":0,"mm":0,"who":"Universities around Tokyo; undergraduates from year 2.","mo":"Nov","how":"Your school","url":"http://www.iksf.org/scholarship.html"},{"i":53,"id":"ihno","en":"IHNO Scholarship","ja":"国際人材交流支援機構 奨学金","org":"found","lv":"LVJUG","fr":"J","big":"Up to ¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Students at IHNO partner schools. Essay. Apply any time.","mo":"Any time","how":"Direct","url":"https://www.ihno.net/scholarship/"},{"i":54,"id":"sakata","en":"Sakata Agriculture Foundation Scholarship","ja":"サカタアグリ財団 奨学金","org":"found","lv":"UG","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":1,"who":"Agriculture at 44 universities. ASEAN, South Asia and others.","mo":"Apr to May","how":"Your school","url":"https://sakata-agriculture.or.jp/scholarship/"},{"i":55,"id":"sato-art","en":"Sato International Cultural Scholarship","ja":"佐藤国際文化育英財団","org":"found","lv":"UG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Painting and printmaking at 13 art universities.","mo":"Apr to May","how":"Your school","url":"https://sato-museum.la.coocan.jp/english/english_02.html"},{"i":56,"id":"sato-yo","en":"Sato Yo International Scholarship Foundation","ja":"佐藤陽国際奨学財団","org":"found","lv":"UG","fr":"J","big":"¥180,000 to ¥200,000","per":"a month, plus tuition","hi":200000,"tu":1,"mm":1,"who":"South and Southeast Asian students, Myanmar included. Interview in Japanese.","mo":"Jun to Aug, from Dec","how":"Your school","url":"https://sisf.or.jp/en/scholarship-2/foreign-studies-2/self-supporting/"},{"i":57,"id":"shunju","en":"Shunju Scholarship Foundation","ja":"春秋育英会","org":"found","lv":"UG","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"East and Southeast Asian students at designated schools.","mo":"Apr to May","how":"Your school","url":"https://ikueikai.com/selection/"},{"i":58,"id":"syunpu","en":"One Seed Scholarship (Syunpu Dormitory)","ja":"春風学寮 一粒の麦奨学基金","org":"found","lv":"G","fr":"J","big":"¥120,000","per":"a month, including the dorm fee","hi":120000,"tu":0,"mm":0,"who":"Male graduate students who live in a small Christian dorm in Tokyo.","mo":"Jan to Feb","how":"Direct","url":"https://gakuryo.org/"},{"i":59,"id":"semmoto","en":"Semmoto Scholarship (master's)","ja":"千本財団 千本奨学金","org":"found","lv":"G","fr":"J","big":"¥120,000","per":"a month","hi":120000,"tu":0,"mm":1,"who":"Myanmar and 8 other countries. Master's at 22 universities.","mo":"Oct to Dec","how":"Direct","url":"https://semmoto.or.jp/en-scholarship-system"},{"i":60,"id":"semmoto-l","en":"Semmoto Scholarship (language school)","ja":"千本財団 日本語学校生奨学金","org":"found","lv":"L","fr":"J","big":"¥50,000","per":"a month, then ¥120,000 at university","hi":120000,"tu":0,"mm":1,"who":"Language school students from Myanmar and 8 other countries. Apply in Japanese.","mo":"Details in Jul, selection in Oct","how":"See the guidelines","url":"https://semmoto.or.jp/en-scholarship-system"},{"i":61,"id":"sojitz","en":"Sojitz Foundation Scholarship","ja":"双日国際交流財団","org":"found","lv":"UG","fr":"J","big":"¥70,000 to ¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"21 universities; undergraduates from year 3. Japanese needed.","mo":"Apr to May","how":"Your school","url":"https://sojitz-zaidan.or.jp/business/invitation/index.html"},{"i":62,"id":"takase","en":"TAKASE Scholarship Foundation","ja":"タカセ国際奨学財団","org":"found","lv":"UG","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"13 universities around Tokyo.","mo":"Jul to Aug","how":"Your school","url":"http://www.takasesf.or.jp/english/scholarship"},{"i":63,"id":"takayama","en":"Takayama International Education Foundation","ja":"高山国際教育財団","org":"found","lv":"LUG","fr":"J","big":"¥130,000 to ¥190,000","per":"a month","hi":190000,"tu":0,"mm":0,"who":"Asian students at designated schools, incl. language school students in their first year.","mo":"Dec to Feb, Mar to May, Aug to Nov","how":"Your school","url":"http://www.takayama-foundation.or.jp/scholarship/"},{"i":64,"id":"eacat","en":"EACAT Scholarship","ja":"東亜留学生育友会","org":"found","lv":"G","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"Asian graduate students around Tokyo and Kanagawa; monthly meetings.","mo":"Jan","how":"Direct","url":"https://www.eacat.or.jp/scholarship"},{"i":65,"id":"kagami","en":"Tokio Marine Kagami Scholarship for ASEAN Students","ja":"東京海上各務記念財団 ASEAN奨学生","org":"found","lv":"G","fr":"J","big":"¥180,000 to ¥200,000","per":"a month","hi":200000,"tu":0,"mm":1,"who":"ASEAN graduate students, Myanmar included, at 14 universities.","mo":"Feb to Apr","how":"Your school","url":"http://www.kagami-f.or.jp/"},{"i":66,"id":"ywca","en":"Tokyo YWCA Japanese Mothers Scholarship","ja":"東京YWCA「留学生の母親」運動 奨学金","org":"found","lv":"VJU","fr":"J","big":"¥30,000","per":"a month","hi":30000,"tu":0,"mm":0,"who":"First and second-year students in Tokyo. Essays and interview in Japanese.","mo":"May","how":"Direct","url":"https://www.tokyo.ywca.or.jp/peace/ryugakusei/scholarship/"},{"i":67,"id":"tepco","en":"TEPCO Memorial Foundation Scholarship","ja":"東電記念財団 奨学金","org":"found","lv":"G","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Doctoral students under 28; energy-related research.","mo":"Apr to Jun","how":"Your school","url":"https://www.tmf-zaidan.or.jp/application/application04.html"},{"i":68,"id":"tonen","en":"Tonen International Scholarship Foundation","ja":"東燃国際奨学財団","org":"found","lv":"G","fr":"J","big":"¥220,000","per":"a month","hi":220000,"tu":0,"mm":0,"who":"Graduate students at designated Tokyo-area universities.","mo":"Oct to Nov","how":"Your school","url":"https://www.tonen-zaidan.or.jp/naiyou/"},{"i":69,"id":"jgc","en":"JGC-Saneyoshi Scholarship","ja":"日揮・実吉奨学会","org":"found","lv":"UG","fr":"J","big":"¥400,000","per":"a year","hi":33333,"tu":0,"mm":0,"who":"Science and engineering at 66 universities.","mo":"Apr to Jun","how":"Your school","url":"https://www.jgcs.or.jp/en/"},{"i":70,"id":"nitori","en":"Nitori International Scholarship Foundation","ja":"似鳥国際奨学財団","org":"found","lv":"UG","fr":"J","big":"¥60,000 to ¥80,000","per":"a month","hi":80000,"tu":0,"mm":0,"who":"Student visa holders in Japan. Apply online yourself. About 200 places.","mo":"Jan to Apr","how":"Direct","url":"https://www.nitori-shougakuzaidan.com/application"},{"i":71,"id":"ngk","en":"NGK Foundation for International Students","ja":"日本ガイシ留学生基金","org":"found","lv":"UG","fr":"J","big":"¥120,000","per":"a month","hi":120000,"tu":0,"mm":0,"who":"Universities in Aichi.","mo":"Nov to Jan","how":"Your school","url":"https://www.ngk.co.jp/philanthropy/scholarship.html"},{"i":72,"id":"nomura","en":"Nomura Foundation Scholarship","ja":"野村財団 奨学金","org":"found","lv":"G","fr":"MJ","big":"¥200,000","per":"a month","hi":200000,"tu":0,"mm":0,"who":"Humanities and social sciences at 6 universities. You can apply with an offer letter.","mo":"Sep","how":"Direct","url":"https://www.nomurafoundation.or.jp/en/scholar/"},{"i":73,"id":"hasegawa","en":"Hasegawa International Scholarship Foundation","ja":"長谷川留学生奨学財団","org":"found","lv":"UG","fr":"J","big":"¥100,000 to ¥150,000","per":"a month","hi":150000,"tu":0,"mm":1,"who":"Asian students who live and study in Tokyo, at universities the foundation chooses.","mo":"Oct to Nov","how":"Your school","url":"https://www.hasegawa-zaidan.or.jp/scholarship/guideline/"},{"i":74,"id":"hirose","en":"Hirose Foundation Scholarship","ja":"ヒロセ財団 一般奨学金","org":"found","lv":"UG","fr":"J","big":"¥180,000 to ¥200,000","per":"a month","hi":200000,"tu":0,"mm":0,"who":"Asian students at designated universities.","mo":"Jan to Feb","how":"Your school","url":"https://hirose-isf.or.jp/%E5%A5%A8%E5%AD%A6%E9%87%91/scholarship/"},{"i":75,"id":"heiwa","en":"Heiwa Nakajima Foundation Scholarship","ja":"平和中島財団 外国人留学生奨学金","org":"found","lv":"UG","fr":"J","big":"From ¥120,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"About 70 places nationwide; undergraduates from year 2.","mo":"Sep to Oct","how":"Your school","url":"http://www.hnf.jp/shogaku/english/"},{"i":76,"id":"horse","en":"Horse Future Welfare Foundation Scholarship","ja":"ホース未来福祉財団 留学生奨学金","org":"found","lv":"VU","fr":"J","big":"¥35,000","per":"a month","hi":35000,"tu":0,"mm":0,"who":"Schools in Tokyo, after a year of study.","mo":"Mar to Apr","how":"Direct","url":"https://horse-fw.or.jp/2026-international/"},{"i":77,"id":"honjo","en":"Honjo International Scholarship Foundation","ja":"本庄国際奨学財団","org":"found","lv":"G","fr":"MJ","big":"¥180,000 to ¥230,000","per":"a month","hi":230000,"tu":0,"mm":0,"who":"Master's or PhD students who plan to serve their home country. Interview in Japanese.","mo":"Sep to Oct","how":"Direct","url":"https://www.hisf.or.jp/en/scholarship/foreigner/"},{"i":78,"id":"miura","en":"Miura Educational Foundation","ja":"三浦教育振興財団","org":"found","lv":"KUG","fr":"J","big":"¥40,000 to ¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Schools in Ehime.","mo":"Feb, Apr","how":"Your school","url":"https://www.miura-fdn.com/scholarship/"},{"i":79,"id":"mizuho","en":"Mizuho International Foundation Scholarship","ja":"みずほ国際交流奨学財団","org":"found","lv":"UG","fr":"J","big":"¥120,000","per":"a month","hi":120000,"tu":0,"mm":0,"who":"Designated universities; a 2-year award.","mo":"Nov to Dec","how":"Your school","url":"https://mizuhokokusai.la.coocan.jp/schedule.html"},{"i":80,"id":"mgc","en":"Mitsubishi Gas Chemical Memorial Foundation","ja":"三菱ガス化学記念財団","org":"found","lv":"UG","fr":"J","big":"¥150,000 to ¥200,000","per":"a month","hi":200000,"tu":0,"mm":1,"who":"ASEAN students, Myanmar included, in chemistry at 10 universities. JLPT N3+.","mo":"Feb to May, Jul to Oct","how":"Your school","url":"https://www.mgc.co.jp/foundation/activities/index.html"},{"i":81,"id":"mufg","en":"Mitsubishi UFJ Foundation Scholarship","ja":"三菱UFJ国際財団","org":"found","lv":"UG","fr":"J","big":"¥140,000","per":"a month","hi":140000,"tu":0,"mm":0,"who":"Asian students at Tokyo, Hitotsubashi, Waseda, Keio and APU.","mo":"May","how":"Your school","url":"https://www.mitsubishi-ufj-foundation.jp/jinzaiikuseijigyou.html"},{"i":82,"id":"mufg-trust","en":"Mitsubishi UFJ Trust Scholarship","ja":"三菱UFJ信託奨学財団","org":"found","lv":"UG","fr":"J","big":"¥105,000 to ¥135,000","per":"a month","hi":135000,"tu":0,"mm":0,"who":"Designated universities; undergraduates from year 2.","mo":"Mar to May","how":"Your school","url":"https://www.scholarship.or.jp/english/"},{"i":83,"id":"yamaoka","en":"Yamaoka Scholarship Foundation","ja":"山岡育英会","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"Asian graduate students at Ehime, Kagoshima and APU.","mo":"Mar to Apr","how":"Your school","url":"https://www.yanmar.com/jp/about/company/fund/information/international.html"},{"i":84,"id":"yonex","en":"YONEX Sports Foundation Scholarship","ja":"ヨネックススポーツ振興財団","org":"found","lv":"JUG","fr":"J","big":"Up to ¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Athletes, with school and coach recommendations.","mo":"Oct to Dec","how":"Direct","url":"https://www.yonexsports-f.or.jp/scholarship/"},{"i":85,"id":"rotary","en":"Rotary Yoneyama Scholarship (in Japan)","ja":"ロータリー米山記念奨学会","org":"found","lv":"VKJUG","fr":"J","big":"¥70,000 to ¥140,000","per":"a month","hi":140000,"tu":0,"mm":0,"who":"The largest private scholarship, about 700 a year, at designated schools.","mo":"Aug to Oct","how":"Your school","url":"https://www.rotary-yoneyama.or.jp/english/"},{"i":86,"id":"rotary-abroad","en":"Rotary Yoneyama Scholarship (from abroad)","ja":"ロータリー米山記念奨学会 海外からの申請","org":"found","lv":"UG","fr":"M","big":"¥100,000 to ¥140,000","per":"a month, plus up to ¥250,000 for travel","hi":140000,"tu":0,"mm":0,"who":"JLPT N3+. Apply after you have applied to a Japanese university.","mo":"Oct","how":"Direct","url":"https://www.rotary-yoneyama.or.jp/english/overseas"},{"i":87,"id":"rohm","en":"Rohm Music Foundation Scholarship","ja":"ロームミュージックファンデーション 奨学金","org":"found","lv":"JUG","fr":"J","big":"¥300,000","per":"a month","hi":300000,"tu":0,"mm":0,"who":"Music students.","mo":"Jul to Sep","how":"Direct","url":"https://www.rmf.or.jp/jp/recruitment/scholarship/index.html"},{"i":88,"id":"watanuki","en":"Watanuki International Scholarship Foundation","ja":"綿貫国際奨学財団","org":"found","lv":"G","fr":"J","big":"¥250,000","per":"a month","hi":250000,"tu":0,"mm":1,"who":"Asia-Pacific graduate students, Myanmar included, at designated universities.","mo":"Aug to Oct","how":"Your school","url":"https://wisf.sakura.ne.jp/bosyu.html"},{"i":89,"id":"okazaki","en":"Okazaki Kaheita International Scholarship","ja":"岡崎嘉平太国際奨学財団","org":"found","lv":"LG","fr":"M","big":"¥110,000 to ¥130,000","per":"a month, plus tuition and airfare","hi":130000,"tu":1,"mm":1,"who":"Myanmar and 6 other countries take turns, so Myanmar is not recruited every year. Master's, under 25, chosen through 4 universities in Myanmar.","mo":"Check each year","how":"Home university","url":"https://okazakizaidan.or.jp/en/en-summary/"},{"i":90,"id":"jda","en":"Japan Dental Association Fellowship","ja":"日本歯科医師会 国際学術交流基金","org":"found","lv":"G","fr":"M","big":"¥150,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"Dentists and dental researchers from Asia-Pacific or Africa; other funding needed too.","mo":"By 30 Sep","how":"Direct","url":"https://www.jda.or.jp/dentist/international_scientific_exchange_fund/"},{"i":91,"id":"ykk","en":"YKK Leaders 21 (Yoshida Scholarship Foundation)","ja":"吉田育英会 YKK Leaders 21","org":"found","lv":"G","fr":"M","big":"¥200,000","per":"a month, plus tuition","hi":200000,"tu":1,"mm":0,"who":"ASEAN and other countries; science or engineering master's at 10 universities, chosen before arrival.","mo":"Set by each university","how":"Japanese university","url":"https://www.ysf.or.jp/scholarship/visitor/universal/leaders21.php"},{"i":92,"id":"jees-ss","en":"JEES International Scholarship (Study Support)","ja":"JEES留学生奨学金（修学）","org":"found","lv":"KUG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Kosen from year 4, undergraduates from year 2, graduate students.","mo":"Apr to May","how":"Your school","url":"https://www.jees.or.jp/en/foundation/jees-scholarship-ss-en/"},{"i":93,"id":"jees-jlpt","en":"JEES Japanese Language Study Support","ja":"JEES日本語修学支援奨学金","org":"found","lv":"JUG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Passed JLPT N1 or N2 in Japan and need financial help.","mo":"Apr to Jun","how":"Your school","url":"https://www.jees.or.jp/en/foundation/jees-scholarship-jlpt-en/"},{"i":94,"id":"jees-jltct","en":"JEES Promotion of Japanese Language Learning","ja":"JEES日本語教育普及奨学金","org":"found","lv":"JUG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Passed the Japanese Language Teaching Competency Test; aiming to teach Japanese.","mo":"Apr to Jun","how":"Your school","url":"https://www.jees.or.jp/en/foundation/jees-scholarship-jltct-en/"},{"i":95,"id":"jees-jinnai","en":"JEES Jinnai International Student Scholarship","ja":"JEES・神内留学生奨学金","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month (¥120,000 with JLPT N1)","hi":120000,"tu":0,"mm":0,"who":"First-year master's students at designated universities.","mo":"May to Jul","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":96,"id":"jees-toyota","en":"JEES Toyota Tsusho International Student Scholarship","ja":"JEES・豊田通商留学生奨学金","org":"found","lv":"UG","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"Undergraduates from year 3 and graduate students at designated universities.","mo":"Oct to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":97,"id":"seiho","en":"Seiho Scholarship","ja":"生命保険協会留学生奨学金（セイホスカラーシップ）","org":"found","lv":"UG","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":1,"who":"Asian students, Myanmar included; undergraduate year 3 or first-year master's.","mo":"Oct to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":98,"id":"iuchi","en":"Iuchi Foundation Scholarship for Students from Myanmar","ja":"井内ミャンマー留学生奨学金","org":"found","lv":"U","fr":"J","big":"¥110,000","per":"a month, plus tuition","hi":110000,"tu":1,"mm":1,"who":"Myanmar students only. First-year undergraduates at designated universities; tuition from the second term, up to 4 years.","mo":"Mar to Apr, Sep to Jan","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":99,"id":"taisei","en":"TAISEI Scholarship for International Students","ja":"大成建設外国人留学生奨学金","org":"found","lv":"UG","fr":"J","big":"¥150,000","per":"a month","hi":150000,"tu":0,"mm":1,"who":"Architecture and civil engineering. Myanmar and 5 other countries.","mo":"Sep to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":100,"id":"jees-aoki","en":"JEES Aoki Corporation International Scholarship","ja":"JEES・青木建設国際奨学金","org":"found","lv":"G","fr":"J","big":"¥100,000","per":"a month","hi":100000,"tu":0,"mm":0,"who":"Graduate students at designated universities.","mo":"Oct to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":101,"id":"jees-jinnai-iu","en":"JEES Jinnai International Understanding Scholarship","ja":"JEES・神内国際理解奨学金","org":"found","lv":"UG","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Students at designated universities.","mo":"Oct to Dec","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students/"},{"i":102,"id":"jees-jci","en":"JEES Johnson Controls Scholarship","ja":"JEES・ジョンソンコントロールズ高専生奨学金","org":"found","lv":"K","fr":"J","big":"¥50,000","per":"a month","hi":50000,"tu":0,"mm":0,"who":"Kosen years 4 and 5 and the advanced course, at designated kosen.","mo":"Mar to May","how":"Your school","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-international-students-and-japanese-students/"},{"i":103,"id":"jees-ishibashi","en":"JEES Ishibashi Foundation Scholarship (Inbound)","ja":"JEES・石橋財団奨学金（受入）","org":"found","lv":"G","fr":"MJ","big":"¥150,000","per":"a month","hi":150000,"tu":0,"mm":0,"who":"Art history graduate students recommended by a Japanese university.","mo":"Feb to Apr, Jun to Sep","how":"Japanese university","url":"https://www.jees.or.jp/en/sc-scholarship/scholarship-for-japanese-students/jees-ishibashi-foundation-scholarship/"}];
 var SCHOL_LEFT=[["MEXT Young Leaders' Program","Myanmar is not on the current list of recommending countries (GRIPS, Sep 2026)."],["JDS (JICA)","Paused for Myanmar since 2021."],["AUN/SEED-Net","No current call for Myanmar could be confirmed."],["JEES Priority Countries","Myanmar is not a priority country this year."],["Benesse JAPAN STUDY SUPPORT","A one-off award for 4 people; next round not announced."],["Foundations with no official page or no recent call","Asian Foundation for International Scholarship Interchange, Kohnan Asia, International Foundation for Japanese Studies, Tsuzuki, Mitani, Moriya, Maeda, Senshu, Shiiki, Nagashima, Watanabe Notre Dame."],["Local schemes with no official page","Ohtawara, Ishikawa, Kato, Kurashiki, Nankoku, Kurume, Oita, Kagoshima, Satsumasendai."],["Schemes for other nationalities only","For example Fast Retailing (Vietnam, Indonesia, Philippines), Asahi Glass, INPEX."]];
 var SCHOL_CHECKED="2026-10-06";
 var SSRC={pamphlet:"https://www.studyinjapan.go.jp/en/assets/pdf/scholarship_pamphlet_en.pdf",emb:"https://www.mm.emb-japan.go.jp/itpr_en/culture_en.html",emb2027:"https://www.mm.emb-japan.go.jp/itpr_en/20260422_2027MEXTScholarship.html",mextGuide:"https://www.studyinjapan.go.jp/en/planning/scholarships/mext-scholarships/",reduction:"https://www.studyinjapan.go.jp/en/search-for-scholarships/tuition-reduction_search.php?lang=en"};
@@ -3440,7 +3624,7 @@ function fbLoad(){
     m.onAuthStateChanged(FB.auth,function(u){
       var was=FB.user;FB.user=u;FB.err="";
       if(u){lsSet(AUTHKEY,"1");cloudAttach()}else{cloudDetach();if(was||lsGet(AUTHKEY))lsSet(AUTHKEY,"")}
-      paintAcct();if(booted&&(u||was))rerenderKeep();
+      paintAcct();if(booted&&(u||was||R.r==="write"))rerenderKeep();
     });
     return m;
   });
@@ -3452,6 +3636,7 @@ function shortErr(e){var c=e&&e.code||"";
   if(c==="auth/unauthorized-domain")return "Sign-in is not switched on for this web address yet.";
   if(c==="auth/network-request-failed"||/network|fetch/i.test(String(e&&e.message)))return "Couldn't reach Google. Check your connection and try again.";
   if(c==="permission-denied")return "The cloud refused the request. Try signing out and in again.";
+  if(c==="unavailable"||c==="deadline-exceeded")return "You seem to be offline.";
   return e&&e.message?String(e.message).replace(/^Firebase: /,"").replace(/\s*\(auth\/[^)]+\)\.?$/,""):"Try again.";
 }
 function signIn(){
@@ -3535,7 +3720,7 @@ function syncNote(what){
 var DLGOPEN="";
 function closeDlg(){var box=document.getElementById("dlg");if(!DLGOPEN)return;box.innerHTML="";document.removeEventListener("keydown",dlgKey,true);DLGOPEN="";if(DLGFOCUS&&DLGFOCUS.focus)DLGFOCUS.focus()}
 function dlgKey(e){if(e.key==="Escape"){e.preventDefault();closeDlg();return}
-  if(e.key==="Tab"){var f=$$("#dlg a,#dlg button,#dlg input");if(!f.length)return;var first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}
+  if(e.key==="Tab"){var f=$$("#dlg a,#dlg button:not([disabled]),#dlg input,#dlg textarea,#dlg select");if(!f.length)return;var first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}
 function openDlg(kind,html,focusSel){DLGFOCUS=document.activeElement;var box=document.getElementById("dlg");box.innerHTML=html;DLGOPEN=kind;document.addEventListener("keydown",dlgKey,true);
   var bg=box.querySelector(".dlgbg");if(bg)bg.onclick=function(e){if(e.target===this)closeDlg()};var f=box.querySelector(focusSel);if(f)f.focus()}
 /* Google refuses to sign anyone in inside Facebook, Messenger, Instagram, LINE and other in-app browsers */
@@ -3565,13 +3750,15 @@ function acctMenu(){
   var u=FB.user;if(!u)return;
   var img=u.photoURL?'<img src="'+esc(u.photoURL)+'" alt="" referrerpolicy="no-referrer">':'<span class="ini" aria-hidden="true">'+esc((u.displayName||u.email||"?").charAt(0).toUpperCase())+'</span>';
   var ns=Object.keys(S.saved).filter(function(k){return BYKEY[k]}).length,nc=savedSchol().length;
+  var st=FB.syncing?'Fetching your saved items.':FB.err?'Not syncing right now: '+esc(FB.err):'Saved items sync to every device you sign in on.';
   openDlg("menu",'<div class="dlgbg" style="background:transparent"><div class="acmenu" role="dialog" aria-modal="true" aria-label="Your account">'+
-    '<div class="who">'+img+'<div><b>'+esc(u.displayName||"Signed in")+'</b><span>'+esc(u.email||"")+'</span></div></div>'+
-    '<div class="state'+(FB.err?' err':'')+'">'+(FB.syncing?'Fetching your saved items.':FB.err?'Not syncing right now: '+esc(FB.err):'Your saved items are kept in this account and shown on every device you sign in to.')+'</div>'+
-    '<a href="#/schools/list" data-act="dlgclose">Your list<span class="n">'+nf(ns)+'</span></a>'+
-    '<a href="#/scholarships/saved" data-act="dlgclose">Saved scholarships<span class="n">'+nf(nc)+'</span></a>'+
-    '<button data-act="signout">'+ICON.out+'Sign out</button>'+
-    '<button class="danger" data-act="delcloud">Delete account data</button>'+
+    '<div class="who">'+img+'<div class="nm"><b title="'+esc(u.displayName||"")+'">'+esc(u.displayName||"Signed in")+'</b><span class="em">'+esc(u.email||"")+'</span></div></div>'+
+    '<p class="astate'+(FB.err?' err':'')+'">'+ICON.cloud+'<span>'+st+'</span></p>'+
+    (isAdmin()?'<div class="grp"><a class="write" href="#/write/new" data-act="dlgclose">'+ICON.pen+'Write a Post</a><a href="#/write" data-act="dlgclose">'+ICON.doc+'Your Posts<span class="n">'+(DESK.list?nf(DESK.list.length):'')+'</span></a></div>':'')+
+    '<div class="grp"><a href="#/schools/list" data-act="dlgclose">Your List<span class="n">'+nf(ns)+'</span></a>'+
+    '<a href="#/scholarships/saved" data-act="dlgclose">Saved Scholarships<span class="n">'+nf(nc)+'</span></a></div>'+
+    '<div class="grp"><button data-act="signout">Sign Out</button>'+
+    '<button class="danger" data-act="delcloud">Delete Account Data…</button></div>'+
     '</div></div>','.acmenu a');
 }
 
@@ -3579,35 +3766,92 @@ function acctMenu(){
    Posts are Markdown files in the repository (posts/*.md), written in Pages CMS. A build step lists them in
    posts/index.json. The page fetches the list, then one post at a time, renders Markdown with marked, and
    typesets $maths$ with the same KaTeX the formulas use. Burmese posts get Noto Sans Myanmar. */
-var BLOG={idx:null,err:"",load:null,posts:{},lang:"",md:null};
+var BLOG={idx:null,err:"",load:null,posts:{},lang:"",md:null,cloudErr:""};
 var BLANG={my:"မြန်မာ",en:"English",ja:"日本語"};
 var MARKED_URL="https://cdn.jsdelivr.net/npm/marked@18.0.13/lib/marked.umd.js";
 function langAttr(l){return l&&l!=="en"?' lang="'+esc(l)+'"':''}
 function blogIndex(){
   if(BLOG.idx)return Promise.resolve(BLOG.idx);if(BLOG.load)return BLOG.load;
-  BLOG.load=fetch("posts/index.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(function(j){BLOG.idx=(j.posts||[]).filter(function(p){return p&&p.slug});BLOG.err="";return BLOG.idx})
-    .catch(function(e){BLOG.err=location.protocol==="file:"?"Posts load when the site is online.":"Couldn't load the list of posts. "+String(e&&e.message||e);BLOG.load=null;throw e});
+  /* two sources: posts/index.json (Markdown files in the repository) and posts written in the site's writing desk
+     (Firestore posts/<slug>, read through the public REST API). A desk post replaces a file with the same address,
+     and a "removed" marker hides one. Either source may fail on its own; the other still shows. */
+  var st=fetch("posts/index.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(function(j){return (j.posts||[]).filter(function(p){return p&&p.slug})});
+  var cl=cloudPostsREST().then(function(c){BLOG.cloudErr="";return c},function(e){BLOG.cloudErr=String(e&&e.message||e);return null});
+  BLOG.load=Promise.all([st.then(null,function(e){return {err:e}}),cl]).then(function(r){
+    var c=r[1]||[];
+    if(r[0]&&r[0].err&&!c.length)throw r[0].err;
+    var files=Array.isArray(r[0])?r[0]:[],over={};
+    c.forEach(function(p){over[p._id]=p});
+    var list=files.filter(function(p){return !over[p.slug]});
+    c.forEach(function(p){if(p.status!=="published"||!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(p._id))return;var e=cloudEntry(p);BLOG.posts[e.slug]=String(p.body||"");list.push(e)});
+    list.sort(function(a,b){return String(b.when||b.date||"").localeCompare(String(a.when||a.date||""))||a.slug.localeCompare(b.slug)});
+    BLOG.idx=list;BLOG.err="";BLOG.load=null;return list;
+  });
+  BLOG.load.then(null,function(e){BLOG.err=location.protocol==="file:"?"Posts load when the site is online.":"Couldn't load the list of posts. "+String(e&&e.message||e);BLOG.load=null});
   return BLOG.load;
 }
+function blogReset(){BLOG.idx=null;BLOG.load=null;BLOG.posts={};BLOG.err=""}
+function cloudEntry(p){var w=String(p.date||"");return {slug:p._id,title:String(p.title||"Untitled"),date:w.slice(0,10),when:w,lang:p.lang||"en",summary:String(p.summary||""),cover:String(p.cover||""),tags:Array.isArray(p.tags)?p.tags.map(String):[],mins:+p.mins||readMins(String(p.body||""),p.lang),src:"cloud"}}
+function readMins(body,lang){var t=String(body).replace(/```[\s\S]*?```/g," ").replace(/\$\$[\s\S]*?\$\$/g," ").replace(/!\[[^\]]*\]\([^)]*\)/g," ").replace(/[#*_>`\[\]()!\\-]/g," ");
+  if(lang==="my"||lang==="ja")return Math.max(1,Math.round(t.replace(/\s/g,"").length/500));return Math.max(1,Math.round(t.trim().split(/\s+/).filter(Boolean).length/200))}
 function blogPost(p){
-  if(BLOG.posts[p.slug])return Promise.resolve(BLOG.posts[p.slug]);
+  if(BLOG.posts[p.slug]!==undefined)return Promise.resolve(BLOG.posts[p.slug]);
   return fetch("posts/"+p.file,{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.text()}).then(function(t){var body=t.replace(/^﻿/,"").replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/,"");BLOG.posts[p.slug]=body;return body});
+}
+/* ---- Firestore over plain HTTPS, for anyone reading the blog (no Firebase download) ---- */
+var FSREST="https://firestore.googleapis.com/v1/projects/"+FBC.projectId+"/databases/(default)/documents/";
+function fsVal(v){if(!v||typeof v!=="object")return null;if("stringValue" in v)return v.stringValue;if("integerValue" in v)return +v.integerValue;if("doubleValue" in v)return +v.doubleValue;if("booleanValue" in v)return !!v.booleanValue;if("timestampValue" in v)return Date.parse(v.timestampValue);if("arrayValue" in v)return (v.arrayValue.values||[]).map(fsVal);if("mapValue" in v){var o={},f=v.mapValue.fields||{};Object.keys(f).forEach(function(k){o[k]=fsVal(f[k])});return o}return null}
+function fsDoc(d){var o={},f=d.fields||{};Object.keys(f).forEach(function(k){o[k]=fsVal(f[k])});o._id=String(d.name||"").split("/").pop();return o}
+function cloudPostsREST(){
+  if(!fbOn())return Promise.resolve([]);
+  var out=[];
+  function page(tok){return fetch(FSREST+"posts?pageSize=300&key="+encodeURIComponent(FBC.apiKey)+(tok?"&pageToken="+encodeURIComponent(tok):""),{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(function(j){(j.documents||[]).forEach(function(d){out.push(fsDoc(d))});return j.nextPageToken&&out.length<3000?page(j.nextPageToken):out})}
+  return page("");
+}
+function tsMs(v){if(!v)return 0;if(typeof v==="number")return v;if(typeof v.toMillis==="function")return v.toMillis();if(v.seconds!=null)return v.seconds*1000;if(v.__ts)return v.__ts;var t=Date.parse(v);return isNaN(t)?0:t}
+/* photos written in the desk are kept in Firestore (media/<id>) as small data URLs; pages show a blank pixel until they arrive */
+var MEDIA={}, PIX="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+function mediaGet(id){
+  if(MEDIA[id])return MEDIA[id];
+  MEDIA[id]=fetch(FSREST+"media/"+encodeURIComponent(id)+"?key="+encodeURIComponent(FBC.apiKey)).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(function(d){var x=fsDoc(d);if(!/^data:image\//.test(x.data||""))throw new Error("not an image");return x.data});
+  MEDIA[id].then(null,function(){delete MEDIA[id]});
+  return MEDIA[id];
+}
+function hydrateMedia(root){$$("img[data-media]",root||document).forEach(function(im){if(im.getAttribute("data-ok"))return;im.setAttribute("data-ok","1");mediaGet(im.getAttribute("data-media")).then(function(u){im.src=u},function(){im.setAttribute("data-ok","");im.classList.add("broken");im.alt=im.alt||"Photo could not load"})})}
+function imgSrc(ref){ref=String(ref||"");var m=/^media:([A-Za-z0-9_-]+)$/.exec(ref);return m?'src="'+PIX+'" data-media="'+m[1]+'"':'src="'+esc(ref.replace(/^\//,""))+'"'}
+/* last line of defence for anything rendered from a post: no scripts, no inline handlers, no javascript: links */
+function cleanHTML(html){
+  var t=document.createElement("template");t.innerHTML=html;
+  $$("script,style,iframe,object,embed,form,input,button,textarea,select,link,meta,base,frame,frameset,animate,set,animatemotion,animatetransform,foreignobject",t.content).forEach(function(e){e.remove()});
+  $$("*",t.content).forEach(function(e){for(var i=e.attributes.length-1;i>=0;i--){var a=e.attributes[i],n=a.name.toLowerCase();
+    if(n.indexOf("on")===0||n==="srcdoc"||n==="formaction"||n==="action"){e.removeAttribute(a.name);continue}
+    if(n==="href"||n==="src"||n==="xlink:href"||n==="poster"){var v=a.value.replace(/[\u0000-\u0020\u007f]/g,""),sc=/^([a-z][a-z0-9+.\-]*):/i.exec(v);
+      if(sc&&!/^(https?|mailto|tel|media)$/i.test(sc[1])&&!/^data:image\/(png|jpe?g|gif|webp);/i.test(v))e.removeAttribute(a.name)}}});
+  return t.innerHTML;
 }
 function mdLoad(){
   if(window.marked)return Promise.resolve(window.marked);if(BLOG.md)return BLOG.md;
   BLOG.md=new Promise(function(res,rej){var s=document.createElement("script");s.src=MARKED_URL;s.async=true;s.onload=function(){window.marked?res(window.marked):rej(new Error("marked did not load"))};s.onerror=function(){BLOG.md=null;rej(new Error("Couldn't load the Markdown renderer"))};document.head.appendChild(s)});
   return BLOG.md;
 }
+/* keep $maths$ away from Markdown (but not dollar signs inside `code`, or written as \$) */
+function mathSplit(src){
+  var code=[],math=[];
+  src=String(src||"").replace(/```[\s\S]*?```|`[^`\n]+`/g,function(m){code.push(m);return "\u0000C"+(code.length-1)+"\u0000"})
+    .replace(/\\\$/g,"\u0000D\u0000").replace(/\$\$([\s\S]+?)\$\$/g,function(_,t){math.push([t.trim(),true]);return "\u0000M"+(math.length-1)+"\u0000"})
+    .replace(/\$([^\n$]+?)\$/g,function(_,t){if(/^\s|\s$/.test(t))return "$"+t+"$";math.push([t,false]);return "\u0000M"+(math.length-1)+"\u0000"})
+    .replace(/\u0000C(\d+)\u0000/g,function(_,i){return code[+i]});
+  return {src:src,math:math};
+}
 function mdRender(src){
   /* keep $maths$ away from Markdown, then typeset it with KaTeX */
-  var math=[];
-  src=src.replace(/\$\$([\s\S]+?)\$\$/g,function(_,t){math.push([t,true]);return "\u0000M"+(math.length-1)+"\u0000"})
-         .replace(/\$([^\n$]+?)\$/g,function(_,t){if(/^\s|\s$/.test(t))return "$"+t+"$";math.push([t,false]);return "\u0000M"+(math.length-1)+"\u0000"});
-  var html=window.marked.parse(src,{gfm:true,breaks:false});
-  html=html.replace(/\u0000M(\d+)\u0000/g,function(_,i){var m=math[+i];return tex(m[0],m[1])});
+  var ms=mathSplit(src),math=ms.math;
+  var html=window.marked.parse(ms.src,{gfm:true,breaks:false});
+  html=html.replace(/\u0000M(\d+)\u0000/g,function(_,i){var m=math[+i];return tex(m[0],m[1])}).replace(/\u0000D\u0000/g,"$");
+  html=html.replace(/<img([^>]*?) src="media:([A-Za-z0-9_-]+)"/g,'<img$1 src="'+PIX+'" data-media="$2"');
   html=html.replace(/<img /g,'<img loading="lazy" ').replace(/(src|href)="\/(media|posts)\//g,'$1="$2/');
   html=html.replace(/<a href="(https?:[^"]+)"/g,'<a href="$1" target="_blank" rel="noopener"');
-  return html;
+  return cleanHTML(html);
 }
 function pDate(d){if(!d)return "";var x=dd(String(d).slice(0,10));return isNaN(x)?String(d):x.getDate()+" "+MON[x.getMonth()]+" "+x.getFullYear()}
 function pDateL(d){if(!d)return "";var x=dd(String(d).slice(0,10));return isNaN(x)?String(d):fmtL(String(d).slice(0,10))}
@@ -3615,7 +3859,7 @@ function blogPage(){
   if(R.sub)return postPage(R.sub);
   blogIndex().then(function(){if(R.r==="blog"&&!R.sub)repaint("blogout",blogListOut)},function(){if(R.r==="blog"&&!R.sub)repaint("blogout",blogListOut)});
   return head("Blog","Notes from Eric on EJU maths, choosing a university and life in Japan. Mostly in Burmese, sometimes in English or Japanese.")+
-    '<div class="wrap" style="padding-bottom:60px"><div id="blogout">'+blogListOut()+'</div></div>';
+    '<div class="wrap" style="padding-bottom:60px">'+(isAdmin()?'<div class="adminbar"><span>'+ICON.pen+'You can write here.</span><div class="acts"><a class="btn sm" href="#/write/new">Write a post</a><a class="btn ghost sm" href="#/write">Your posts</a></div></div>':'')+'<div id="blogout">'+blogListOut()+'</div></div>';
 }
 function blogListOut(){
   if(!BLOG.idx){if(BLOG.err)return '<p class="bempty">'+esc(BLOG.err)+'</p>';return '<div class="skel n"></div><div class="skel w"></div><div class="skel"></div><div class="skel w"></div>'}
@@ -3625,7 +3869,7 @@ function blogListOut(){
   var h=langs.length>1?'<div class="chips scrollx bfilt" role="group" aria-label="Language"><button class="chip" data-act="blang" data-v="" aria-pressed="'+(!BLOG.lang)+'">All <span class="n">'+all.length+'</span></button>'+langs.map(function(l){return '<button class="chip" data-act="blang" data-v="'+l+'" aria-pressed="'+(BLOG.lang===l)+'"'+langAttr(l)+'>'+esc(BLANG[l])+' <span class="n">'+counts[l]+'</span></button>'}).join("")+'</div>':'';
   if(!all.length)return h+'<p class="bempty">The first post is coming soon. Follow <a href="https://www.facebook.com/p/Wandering-Eric-61559440529169/" target="_blank" rel="noopener">Wandering Eric on Facebook</a> to hear when it is up.</p>';
   h+='<p class="dcount" style="padding-top:12px"><span>'+plural(list.length,"post")+'</span></p><ol class="posts">'+list.map(function(p){
-    var cov=p.cover?'<a href="#/blog/'+esc(p.slug)+'" tabindex="-1" aria-hidden="true"><img class="pc" src="'+esc(String(p.cover).replace(/^\//,""))+'" alt="" loading="lazy"></a>':'';
+    var cov=p.cover?'<a href="#/blog/'+esc(p.slug)+'" tabindex="-1" aria-hidden="true"><img class="pc" '+imgSrc(p.cover)+' alt="" loading="lazy"></a>':'';
     return '<li class="post"><div class="pd"><span>'+esc(pDate(p.date))+'</span></div><div><h3'+langAttr(p.lang)+'><a href="#/blog/'+esc(p.slug)+'">'+esc(p.title)+'</a></h3>'+(p.summary?'<p class="ps"'+langAttr(p.lang)+'>'+esc(p.summary)+'</p>':'')+
       '<div class="pm"><span class="lmark">'+oval(true)+'<span'+langAttr(p.lang)+'>'+esc(BLANG[p.lang]||p.lang||"")+'</span></span>'+(p.mins?'<span>'+p.mins+' min read</span>':'')+((p.tags||[]).length?'<span>'+esc(p.tags.join(", "))+'</span>':'')+'</div></div>'+cov+'</li>'}).join("")+'</ol>';
   return h;
@@ -3644,8 +3888,8 @@ function postOut(slug,err){
   var body=p&&BLOG.posts[p.slug]!==undefined&&window.marked?BLOG.posts[p.slug]:null;
   var h='<div class="ahead"><a class="back" href="#/blog">All posts</a>';
   if(!p)return h+'<div class="skel n"></div><div class="skel w" style="height:28px"></div><div class="skel"></div></div>';
-  h+='<h1'+langAttr(p.lang)+'>'+esc(p.title)+'</h1><div class="ameta"><span>'+esc(pDateL(p.date))+'</span><span class="lmark">'+oval(true)+'<span'+langAttr(p.lang)+'>'+esc(BLANG[p.lang]||p.lang||"")+'</span></span>'+(p.mins?'<span>'+p.mins+' min read</span>':'')+'</div>'+
-    (p.cover?'<div class="cover"><img src="'+esc(String(p.cover).replace(/^\//,""))+'" alt=""></div>':'')+'</div>';
+  h+=(isAdmin()?'<a class="btn ghost sm editpost" href="#/write/'+esc(p.slug)+'">'+ICON.pen+'Edit this post</a>':'')+'<h1'+langAttr(p.lang)+'>'+esc(p.title)+'</h1><div class="ameta"><span>'+esc(pDateL(p.date))+'</span><span class="lmark">'+oval(true)+'<span'+langAttr(p.lang)+'>'+esc(BLANG[p.lang]||p.lang||"")+'</span></span>'+(p.mins?'<span>'+p.mins+' min read</span>':'')+'</div>'+
+    (p.cover?'<div class="cover"><img '+imgSrc(p.cover)+' alt=""></div>':'')+'</div>';
   if(body===null)return h+'<div class="prose"><div class="skel"></div><div class="skel w"></div><div class="skel"></div><div class="skel n"></div></div>';
   var html;try{html=mdRender(body)}catch(e){html='<p>'+esc(body)+'</p>'}
   var prev=idx[i+1],next=idx[i-1];
@@ -3653,6 +3897,697 @@ function postOut(slug,err){
   h+='<div class="afoot"><div class="by"><span>Written by <b>Eric</b>, who teaches EJU maths in Osaka. <a href="#/class">His classes</a></span><button class="btn ghost sm" data-act="copylink" data-v="'+esc(p.slug)+'">'+ICON.link+'Copy link</button></div>'+
     (prev||next?'<nav class="pn" aria-label="Other posts">'+(prev?'<a href="#/blog/'+esc(prev.slug)+'"><span>Older</span><b'+langAttr(prev.lang)+'>'+esc(prev.title)+'</b></a>':'<span></span>')+(next?'<a class="next" href="#/blog/'+esc(next.slug)+'"><span>Newer</span><b'+langAttr(next.lang)+'>'+esc(next.title)+'</b></a>':'')+'</nav>':'')+'</div>';
   return h;
+}
+
+/* ================= WRITING DESK (v13) =================
+   Eric writes and publishes blog posts here, inside the site: sign in with Google, press Write a post.
+   Only the accounts in ADMINS see it, and the Firestore rules (firestore.rules) enforce the same list.
+   - posts/<slug>   published posts. Anyone can read them (the Blog reads them over REST, see cloudPostsREST).
+   - drafts/<key>   work in progress and unpublished changes to a published post. Admin only.
+   - media/<id>     photos, shrunk in the browser to under about 700 KB and kept as a data URL. Public to read.
+   Posts in the repository's posts/ folder keep working: publishing one from here puts a copy in posts/<slug>
+   that replaces the file, and deleting one leaves a "removed" marker that hides it.
+   The editor writes Markdown, the same format as the files, so posts look the same wherever they came from. */
+var ADMINS=["pmkyaw412@gmail.com","pmkyawclass@gmail.com"];
+function isAdmin(){var u=FB.user;return !!(u&&u.email&&ADMINS.indexOf(String(u.email).toLowerCase())>=0)}
+var DESK={list:null,load:null,err:"",ed:null,filter:"all",range:null,fileFor:"body",busy:false};
+var DKEY="wandering-eric:desk:", DLANG="wandering-eric:desk-lang";
+var SLUGRE=/^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+/* ---------- small helpers ---------- */
+function pad2(n){return (n<10?"0":"")+n}
+function localStamp(d){d=d||new Date();return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate())+"T"+pad2(d.getHours())+":"+pad2(d.getMinutes())}
+function normWhen(v){v=String(v||"");if(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(v))return v.slice(0,16);if(/^\d{4}-\d{2}-\d{2}/.test(v))return v.slice(0,10)+"T09:00";return localStamp()}
+function slugify(t){
+  var s=String(t||"").toLowerCase();try{s=s.normalize("NFKD")}catch(e){}
+  s=s.replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,60).replace(/-+$/,"");
+  return s.length>=3?s:"";
+}
+function fallbackSlug(e){var d=normWhen(e.date).replace(/[-:]/g,"").replace("T","-");return "post-"+d}
+function ago(ms){if(!ms)return "";var s=(Date.now()-ms)/1000;if(s<60)return "just now";if(s<3600)return Math.round(s/60)+" min ago";if(s<86400)return Math.round(s/3600)+(Math.round(s/3600)===1?" hour ago":" hours ago");if(s<172800)return "yesterday";var d=new Date(ms);return d.getDate()+" "+MON[d.getMonth()]+(d.getFullYear()!==new Date().getFullYear()?" "+d.getFullYear():"")}
+function newKey(){return "d"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function plainText(md){return String(md||"").replace(/\$\$[\s\S]*?\$\$/g," ").replace(/!\[[^\]]*\]\([^)]*\)/g," ").replace(/\[([^\]]*)\]\([^)]*\)/g,"$1").replace(/^\s*(#{1,6}|>|[-+*]|\d+\.)\s+/gm,"").replace(/^\|?\s*-{3,}.*$/gm," ").replace(/[*_`~|\\]/g,"").replace(/\$/g,"").replace(/\s+/g," ").trim()}
+function autoSummary(md){var t=plainText(md);if(t.length<=150)return t;var cut=t.slice(0,150),sp=cut.lastIndexOf(" ");return (sp>90?cut.slice(0,sp):cut).replace(/[,;:.、。၊။\s]+$/,"")+"…"}
+
+/* ---------- Markdown from the editor (DOM -> Markdown) ---------- */
+var MDBLOCK={P:1,DIV:1,H1:1,H2:1,H3:1,H4:1,H5:1,H6:1,UL:1,OL:1,BLOCKQUOTE:1,PRE:1,HR:1,TABLE:1,FIGURE:1,SECTION:1,ARTICLE:1,HEADER:1,FOOTER:1,ASIDE:1,MAIN:1,NAV:1};
+function mdEsc(t){return t.replace(/\\/g,"\\\\").replace(/([*_`\[\]$~|])/g,"\\$1").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function mdWrapStr(s,m){var a=s.match(/^\s*/)[0],b=s.match(/\s*$/)[0],c=s.slice(a.length,s.length-b.length);if(!c)return s;return a+m+c+m+b}
+function mdImg(im){
+  if(!im)return "";
+  var id=im.getAttribute("data-media"),src=id?"media:"+id:(im.getAttribute("src")||"");
+  if(!src||/^data:/i.test(src))return "";
+  var alt=(im.getAttribute("alt")||"").replace(/[\[\]\\\n]/g," ").trim();
+  return "!["+alt+"]("+src.replace(/[()\s]/g,function(c){return encodeURIComponent(c)})+")";
+}
+function mdChildren(n){var o="";for(var c=n.firstChild;c;c=c.nextSibling)o+=mdNode(c);return o}
+function mdNode(n){
+  if(n.nodeType===3)return mdEsc(n.nodeValue.replace(/\u00a0/g," ").replace(/[\r\n]+/g," "));
+  if(n.nodeType!==1)return "";
+  if(n.classList&&n.classList.contains("mchip")){var tx=(n.getAttribute("data-tex")||"").replace(/\$/g,"");if(!tx.trim())return "";return n.getAttribute("data-d")==="1"?"$$"+tx+"$$":"$"+tx+"$"}
+  var t=n.nodeName;
+  if(t==="BR")return "\n";
+  if(t==="B"||t==="STRONG")return mdWrapStr(mdChildren(n),"**");
+  if(t==="I"||t==="EM")return mdWrapStr(mdChildren(n),"*");
+  if(t==="S"||t==="DEL"||t==="STRIKE")return mdWrapStr(mdChildren(n),"~~");
+  if(t==="CODE"){var c=n.textContent.replace(/`/g,"'").replace(/\n/g," ");return c.trim()?"`"+c+"`":""}
+  if(t==="IMG")return mdImg(n);
+  if(t==="A"){var h=(n.getAttribute("href")||"").trim(),inner=mdChildren(n);if(!h||!inner.trim()||/^\s*javascript:/i.test(h))return inner;return mdWrapStr(inner,"").replace(/^(\s*)([\s\S]*?)(\s*)$/,function(_,a,b,c2){return a+"["+b+"]("+h.replace(/[()\s<>]/g,function(x){return encodeURIComponent(x)})+")"+c2})}
+  if(t==="SCRIPT"||t==="STYLE"||t==="TEMPLATE")return "";
+  if(MDBLOCK[t])return "\n"+mdBlocks(n).join("\n")+"\n";
+  var st=n.getAttribute("style")||"",inner2=mdChildren(n);
+  if(/font-weight:\s*(bold|[6-9]00)/i.test(st))inner2=mdWrapStr(inner2,"**");
+  if(/font-style:\s*italic/i.test(st))inner2=mdWrapStr(inner2,"*");
+  return inner2;
+}
+function mdLineEsc(s){return s.replace(/^(#{1,6}(?=\s|$)|[-+](?=\s)|=+\s*$|-{3,}\s*$)/gm,"\\$1").replace(/^(\d+)([.)])(?=\s)/gm,"$1\\$2")}
+function mdPara(s){
+  s=s.replace(/[ \t]+$/gm,"").replace(/^[ \t]+/gm,"").replace(/^\n+|\n+$/g,"");
+  if(!s.replace(/\s/g,""))return "";
+  return mdLineEsc(s).replace(/\n{2,}/g,"\n").replace(/\n/g,"\\\n");
+}
+function onlyChild(n,sel){var kids=[].filter.call(n.childNodes,function(c){return !(c.nodeType===3&&!c.nodeValue.replace(/[\s\u00a0\u200b]/g,""))&&c.nodeName!=="BR"});return kids.length===1&&kids[0].nodeType===1&&kids[0].matches(sel)?kids[0]:null}
+function mdBlock(n){
+  var t=n.nodeName;
+  if(t==="H1"||t==="H2"){var h=mdPara(mdChildren(n)).replace(/\\\n/g," ");return h?"## "+h:""}
+  if(/^H[3-6]$/.test(t)){var h3=mdPara(mdChildren(n)).replace(/\\\n/g," ");return h3?"### "+h3:""}
+  if(t==="HR")return "---";
+  if(t==="PRE"){var c=n.textContent.replace(/\n+$/,"").replace(/```/g,"'''");return c.trim()?"```\n"+c+"\n```":""}
+  if(t==="UL"||t==="OL")return mdList(n);
+  if(t==="TABLE")return mdTable(n);
+  if(t==="BLOCKQUOTE"){var q=mdBlocks(n).join("\n\n");return q?q.split("\n").map(function(l){return l?"> "+l:">"}).join("\n"):""}
+  if(t==="FIGURE")return mdImg(n.querySelector("img"));
+  var hasBlock=[].some.call(n.children,function(c){return MDBLOCK[c.nodeName]});
+  if(hasBlock)return mdBlocks(n).join("\n\n");
+  var chip=onlyChild(n,".mchip");if(chip&&chip.getAttribute("data-d")==="1"){var tx=(chip.getAttribute("data-tex")||"").replace(/\$/g,"").trim();return tx?"$$\n"+tx+"\n$$":""}
+  return mdPara(mdChildren(n));
+}
+function mdBlocks(root){
+  var out=[],inl="";
+  function flush(){var s=mdPara(inl);if(s)out.push(s);inl=""}
+  for(var n=root.firstChild;n;n=n.nextSibling){
+    if(n.nodeType===1&&MDBLOCK[n.nodeName]){flush();var b=mdBlock(n);if(b)out.push(b)}
+    else inl+=mdNode(n);
+  }
+  flush();return out;
+}
+function mdList(n){
+  var ol=n.nodeName==="OL",i=+(n.getAttribute("start")||1)||1,lines=[];
+  [].forEach.call(n.children,function(li){
+    if(li.nodeName==="UL"||li.nodeName==="OL"){var nest=mdList(li);if(nest)lines.push(nest.replace(/^/gm,ol?new Array(String(i).length+3).join(" "):"  "));return}
+    var mark=ol?(i++)+". ":"- ",ind=new Array(mark.length+1).join(" "),inl="",subs=[];
+    for(var c=li.firstChild;c;c=c.nextSibling){
+      if(c.nodeType===1&&(c.nodeName==="UL"||c.nodeName==="OL")){var s=mdList(c);if(s)subs.push(s)}
+      else if(c.nodeType===1&&(c.nodeName==="P"||c.nodeName==="DIV")&&![].some.call(c.children,function(x){return MDBLOCK[x.nodeName]}))inl+=(inl?"\n":"")+mdChildren(c);
+      else if(c.nodeType===1&&MDBLOCK[c.nodeName]){var b=mdBlock(c);if(b)inl+=(inl?"\n":"")+b.replace(/^#{2,3} /,"")}
+      else inl+=mdNode(c);
+    }
+    var txt=mdPara(inl);
+    if(!txt&&!subs.length)return;
+    lines.push(mark+txt.replace(/\n/g,"\n"+ind));
+    subs.forEach(function(s){lines.push(s.replace(/^/gm,ind))});
+  });
+  return lines.join("\n");
+}
+function mdTable(n){
+  var rows=$$("tr",n);if(!rows.length)return "";
+  var cells=rows.map(function(r){return [].map.call(r.children,function(c){return mdPara(mdChildren(c)).replace(/\\\n/g," ").replace(/\n/g," ")||" "})});
+  var w=Math.max.apply(null,cells.map(function(r){return r.length}));if(!w)return "";
+  cells.forEach(function(r){while(r.length<w)r.push(" ")});
+  var out=["| "+cells[0].join(" | ")+" |","|"+cells[0].map(function(){return " --- "}).join("|")+"|"];
+  cells.slice(1).forEach(function(r){out.push("| "+r.join(" | ")+" |")});
+  return out.join("\n");
+}
+function toMD(root){return mdBlocks(root).join("\n\n").replace(/\n{3,}/g,"\n\n").trim()+"\n"}
+
+/* ---------- Markdown into the editor (Markdown -> editable HTML) ---------- */
+function chipHTML(t,disp){return '<span class="mchip" contenteditable="false" data-tex="'+esc(t)+'" data-d="'+(disp?1:0)+'" title="Formula: tap to edit">'+tex(t,disp)+'</span>'}
+function mdToEd(md){
+  if(!window.marked)return '<p>'+esc(md)+'</p>';
+  var ms=mathSplit(md),math=ms.math;
+  var html=window.marked.parse(ms.src,{gfm:true,breaks:false});
+  html=html.replace(/\u0000M(\d+)\u0000/g,function(_,i){var m=math[+i];return chipHTML(m[0],m[1])}).replace(/\u0000D\u0000/g,"$");
+  html=html.replace(/<img([^>]*?) src="media:([A-Za-z0-9_-]+)"/g,'<img$1 src="'+PIX+'" data-media="$2"').replace(/(src|href)="\/(media|posts)\//g,'$1="$2/');
+  var BT="p|h[1-6]|ul|ol|li|blockquote|table|thead|tbody|tr|th|td|pre|hr";
+  html=cleanHTML(html).replace(new RegExp("\\s+(<\\/?("+BT+")\\b)","g"),"$1").replace(new RegExp("(<\\/?("+BT+")\\b[^>]*>)\\s+","g"),"$1");
+  return html||"<p><br></p>";
+}
+
+/* ---------- loading what Eric has written ---------- */
+function repoIndex(){return fetch("posts/index.json",{cache:"no-cache"}).then(function(r){return r.ok?r.json():{posts:[]}}).then(function(j){return (j.posts||[]).filter(function(p){return p&&p.slug})},function(){return []})}
+function deskLoad(force){
+  if(DESK.list&&!force)return Promise.resolve(DESK.list);
+  if(DESK.load)return DESK.load;
+  var m=FB.m;if(!m||!isAdmin())return Promise.reject(new Error("Sign in first."));
+  DESK.load=Promise.all([repoIndex(),m.getDocs(m.collection(FB.db,"posts")),m.getDocs(m.collection(FB.db,"drafts"))]).then(function(r){
+    var map={},drafts=[];
+    r[0].forEach(function(p){map[p.slug]={key:p.slug,slug:p.slug,title:p.title,lang:p.lang,date:normWhen(p.when||p.date),status:"live",src:"repo",updated:0}});
+    r[1].forEach(function(d){var p=d.data()||{};if(p.status==="removed"){delete map[d.id];return}if(p.status!=="published")return;map[d.id]={key:d.id,slug:d.id,title:p.title,lang:p.lang,date:normWhen(p.date),status:"live",src:"cloud",updated:tsMs(p.updatedAt)}});
+    r[2].forEach(function(d){var p=d.data()||{};
+      if(p.pub&&map[p.pub]){var x=map[p.pub];x.changed=true;x.updated=Math.max(x.updated||0,tsMs(p.updatedAt));if(p.title)x.dtitle=p.title;return}
+      drafts.push({key:d.id,slug:p.slug||"",title:p.title||"",lang:p.lang,date:normWhen(p.date),status:"draft",updated:tsMs(p.updatedAt)})});
+    var list=drafts.concat(Object.keys(map).map(function(k){return map[k]}));
+    list.sort(function(a,b){return (b.updated||Date.parse(b.date)||0)-(a.updated||Date.parse(a.date)||0)});
+    DESK.list=list;DESK.err="";DESK.load=null;return list;
+  });
+  DESK.load.then(null,function(e){DESK.load=null;DESK.err=shortErr(e)});
+  return DESK.load;
+}
+function edFromData(key,d,o){
+  return {key:key,pub:o.pub||"",src:o.src||(d.base||""),hasDraft:!!o.hasDraft,changed:!!o.hasDraft&&!!o.pub,
+    title:String(d.title||""),lang:BLANG[d.lang]?d.lang:"en",date:normWhen(d.date),summary:String(d.summary||""),
+    tags:Array.isArray(d.tags)?d.tags.map(String):(d.tags?String(d.tags).split(",").map(function(x){return x.trim()}).filter(Boolean):[]),
+    cover:String(d.cover||""),body:String(d.body||""),slug:o.pub||String(d.slug||""),slugAuto:!o.pub&&!d.slugSet,
+    publishedAt:d.publishedAt||null,updated:tsMs(d.updatedAt),v:0,dirty:false,saving:false,err:"",savedAt:o.hasDraft?tsMs(d.updatedAt):0,mounted:false,preview:false};
+}
+function edOpen(key){
+  if(DESK.ed&&DESK.ed.key===key)return Promise.resolve(DESK.ed);
+  var m=FB.m;
+  var got=m.getDoc(m.doc(FB.db,"drafts",key)).then(function(ds){
+    if(ds.exists()){var d=ds.data()||{};return edFromData(key,d,{pub:d.pub||"",src:d.base||"",hasDraft:true})}
+    return m.getDoc(m.doc(FB.db,"posts",key)).then(function(ps){
+      var pd=ps.exists()?ps.data()||{}:null;
+      if(pd&&pd.status==="published")return edFromData(key,pd,{pub:key,src:pd.base||"cloud"});
+      if(pd&&pd.status==="removed")throw new Error("notfound");
+      return repoIndex().then(function(idx){
+        var p=idx.filter(function(x){return x.slug===key})[0];if(!p)throw new Error("notfound");
+        return fetch("posts/"+p.file,{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.text()}).then(function(t){
+          var body=t.replace(/^﻿/,"").replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/,"");
+          return edFromData(key,{title:p.title,lang:p.lang,date:p.when||p.date,summary:p.summary,tags:p.tags,cover:p.cover,body:body},{pub:key,src:"repo"});
+        });
+      });
+    });
+  });
+  /* a draft that never reached the cloud (written offline) still opens from this device's copy */
+  got=got.then(null,function(err){var l0=null;try{l0=JSON.parse(lsGet(DKEY+key)||"null")}catch(x){}
+    if(err&&err.message==="notfound"&&l0&&l0.d&&!l0.d.pub){var e0=edFromData(key,l0.d,{src:l0.d.base||""});e0.updated=0;return e0}throw err});
+  return Promise.all([got,mdLoad()]).then(function(r){
+    var e=r[0],loc=null;try{loc=JSON.parse(lsGet(DKEY+key)||"null")}catch(x){}
+    if(loc&&loc.d&&loc.t>(e.updated||0)+1000){var d=loc.d;["title","lang","date","summary","tags","cover","body"].forEach(function(k){if(d[k]!==undefined)e[k]=d[k]});if(!e.pub&&d.slug){e.slug=d.slug;e.slugAuto=!d.slugSet}e.restored=true;e.dirty=true}
+    DESK.ed=e;return e;
+  });
+}
+function edNew(){
+  var lang=lsGet(DLANG);
+  var e=edFromData(newKey(),{lang:BLANG[lang]?lang:"my",date:localStamp()},{});
+  e.fresh=true;DESK.ed=e;return e;
+}
+function edPayload(e){
+  return {key:e.key,pub:e.pub,base:e.src||"",title:e.title,lang:e.lang,date:e.date,summary:e.summary,tags:e.tags,cover:e.cover,body:e.body,
+    slug:e.pub||e.slug||"",slugSet:!e.slugAuto};
+}
+
+/* ---------- pages ---------- */
+function deskPage(){
+  if(!fbOn())return head("Your posts")+'<div class="wrap"><p class="bempty">Sign-in is not set up on this copy of the site.</p></div>';
+  if(!FB.user){
+    if(lsGet(AUTHKEY)==="1"&&!FB.err)return '<div class="wrap"><div class="dkhead"><div><h1>Your posts</h1><p>Opening your account…</p></div></div><div class="skel w"></div><div class="skel"></div><div class="skel n"></div></div>';
+    /* fetch Firebase now, so the button can open Google's window straight from the tap (phones require that) */
+    if(!FB.m)fbLoad().catch(function(){});
+    return '<div class="wrap"><div class="dkgate"><span class="dkmark" aria-hidden="true">'+ICON.pen+'</span><h1>Write for the blog</h1><p>This is Eric\'s writing desk. Sign in with his Google account to write, edit and publish posts.</p><div class="acts"><button class="btn" data-act="deskin">Continue with Google</button><a class="btn ghost" href="#/blog">Read the blog</a></div>'+(FB.err?'<p class="fine" role="alert" style="color:var(--no)">'+esc(FB.err)+'</p>':'')+'</div></div>';
+  }
+  if(!isAdmin())return '<div class="wrap"><div class="dkgate"><span class="dkmark" aria-hidden="true">'+ICON.pen+'</span><h1>Only Eric can write here</h1><p>You are signed in as '+esc(FB.user.email||FB.user.displayName||"someone else")+'. The writing desk opens only for Eric\'s own accounts. Everything else on the site works as usual.</p><div class="acts"><a class="btn" href="#/blog">Read the blog</a><button class="btn ghost" data-act="signout">Sign out</button></div></div></div>';
+  if(!R.sub)return deskListPage();
+  if(R.sub==="new"){var e=edNew();try{history.replaceState(null,"","#/write/"+e.key)}catch(x){}R=parse()}
+  return deskEditorPage(R.sub);
+}
+function deskListPage(){
+  DESK.ed=null;
+  deskLoad().then(function(){if(R.r==="write"&&!R.sub)repaint("deskout",deskListOut)},function(){if(R.r==="write"&&!R.sub)repaint("deskout",deskListOut)});
+  return '<div class="wrap"><div class="dkhead"><div><h1>Your posts</h1><p>Write here and press Publish. The post is on the Blog straight away.</p></div><a class="btn" href="#/write/new">'+ICON.pen+'Write a post</a></div><div id="deskout">'+deskListOut()+'</div>'+
+    '<div class="dkhow"><h2>How it works</h2><ul><li><b>Drafts save themselves</b> as you type, on this device and in your account, so you can start on your phone and finish on your laptop.</li><li><b>Publish</b> puts the post on the Blog. Later edits stay private until you press Update.</li><li><b>Photos</b> are made smaller automatically. <b>Formulas</b> go in with the ∑ button.</li><li><b>Shortcuts</b>: type <kbd>##</kbd> and a space for a heading, <kbd>-</kbd> and a space for a list, <kbd>1.</kbd> and a space for a numbered list.</li><li>Only your two Google accounts can open this page.</li></ul></div></div>';
+}
+function deskListOut(){
+  if(!DESK.list){if(DESK.err)return '<div class="dkerr" role="alert"><p><b>Couldn\'t load your posts.</b> '+esc(DESK.err)+'</p><button class="btn ghost sm" data-ed="reload">Try again</button></div>';return '<div class="skel w"></div><div class="skel"></div><div class="skel w"></div><div class="skel n"></div>'}
+  var all=DESK.list,nd=all.filter(function(x){return x.status==="draft"}).length,np=all.length-nd,f=DESK.filter;
+  var list=f==="draft"?all.filter(function(x){return x.status==="draft"}):f==="live"?all.filter(function(x){return x.status==="live"}):all;
+  var h='<div class="seg dkseg" role="group" aria-label="Show"><button data-ed="filter" data-v="all" aria-pressed="'+(f==="all")+'">All <span class="n">'+all.length+'</span></button><button data-ed="filter" data-v="draft" aria-pressed="'+(f==="draft")+'">Drafts <span class="n">'+nd+'</span></button><button data-ed="filter" data-v="live" aria-pressed="'+(f==="live")+'">Published <span class="n">'+np+'</span></button></div>';
+  if(!all.length)return h+'<div class="frame"><div class="empty"><h3>No posts yet</h3><p>Your first post is one tap away.</p><a class="btn" href="#/write/new">Write a post</a></div></div>';
+  if(!list.length)return h+'<p class="bempty">'+(f==="draft"?'No drafts. Everything you started is published.':'Nothing published yet.')+'</p>';
+  return h+'<ul class="dklist">'+list.map(function(p){
+    var t=p.dtitle||p.title,pill=p.status==="draft"?'<span class="pill">Draft</span>':'<span class="pill live">Published</span>'+(p.changed?'<span class="pill chg">Changes not live</span>':'');
+    var when=p.status==="draft"?(p.updated?"Edited "+ago(p.updated):""):pDate(p.date)+(p.changed&&p.updated?", edited "+ago(p.updated):"");
+    return '<li><a class="row" href="#/write/'+esc(p.key)+'"><span class="t'+(t?'':' untitled')+'"'+langAttr(p.lang)+'>'+esc(t||"Untitled draft")+'</span><span class="m">'+pill+'<span>'+esc(BLANG[p.lang]||"")+'</span>'+(when?'<span>'+esc(when)+'</span>':'')+'</span><span class="go" aria-hidden="true">'+ICON.chev+'</span></a></li>';
+  }).join("")+'</ul>';
+}
+function deskEditorPage(key){
+  var ready=DESK.ed&&DESK.ed.key===key;
+  if(!ready)edOpen(key).then(function(){if(R.r==="write"&&R.sub===key){repaint("deskout",edView);edMount()}},function(e){if(R.r==="write"&&R.sub===key)repaint("deskout",function(){return edMissing(e)})});
+  else mdLoad().then(function(){if(R.r==="write"&&R.sub===key&&!DESK.ed.mounted){repaint("deskout",edView);edMount()}},function(e){repaint("deskout",function(){return edMissing(e)})});
+  return '<div id="deskout">'+(ready&&window.marked?edView():'<div class="wrap"><div class="edcol" style="padding-top:40px"><div class="skel n"></div><div class="skel w" style="height:34px"></div><div class="skel"></div><div class="skel w"></div><div class="skel"></div></div></div>')+'</div>';
+}
+function edMissing(e){
+  var nf=e&&e.message==="notfound";
+  return '<div class="wrap"><div class="dkgate"><h1>'+(nf?'This post isn\'t here':'Couldn\'t open this post')+'</h1><p>'+(nf?'It may have been deleted, or the link is from an older address.':esc(shortErr(e)))+'</p><div class="acts"><a class="btn" href="#/write">Your posts</a>'+(nf?'':'<button class="btn ghost" data-ed="reopen">Try again</button>')+'</div></div></div>';
+}
+function edView(){
+  var e=DESK.ed;if(!e)return "";
+  if(e.preview)return edTop(e)+edPreview(e);
+  var slugNote=e.pub?'This post lives at this address. It can\'t change now, or old links would break.':'Filled in from the title. Letters a to z, numbers and hyphens.';
+  return edTop(e)+
+  '<div class="wrap"><div class="edcol">'+
+    (e.restored?'<p class="ednote" role="status">'+ICON.cloud+'<span>Brought back your latest changes from this device.</span></p>':'')+
+    '<div class="edlang" role="group" aria-label="Language of this post"><span>Written in</span>'+["my","en","ja"].map(function(l){return '<button class="chip sm" data-ed="lang" data-v="'+l+'" aria-pressed="'+(e.lang===l)+'"'+langAttr(l)+'>'+BLANG[l]+'</button>'}).join("")+'</div>'+
+    '<label class="sr" for="edtitle">Title</label><textarea id="edtitle" class="edtitle" rows="1" placeholder="Title" maxlength="140"'+langAttr(e.lang)+' autocomplete="off">'+esc(e.title)+'</textarea>'+
+    '<div id="edbody" class="prose edbody" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Post" data-ph="Write your post…" spellcheck="true"'+langAttr(e.lang)+'></div>'+
+    '<details class="edset" id="edset"'+(e.fresh?'':' open')+'><summary><span>Post settings</span><span class="muted small">Summary, cover photo, tags, date, web address</span></summary><div class="in">'+
+      '<div class="field"><label for="edsum">Summary</label><textarea class="inp edta" id="edsum" rows="2" maxlength="300" placeholder="Leave empty to use the first lines of the post"'+langAttr(e.lang)+'>'+esc(e.summary)+'</textarea><p class="hint">Shown in the list of posts and in search.</p></div>'+
+      '<div class="field"><span class="lbl">Cover photo</span><div class="covbox" id="covbox">'+edCoverBox(e)+'</div></div>'+
+      '<div class="field"><label for="edtags">Tags</label><input class="inp" id="edtags" type="text" value="'+esc(e.tags.join(", "))+'" placeholder="EJU maths, universities" autocomplete="off"><p class="hint">Separate them with commas.</p></div>'+
+      '<div class="field"><label for="eddate">Date and time</label><input class="inp" id="eddate" type="datetime-local" value="'+esc(e.date)+'"><p class="hint">Newer posts show first on the Blog.</p></div>'+
+      '<div class="field"><label for="edslug">Web address</label><div class="slugrow'+(e.pub?' locked':'')+'"><span>#/blog/</span><input id="edslug" type="text" value="'+esc(e.pub||e.slug||slugify(e.title))+'" placeholder="'+esc(fallbackSlug(e))+'" autocomplete="off" autocapitalize="off" spellcheck="false"'+(e.pub?' readonly':'')+'></div><p class="hint" id="edslugh">'+slugNote+'</p></div>'+
+      '<div class="eddanger">'+(e.pub?'<button class="btn ghost sm" data-ed="unpub">Unpublish</button>':'')+(e.pub||e.hasDraft||e.savedAt?'<button class="btn ghost sm dangerghost" data-ed="del">Delete post</button>':'')+'</div>'+
+    '</div></details>'+
+  '</div></div>'+
+  '<input type="file" id="edfile" accept="image/*" hidden>';
+}
+function edCoverBox(e){
+  if(!e.cover)return '<button class="btn ghost sm" data-ed="cover">'+ICON.image+'Add a cover photo</button>';
+  return '<img '+imgSrc(e.cover)+' alt="Cover photo"><div class="acts"><button class="btn ghost sm" data-ed="cover">Change</button><button class="linkbtn" data-ed="coverrm">Remove</button></div>';
+}
+function edStatus(e){
+  if(DESK.busy)return {t:DESK.busy,c:""};
+  if(e.err)return {t:"Not saved to your account: "+e.err+" Kept on this device.",c:"err"};
+  if(e.saving||e.dirty)return {t:"Saving…",c:""};
+  if(e.pub&&e.changed)return {t:"Published. Changes not live yet",c:""};
+  if(e.pub)return {t:"Published",c:"ok"};
+  if(e.savedAt)return {t:"Draft, saved",c:""};
+  return {t:"New draft",c:""};
+}
+function edTop(e){
+  var st=edStatus(e),pubLabel=e.pub?"Update":"Publish",can=!e.pub||e.changed||e.dirty;
+  return '<div class="edtop"><div class="in"><a class="back" href="#/write">'+ICON.back+'<span>Posts</span></a><span class="st '+st.c+'" id="edst" role="status">'+esc(st.t)+'</span>'+
+    '<div class="acts">'+(e.pub?'<a class="btn ghost iconic" href="#/blog/'+esc(e.pub)+'" target="_blank" rel="noopener" title="View on the Blog" aria-label="View on the Blog (opens in a new tab)">'+ICON.ext2+'<span class="lbl">View</span></a>':'')+
+    '<button class="btn ghost iconic" data-ed="preview" aria-pressed="'+!!e.preview+'" title="'+(e.preview?'Back to editing':'Preview')+'">'+(e.preview?ICON.pen:ICON.eye)+'<span class="lbl">'+(e.preview?'Edit':'Preview')+'</span></button>'+
+    '<button class="btn" data-ed="publish" id="edpub"'+(can?'':' disabled')+'>'+pubLabel+'</button></div></div>'+
+    (e.preview?'':'<div class="edtools" role="toolbar" aria-label="Formatting">'+
+      tb("h2",'<span class="th">H</span>',"Heading")+tb("h3",'<span class="th s">H</span>',"Subheading")+tb("p",'<span class="tp">¶</span>',"Normal text")+'<span class="sep"></span>'+
+      tb("bold",'<b>B</b>',"Bold")+tb("italic",'<i class="ti">I</i>',"Italic")+tb("link",ICON.link,"Link")+'<span class="sep"></span>'+
+      tb("ul",ICON.ul,"Bulleted list")+tb("ol",ICON.ol,"Numbered list")+tb("quote",ICON.quote,"Quote")+'<span class="sep"></span>'+
+      tb("image",ICON.image,"Photo")+tb("math",'<span class="tm">∑</span>',"Formula")+tb("table",ICON.table,"Table")+tb("hr",ICON.hr,"Divider")+'<span class="sep"></span>'+
+      tb("undo",ICON.undo,"Undo")+tb("redo",ICON.redo,"Redo")+
+    '</div><div class="edtbl" id="edtbl" hidden><span>Table</span><button data-ed="tbl" data-c="row">Add row</button><button data-ed="tbl" data-c="col">Add column</button><button data-ed="tbl" data-c="delrow">Delete row</button><button data-ed="tbl" data-c="delcol">Delete column</button><button data-ed="tbl" data-c="del" class="dg">Delete table</button></div>')+
+  '</div>';
+}
+function tb(c,inner,label){return '<button type="button" data-ed="cmd" data-c="'+c+'" aria-label="'+label+'" title="'+label+'"'+(/^(bold|italic|ul|ol|quote|h2|h3)$/.test(c)?' aria-pressed="false"':'')+'>'+inner+'</button>'}
+function edPreview(e){
+  var body;try{body=mdRender(e.body)}catch(x){body='<p>'+esc(e.body)+'</p>'}
+  return '<div class="wrap"><p class="prevbar">'+ICON.eye+'<span>Preview. This is how the post will look on the Blog.</span><button class="linkbtn" data-ed="preview">Back to editing</button></p>'+
+    '<div class="ahead"><h1'+langAttr(e.lang)+'>'+esc(e.title||"Untitled")+'</h1><div class="ameta"><span>'+esc(pDateL(e.date))+'</span><span class="lmark">'+oval(true)+'<span'+langAttr(e.lang)+'>'+esc(BLANG[e.lang]||"")+'</span></span><span>'+readMins(e.body,e.lang)+' min read</span></div>'+
+    (e.cover?'<div class="cover"><img '+imgSrc(e.cover)+' alt=""></div>':'')+'</div><article class="prose"'+langAttr(e.lang)+'>'+body+'</article><div style="height:60px"></div></div>';
+}
+function deskRefreshChrome(){var e=DESK.ed;if(!e)return;paintSt()}
+function paintSt(){
+  var e=DESK.ed;if(!e)return;var el=$("#edst");if(el){var st=edStatus(e);el.textContent=st.t;el.className="st "+st.c}
+  var b=$("#edpub");if(b){b.textContent=e.pub?"Update":"Publish";b.disabled=!!DESK.busy||!!(e.pub&&!e.changed&&!e.dirty)}
+}
+function deskLeave(){
+  var e=DESK.ed;if(!e)return;
+  if(e.mounted){edCollect();e.mounted=false}
+  clearTimeout(e.lt);
+  if(e.dirty){edSaveLocal(e);clearTimeout(e.ct);edSaveCloud(e)}
+}
+
+/* ---------- the editor ---------- */
+function edBody(){return document.getElementById("edbody")}
+function edMount(){
+  var e=DESK.ed,b=edBody();if(!e)return;
+  e.mounted=true;
+  if(!b){paintSt();return}
+  try{document.execCommand("defaultParagraphSeparator",false,"p");document.execCommand("styleWithCSS",false,false)}catch(x){}
+  b.innerHTML=mdToEd(e.body);edEmpty();hydrateMedia(b);
+  var t=$("#edtitle");edGrow(t);
+  if(e.fresh&&!e.title){t.focus({preventScroll:true})}
+  DESK.range=null;
+  b.addEventListener("input",edOnInput);
+  b.addEventListener("paste",edOnPaste);
+  b.addEventListener("drop",edOnDrop);
+  b.addEventListener("keydown",edOnKey);
+  b.addEventListener("click",edOnClick);
+  t.addEventListener("input",function(){edGrow(t);var ee=DESK.ed;if(ee&&ee.slugAuto&&!ee.pub){var s=$("#edslug");if(s)s.value=slugify(t.value)}edChanged()});
+  t.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.isComposing){ev.preventDefault();edPlaceEnd(edBody(),true)}});
+  ["edsum","edtags","eddate"].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener("input",edChanged)});
+  var sl=$("#edslug");if(sl&&!e.pub)sl.addEventListener("input",function(){var ee=DESK.ed;ee.slugAuto=!sl.value.trim();var h=$("#edslugh");if(h){var v=sl.value.trim().toLowerCase();h.textContent=!v||SLUGRE.test(v)?"Letters a to z, numbers and hyphens. The link will be …/#/blog/"+(v||slugify($("#edtitle").value)||fallbackSlug(ee)):"Use only lowercase letters a to z, numbers and single hyphens.";h.classList.toggle("bad",!!v&&!SLUGRE.test(v))}edChanged()});
+  var f=$("#edfile");if(f)f.addEventListener("change",function(){var file=f.files&&f.files[0];f.value="";if(file)edAddImage(file,DESK.fileFor)});
+  var sum=$("#edsum");if(sum){edGrow(sum);sum.addEventListener("input",function(){edGrow(sum)})}
+  edTools();paintSt();
+  if(e.restored||e.dirty){clearTimeout(e.ct);e.ct=setTimeout(function(){edSaveCloud(e)},800)}
+}
+function edGrow(t){if(!t)return;t.style.height="auto";t.style.height=t.scrollHeight+"px"}
+function edEmpty(){var b=edBody();if(!b)return;var empty=!b.textContent.replace(/[\s\u200b]/g,"")&&!b.querySelector("img,.mchip,hr,table,li");b.classList.toggle("isempty",empty)}
+function edCollect(){
+  var e=DESK.ed;if(!e||!e.mounted)return e;
+  var t=$("#edtitle"),b=edBody();if(t)e.title=t.value.replace(/\s+/g," ").trim();if(b)e.body=toMD(b);
+  var s=$("#edsum");if(s)e.summary=s.value.trim();
+  var tg=$("#edtags");if(tg)e.tags=tg.value.split(/[,、，]/).map(function(x){return x.trim()}).filter(Boolean).slice(0,12);
+  var d=$("#eddate");if(d&&d.value)e.date=d.value.slice(0,16);
+  var sl=$("#edslug");if(sl&&!e.pub)e.slug=sl.value.trim().toLowerCase();
+  return e;
+}
+function edChanged(){
+  var e=DESK.ed;if(!e)return;
+  e.dirty=true;e.v++;e.fresh=false;e.err="";
+  clearTimeout(e.lt);e.lt=setTimeout(function(){if(e===DESK.ed)edCollect();edSaveLocal(e)},300);
+  clearTimeout(e.ct);e.ct=setTimeout(function(){edSaveCloud(e)},1500);
+  edEmpty();paintSt();
+}
+function edSaveLocal(e){e=e||DESK.ed;if(!e)return;lsSet(DKEY+e.key,JSON.stringify({t:Date.now(),d:edPayload(e)}))}
+function edSaveCloud(e){
+  e=e||DESK.ed;if(!e||e.gone||!FB.m||!isAdmin()||!e.dirty)return Promise.resolve();
+  if(e.mounted&&e===DESK.ed)edCollect();
+  if(!e.pub&&!e.title&&!plainText(e.body)&&!e.cover){e.dirty=false;paintSt();return Promise.resolve()}
+  var v=e.v,m=FB.m,data=edPayload(e);data.updatedAt=m.serverTimestamp();
+  e.saving=true;paintSt();
+  return m.setDoc(m.doc(FB.db,"drafts",e.key),data).then(function(){
+    e.saving=false;e.err="";e.hasDraft=true;e.savedAt=Date.now();if(e.pub)e.changed=true;
+    if(e.v===v){e.dirty=false;lsSet(DKEY+e.key,"")}
+    DESK.list=null;paintSt();
+    if(e.mounted&&!$('[data-ed="del"]')){var dz=$(".eddanger");if(dz)dz.insertAdjacentHTML("beforeend",'<button class="btn ghost sm dangerghost" data-ed="del">Delete post</button>')}
+  },function(err){e.saving=false;e.err=shortErr(err);paintSt()});
+}
+window.addEventListener("pagehide",function(){var e=DESK.ed;if(e&&e.dirty){if(e.mounted)edCollect();edSaveLocal(e)}});
+
+/* selection: remember where the caret was, so toolbar buttons and dialogs act there */
+function edInBody(node){var b=edBody();return !!(b&&node&&(node===b||b.contains(node)))}
+document.addEventListener("selectionchange",function(){
+  var b=edBody();if(!b)return;var s=window.getSelection();if(!s||!s.rangeCount)return;
+  var r=s.getRangeAt(0);if(edInBody(r.commonAncestorContainer)){DESK.range=r.cloneRange();edTools()}
+});
+function edRestore(){
+  var b=edBody();if(!b)return;b.focus({preventScroll:true});
+  var s=window.getSelection();
+  if(DESK.range&&edInBody(DESK.range.commonAncestorContainer)){s.removeAllRanges();s.addRange(DESK.range)}
+  else if(!s.rangeCount||!edInBody(s.getRangeAt(0).commonAncestorContainer))edPlaceEnd(b);
+}
+function edPlaceEnd(b,focus){if(!b)return;if(focus)b.focus({preventScroll:false});var r=document.createRange();r.selectNodeContents(b);r.collapse(false);var s=window.getSelection();s.removeAllRanges();s.addRange(r);DESK.range=r.cloneRange()}
+function edBlock(){
+  var b=edBody(),s=window.getSelection();if(!b||!s.rangeCount)return null;
+  var n=s.getRangeAt(0).startContainer;if(n.nodeType===3)n=n.parentNode;
+  while(n&&n!==b&&n.parentNode!==b&&!/^(LI|TD|TH)$/.test(n.nodeName))n=n.parentNode;
+  return n&&n!==b?n:null;
+}
+function edInside(tag){var b=edBody(),s=window.getSelection();if(!b||!s.rangeCount)return null;var n=s.getRangeAt(0).startContainer;while(n&&n!==b){if(n.nodeName===tag)return n;n=n.parentNode}return null}
+function edTools(){
+  var bar=$(".edtools");if(!bar)return;
+  function st(c,on){var x=bar.querySelector('[data-c="'+c+'"]');if(x)x.setAttribute("aria-pressed",!!on)}
+  var q=function(c){try{return document.queryCommandState(c)}catch(e){return false}};
+  var s=window.getSelection(),inside=s&&s.rangeCount&&edInBody(s.getRangeAt(0).commonAncestorContainer);
+  if(!inside){["bold","italic","ul","ol","quote","h2","h3"].forEach(function(c){st(c,false)});return}
+  st("bold",q("bold"));st("italic",q("italic"));st("ul",!!edInside("UL"));st("ol",!!edInside("OL"));st("quote",!!edInside("BLOCKQUOTE"));
+  st("h2",!!(edInside("H2")||edInside("H1")));st("h3",!!(edInside("H3")||edInside("H4")));
+  var tt=$("#edtbl");if(tt)tt.hidden=!edInside("TABLE");
+}
+function edCmd(c){
+  var b=edBody();if(!b)return;
+  if(c==="image"){DESK.fileFor="body";var f=$("#edfile");if(f)f.click();return}
+  if(c==="link"){edLinkDlg();return}
+  if(c==="math"){edMathDlg(null);return}
+  edRestore();
+  var x=function(cmd,arg){try{document.execCommand(cmd,false,arg)}catch(e){}};
+  if(c==="bold"||c==="italic"||c==="undo"||c==="redo")x(c);
+  else if(c==="ul")x("insertUnorderedList");
+  else if(c==="ol")x("insertOrderedList");
+  else if(c==="h2")x("formatBlock",edInside("H2")||edInside("H1")?"<p>":"<h2>");
+  else if(c==="h3")x("formatBlock",edInside("H3")?"<p>":"<h3>");
+  else if(c==="p"){if(edInside("BLOCKQUOTE"))x("outdent");else if(edInside("LI"))x(edInside("OL")?"insertOrderedList":"insertUnorderedList");else x("formatBlock","<p>")}
+  else if(c==="quote"){if(edInside("BLOCKQUOTE"))x("outdent");else x("formatBlock","<blockquote>")}
+  else if(c==="hr"){x("insertHorizontalRule");edEnsureTail()}
+  else if(c==="table"){if(edInside("TABLE"))return;var cell='<td><br></td>';x("insertHTML",'<table><thead><tr><th>Heading</th><th>Heading</th></tr></thead><tbody><tr>'+cell+cell+'</tr><tr>'+cell+cell+'</tr></tbody></table><p><br></p>')}
+  edChanged();edTools();
+}
+function edEnsureTail(){var b=edBody();if(!b)return;var l=b.lastElementChild;if(!l||/^(HR|TABLE|UL|OL|BLOCKQUOTE|PRE)$/.test(l.nodeName)||(l.nodeName==="P"&&onlyChild(l,"img,.mchip")))b.insertAdjacentHTML("beforeend","<p><br></p>")}
+function edTable(c){
+  var cell=edInside("TD")||edInside("TH"),tbl=edInside("TABLE");if(!tbl)return;
+  var row=cell?cell.parentNode:tbl.querySelector("tbody tr")||tbl.querySelector("tr"),ix=cell?[].indexOf.call(row.children,cell):0;
+  if(c==="row"){var nr=document.createElement("tr");for(var i=0;i<row.children.length;i++)nr.insertAdjacentHTML("beforeend","<td><br></td>");if(row.parentNode.nodeName==="THEAD"){var tb2=tbl.tBodies[0]||tbl.appendChild(document.createElement("tbody"));tb2.insertBefore(nr,tb2.firstChild)}else row.parentNode.insertBefore(nr,row.nextSibling);edPut(nr.firstChild)}
+  else if(c==="col"){$$("tr",tbl).forEach(function(r){var ref=r.children[ix];var n=document.createElement(r.parentNode.nodeName==="THEAD"?"th":"td");n.innerHTML="<br>";if(ref&&ref.nextSibling)r.insertBefore(n,ref.nextSibling);else r.appendChild(n)})}
+  else if(c==="delrow"){if(row.parentNode.nodeName==="THEAD"){toast("The heading row stays. Delete the table to remove it.");return}var nx=row.nextElementSibling||row.previousElementSibling;row.remove();if(!tbl.querySelector("tbody tr"))tbl.tBodies[0].insertAdjacentHTML("beforeend","<tr>"+new Array(tbl.querySelector("tr").children.length+1).join("<td><br></td>")+"</tr>");if(nx)edPut(nx.firstElementChild)}
+  else if(c==="delcol"){var n0=tbl.querySelector("tr").children.length;if(n0<=1){tbl.remove()}else $$("tr",tbl).forEach(function(r){if(r.children[ix])r.children[ix].remove()})}
+  else if(c==="del"){var after2=tbl.nextElementSibling;tbl.remove();if(after2)edPut(after2);var tt=$("#edtbl");if(tt)tt.hidden=true}
+  edChanged();
+}
+/* Chrome moves non-editable pieces (formula chips) out of the paragraph with insertHTML, so these go in by hand */
+function edInsertInline(html){
+  var s=window.getSelection();if(!s.rangeCount)return;var r=s.getRangeAt(0);if(!edInBody(r.commonAncestorContainer))return;
+  r.deleteContents();var t=document.createElement("template");t.innerHTML=html;var last=t.content.lastChild;r.insertNode(t.content);
+  if(last){var nr=document.createRange();nr.setStartAfter(last);nr.collapse(true);s.removeAllRanges();s.addRange(nr);DESK.range=nr.cloneRange()}
+}
+function edPut(node){if(!node)return;var r=document.createRange();r.selectNodeContents(node);r.collapse(true);var s=window.getSelection();s.removeAllRanges();s.addRange(r);DESK.range=r.cloneRange();edBody().focus({preventScroll:true})}
+
+/* typing: Markdown-style shortcuts at the start of an empty line */
+function edOnInput(ev){
+  if(ev&&ev.inputType==="insertText"&&ev.data===" "&&!ev.isComposing){
+    var blk=edBlock();
+    if(blk&&(blk.nodeName==="P"||blk.nodeName==="DIV")){
+      var t=blk.textContent.replace(/\u00a0/g," "),cmd=null,arg=null;
+      if(t==="## "||t==="# "){cmd="formatBlock";arg="<h2>"}else if(t==="### "){cmd="formatBlock";arg="<h3>"}
+      else if(t==="- "||t==="* "){cmd="insertUnorderedList"}else if(t==="1. "||t==="1) "){cmd="insertOrderedList"}
+      else if(t==="> "){cmd="formatBlock";arg="<blockquote>"}
+      if(cmd){var r=document.createRange();r.selectNodeContents(blk);var s=window.getSelection();s.removeAllRanges();s.addRange(r);document.execCommand("delete");document.execCommand(cmd,false,arg)}
+    }
+  }
+  edChanged();
+}
+function edOnKey(ev){
+  if((ev.metaKey||ev.ctrlKey)&&!ev.altKey&&(ev.key==="k"||ev.key==="K")){ev.preventDefault();edLinkDlg();return}
+  if(ev.key==="Tab"&&edInside("TABLE")){ev.preventDefault();var cell=edInside("TD")||edInside("TH");if(!cell)return;var all=$$("th,td",edInside("TABLE")),i=all.indexOf(cell)+(ev.shiftKey?-1:1);if(i>=all.length){edTable("row")}else if(i>=0)edPut(all[i]);return}
+  if(ev.key==="Backspace"||ev.key==="Delete"){setTimeout(function(){edEmpty();edTools()},0)}
+}
+function edOnClick(ev){
+  var chip=ev.target.closest&&ev.target.closest(".mchip");
+  if(chip&&edInBody(chip)){ev.preventDefault();edMathDlg(chip);return}
+  var im=ev.target.closest&&ev.target.closest("img");
+  if(im&&edInBody(im)){ev.preventDefault();edImgDlg(im);return}
+  var a=ev.target.closest&&ev.target.closest("a");
+  if(a&&edInBody(a))ev.preventDefault();
+}
+/* paste: keep the words and basic formatting, drop everything else (fonts, colours, layout from Word or web pages) */
+function edOnPaste(ev){
+  var cd=ev.clipboardData;if(!cd)return;
+  var files=[].slice.call(cd.files||[]).filter(function(f){return /^image\//.test(f.type)});
+  var html=cd.getData("text/html"),txt=cd.getData("text/plain");
+  if(files.length&&!txt){ev.preventDefault();files.forEach(function(f){edAddImage(f,"body")});return}
+  if(html){
+    ev.preventDefault();
+    var t=document.createElement("template");t.innerHTML=cleanHTML(html.replace(/<!--[\s\S]*?-->/g,""));
+    $$("[data-tex]",t.content).forEach(function(n){if(!n.classList.contains("mchip"))n.removeAttribute("data-tex")});
+    var md=toMD(t.content),h=mdToEd(md);
+    if(md.trim()&&!/\n\n/.test(md.trim())&&!/^(#|>|- |\d+\. |\||```|\$\$)/.test(md.trim()))h=h.replace(/^<p>([\s\S]*)<\/p>$/,"$1");
+    document.execCommand("insertHTML",false,h);hydrateMedia(edBody());edChanged();return;
+  }
+  if(txt){
+    ev.preventDefault();var parts=txt.replace(/\r/g,"").replace(/\u00a0/g," ").split(/\n{2,}/);
+    if(parts.length===1&&txt.indexOf("\n")<0)document.execCommand("insertText",false,txt);
+    else document.execCommand("insertHTML",false,parts.map(function(p){return "<p>"+esc(p).replace(/\n/g,"<br>")+"</p>"}).join(""));
+    edChanged();
+  }
+}
+function edOnDrop(ev){
+  var files=ev.dataTransfer&&[].slice.call(ev.dataTransfer.files||[]).filter(function(f){return /^image\//.test(f.type)});
+  if(!files||!files.length)return;
+  ev.preventDefault();
+  var r=document.caretRangeFromPoint?document.caretRangeFromPoint(ev.clientX,ev.clientY):null;
+  if(r&&edInBody(r.startContainer))DESK.range=r;
+  files.forEach(function(f){edAddImage(f,"body")});
+}
+
+/* ---------- photos ---------- */
+function shrinkImage(file){
+  return new Promise(function(res,rej){
+    var url=URL.createObjectURL(file),img=new Image();
+    img.onload=function(){
+      URL.revokeObjectURL(url);
+      var w=img.naturalWidth,h=img.naturalHeight;if(!w||!h){rej(new Error("decode"));return}
+      var sc=Math.min(1,1600/Math.max(w,h)),q=.82;
+      for(var i=0;i<9;i++){
+        var cw=Math.max(1,Math.round(w*sc)),ch=Math.max(1,Math.round(h*sc)),c=document.createElement("canvas");c.width=cw;c.height=ch;
+        var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,cw,ch);x.drawImage(img,0,0,cw,ch);
+        var out=c.toDataURL("image/webp",q);if(out.indexOf("data:image/webp")!==0)out=c.toDataURL("image/jpeg",q);
+        if(out.length<700000){res({data:out,w:cw,h:ch});return}
+        sc*=.8;q=Math.max(.6,q-.05);
+      }
+      rej(new Error("toobig"));
+    };
+    img.onerror=function(){URL.revokeObjectURL(url);rej(new Error("decode"))};
+    img.src=url;
+  });
+}
+function edAddImage(file,forWhat){
+  var e=DESK.ed,m=FB.m;if(!e||!m)return;
+  if(!/^image\//.test(file.type)&&!/\.(jpe?g|png|gif|webp|heic|heif)$/i.test(file.name||"")){toast("That file isn't a photo. Choose a JPG, PNG or WebP.");return}
+  DESK.busy="Adding the photo…";paintSt();
+  var range=DESK.range?DESK.range.cloneRange():null;
+  shrinkImage(file).then(function(img){
+    var id="m"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+    return m.setDoc(m.doc(FB.db,"media",id),{data:img.data,w:img.w,h:img.h,createdAt:m.serverTimestamp()}).then(function(){MEDIA[id]=Promise.resolve(img.data);return {id:id,img:img}});
+  }).then(function(r){
+    DESK.busy=false;
+    if(!DESK.ed||DESK.ed!==e){return}
+    if(forWhat==="cover"){e.cover="media:"+r.id;var cb=$("#covbox");if(cb)cb.innerHTML=edCoverBox(e);hydrateMedia(cb);edChanged();return}
+    var b=edBody();if(!b){e.body+="\n\n![](media:"+r.id+")\n";edChanged();return}
+    DESK.range=range;edRestore();
+    var html='<img src="'+r.img.data+'" data-media="'+r.id+'" data-ok="1" alt="">';
+    var blk=edBlock(),emptyBlk=blk&&blk.nodeName==="P"&&!blk.textContent.replace(/[\s\u200b]/g,"")&&!blk.querySelector("img,.mchip");
+    if(emptyBlk){blk.innerHTML=html;var nx=blk.nextElementSibling;if(!nx){blk.insertAdjacentHTML("afterend","<p><br></p>");nx=blk.nextElementSibling}edPut(nx)}
+    else{document.execCommand("insertHTML",false,"<p>"+html+"</p><p><br></p>")}
+    edEnsureTail();edChanged();
+    toast("Photo added. Tap it to add a description or remove it.");
+  }).then(null,function(err){
+    DESK.busy=false;paintSt();
+    var msg=err&&err.message==="decode"?"This photo couldn't be opened here. iPhone HEIC photos open in Safari; elsewhere, try a JPG or PNG.":err&&err.message==="toobig"?"This photo is too large even after shrinking. Try a smaller one.":"Couldn't add the photo. "+shortErr(err);
+    toast(msg);
+  });
+}
+
+/* ---------- dialogs: link, formula, photo ---------- */
+function edDlgWire(handlers){var box=document.getElementById("dlg");box.onclick=function(ev){var b=ev.target.closest("[data-x]");if(b&&handlers[b.getAttribute("data-x")]){ev.preventDefault();handlers[b.getAttribute("data-x")](b)}}}
+function edDlgDone(){var box=document.getElementById("dlg");box.onclick=null;DLGFOCUS=null;closeDlg()}
+function edLinkDlg(){
+  var b=edBody();if(!b)return;
+  var s=window.getSelection(),rng=DESK.range?DESK.range.cloneRange():null;
+  if(rng&&edInBody(rng.commonAncestorContainer)){s.removeAllRanges();s.addRange(rng)}
+  var a=edInside("A"),text=a?a.textContent:(rng?rng.toString():""),href=a?a.getAttribute("href"):"";
+  openDlg("ed",'<div class="dlgbg"><div class="dlg edd" role="dialog" aria-modal="true" aria-labelledby="edlt"><h2 id="edlt">'+(a?'Edit link':'Add a link')+'</h2>'+
+    '<div class="field"><label for="edlu">Web address</label><input class="inp" id="edlu" type="url" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://… or #/schools" value="'+esc(href)+'"></div>'+
+    '<div class="field" style="margin-top:12px"><label for="edlx">Text to show</label><input class="inp" id="edlx" type="text" value="'+esc(text)+'"'+langAttr(DESK.ed.lang)+'></div>'+
+    '<p class="fine" id="edlerr" role="alert"></p>'+
+    '<div class="acts">'+(a?'<button class="btn ghost sm" data-x="rm" style="margin-right:auto">Remove link</button>':'')+'<button class="btn ghost sm" data-x="no">Cancel</button><button class="btn sm" data-x="ok">'+(a?'Save':'Add link')+'</button></div></div></div>','#edlu');
+  var ok=function(){
+    var u=$("#edlu").value.trim(),x=$("#edlx").value.trim();
+    if(!u){$("#edlerr").textContent="Type or paste a web address.";return}
+    if(!/^(https?:\/\/|mailto:|#|\/)/i.test(u))u="https://"+u;
+    if(/^\s*javascript:/i.test(u)){$("#edlerr").textContent="That address can't be used.";return}
+    edDlgDone();edRestoreTo(rng);
+    if(a){a.setAttribute("href",u);if(x&&x!==a.textContent)a.textContent=x}
+    else if(rng&&!rng.collapsed&&(!x||x===rng.toString()))document.execCommand("createLink",false,u);
+    else document.execCommand("insertHTML",false,'<a href="'+esc(u)+'">'+esc(x||u)+'</a>&nbsp;');
+    edChanged();
+  };
+  edDlgWire({ok:ok,no:function(){edDlgDone();edRestoreTo(rng)},rm:function(){edDlgDone();if(a){var t=document.createTextNode(a.textContent);a.replaceWith(t)}edChanged()}});
+  $$("#dlg input").forEach(function(i){i.addEventListener("keydown",function(ev){if(ev.key==="Enter"&&!ev.isComposing){ev.preventDefault();ok()}})});
+}
+function edRestoreTo(rng){var b=edBody();if(!b)return;b.focus({preventScroll:true});if(rng&&edInBody(rng.commonAncestorContainer)){var s=window.getSelection();s.removeAllRanges();s.addRange(rng);DESK.range=rng.cloneRange()}else edPlaceEnd(b)}
+var FKEYS=[["\\frac{a}{b}","a/b"],["\\sqrt{x}","√"],["x^{2}","x²"],["x_{n}","xₙ"],["\\pi","π"],["\\theta","θ"],["\\le","≤"],["\\ge","≥"],["\\ne","≠"],["\\pm","±"],["\\times","×"],["\\div","÷"],["\\sin\\theta","sin"],["\\log_{a}x","log"],["\\sum_{k=1}^{n}","Σ"],["\\int_{a}^{b}","∫"],["\\vec{a}","→a"],["\\infty","∞"]];
+function edMathDlg(chip){
+  var rng=DESK.range?DESK.range.cloneRange():null;
+  var t0=chip?chip.getAttribute("data-tex"):"",d0=chip?chip.getAttribute("data-d")==="1":false;
+  openDlg("ed",'<div class="dlgbg"><div class="dlg edd" role="dialog" aria-modal="true" aria-labelledby="edmt"><h2 id="edmt">'+(chip?'Edit formula':'Add a formula')+'</h2>'+
+    '<label class="lbl" for="edmx">Formula (LaTeX)</label><textarea class="inp edtex" id="edmx" rows="2" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}">'+esc(t0)+'</textarea>'+
+    '<div class="fkeys" role="group" aria-label="Insert a symbol">'+FKEYS.map(function(k,i){return '<button type="button" data-x="key" data-i="'+i+'" title="'+esc(k[0])+'">'+esc(k[1])+'</button>'}).join("")+'</div>'+
+    '<div class="seg" role="group" aria-label="Where it sits"><button type="button" data-x="d0" aria-pressed="'+!d0+'">In the sentence</button><button type="button" data-x="d1" aria-pressed="'+d0+'">On its own line</button></div>'+
+    '<div class="fprev" id="edmp" aria-live="polite"></div>'+
+    '<div class="acts">'+(chip?'<button class="btn ghost sm" data-x="rm" style="margin-right:auto">Remove</button>':'')+'<button class="btn ghost sm" data-x="no">Cancel</button><button class="btn sm" data-x="ok">'+(chip?'Save':'Add formula')+'</button></div></div></div>','#edmx');
+  var disp=d0,ta=$("#edmx");
+  function prev(){var v=ta.value.trim();$("#edmp").innerHTML=v?tex(v,disp):'<span class="muted small">The formula shows here as you type.</span>'}
+  prev();ta.addEventListener("input",prev);
+  edDlgWire({
+    key:function(b){var k=FKEYS[+b.getAttribute("data-i")][0],s0=ta.selectionStart!=null?ta.selectionStart:ta.value.length,s1=ta.selectionEnd!=null?ta.selectionEnd:s0;ta.value=ta.value.slice(0,s0)+k+ta.value.slice(s1);ta.focus();ta.selectionStart=ta.selectionEnd=s0+k.length;prev()},
+    d0:function(){disp=false;$$('#dlg [data-x="d0"],#dlg [data-x="d1"]').forEach(function(x){x.setAttribute("aria-pressed",x.getAttribute("data-x")==="d0")});prev()},
+    d1:function(){disp=true;$$('#dlg [data-x="d0"],#dlg [data-x="d1"]').forEach(function(x){x.setAttribute("aria-pressed",x.getAttribute("data-x")==="d1")});prev()},
+    no:function(){edDlgDone();edRestoreTo(rng)},
+    rm:function(){edDlgDone();if(chip)chip.remove();edChanged()},
+    ok:function(){
+      var v=ta.value.replace(/\$/g,"").trim();edDlgDone();
+      if(!v){if(chip)chip.remove();edChanged();return}
+      var h=chipHTML(v,disp);
+      if(chip){var tmp=document.createElement("span");tmp.innerHTML=h;chip.replaceWith(tmp.firstChild)}
+      else{edRestoreTo(rng);var blk=edBlock(),emptyBlk=blk&&blk.nodeName==="P"&&!blk.textContent.replace(/[\s\u200b]/g,"")&&!blk.querySelector("img,.mchip");
+        if(disp&&emptyBlk){blk.innerHTML=h;var nx=blk.nextElementSibling;if(!nx){blk.insertAdjacentHTML("afterend","<p><br></p>");nx=blk.nextElementSibling}edPut(nx)}
+        else if(disp&&blk&&blk.parentNode===edBody()){blk.insertAdjacentHTML("afterend","<p>"+h+"</p><p><br></p>");edPut(blk.nextElementSibling.nextElementSibling)}
+        else edInsertInline(h+"\u00a0")}
+      edChanged();
+    }
+  });
+}
+function edImgDlg(im){
+  openDlg("ed",'<div class="dlgbg"><div class="dlg edd" role="dialog" aria-modal="true" aria-labelledby="edit"><h2 id="edit">Photo</h2><img class="edthumb" src="'+esc(im.src)+'" alt="">'+
+    '<div class="field" style="margin-top:12px"><label for="edia">Description</label><input class="inp" id="edia" type="text" value="'+esc(im.getAttribute("alt")||"")+'" placeholder="What the photo shows"'+langAttr(DESK.ed.lang)+'><p class="hint">Read aloud to people who can\'t see the photo.</p></div>'+
+    '<div class="acts"><button class="btn ghost sm dangerghost" data-x="rm" style="margin-right:auto">Remove photo</button><button class="btn sm" data-x="ok">Done</button></div></div></div>','#edia');
+  edDlgWire({ok:function(){im.setAttribute("alt",$("#edia").value.trim());edDlgDone();edChanged()},rm:function(){var p=im.parentNode;im.remove();if(p&&p.nodeName==="P"&&!p.textContent.trim()&&!p.querySelector("img,.mchip"))p.innerHTML="<br>";edDlgDone();edChanged()}});
+}
+
+/* ---------- publish, unpublish, delete ---------- */
+function edPostData(e){
+  return {title:e.title,slug:e.pub||e.slug,date:e.date,lang:e.lang,summary:e.summary||autoSummary(e.body),tags:e.tags,cover:e.cover,body:e.body,
+    status:"published",mins:readMins(e.body,e.lang),base:e.src==="repo"?"repo":"cloud"};
+}
+function edPublish(){
+  var e=edCollect();if(!e||DESK.busy)return;
+  if(!e.title){toast("Give the post a title first.");var t=$("#edtitle");if(t)t.focus();return}
+  if(!plainText(e.body)&&!/!\[/.test(e.body)){toast("The post is empty. Write something first.");edPlaceEnd(edBody(),true);return}
+  var slug=e.pub||e.slug||slugify(e.title)||fallbackSlug(e);
+  if(!SLUGRE.test(slug)||slug.length>80){var d=$("#edset");if(d)d.open=true;var sl=$("#edslug");if(sl){sl.focus();sl.scrollIntoView({block:"center"})}toast("Fix the web address first: lowercase letters a to z, numbers and hyphens.");return}
+  if(e.pub){edDoPublish(slug);return}
+  DESK.busy="Checking the web address…";paintSt();
+  deskLoad(true).then(function(list){
+    DESK.busy=false;paintSt();
+    var taken=list.some(function(p){return p.key!==e.key&&(p.status==="live"?p.slug===slug:p.key===slug)});
+    if(taken){var d=$("#edset");if(d)d.open=true;var sl=$("#edslug");if(sl){sl.focus();sl.scrollIntoView({block:"center"})}toast("Another post already uses #/blog/"+slug+". Change the web address in Post settings.");return}
+    confirmDlg({title:"Publish “"+e.title+"”?",body:"It goes on the Blog straight away, at …/#/blog/"+slug+". You can still edit it afterwards.",ok:"Publish",safe:true,run:function(){edDoPublish(slug)}});
+  },function(err){DESK.busy=false;paintSt();toast("Couldn't check the web address. "+shortErr(err))});
+}
+function edDoPublish(slug){
+  var e=DESK.ed,m=FB.m;if(!e||!m)return;
+  clearTimeout(e.ct);clearTimeout(e.lt);edCollect();
+  var data=edPostData(e),first=!e.pub,oldKey=e.key,v=e.v;data.slug=slug;data.updatedAt=m.serverTimestamp();data.publishedAt=e.publishedAt||m.serverTimestamp();
+  DESK.busy=first?"Publishing…":"Updating…";paintSt();
+  m.setDoc(m.doc(FB.db,"posts",slug),data).then(function(){
+    return m.deleteDoc(m.doc(FB.db,"drafts",oldKey)).then(null,function(){});
+  }).then(function(){
+    DESK.busy=false;lsSet(DKEY+oldKey,"");
+    e.pub=slug;e.key=slug;e.slug=slug;e.src=e.src||"cloud";e.changed=false;e.hasDraft=false;if(e.v===v)e.dirty=false;e.err="";if(!e.publishedAt)e.publishedAt=Date.now();
+    if(oldKey!==slug){try{history.replaceState(null,"","#/write/"+slug)}catch(x){}R=parse()}
+    DESK.list=null;blogReset();
+    if(e.mounted){edCollect();repaint("deskout",edView);edMount()}else paintSt();
+    toast(first?"Published. It's on the Blog now.":"Updated. The Blog shows your changes.");
+  },function(err){DESK.busy=false;paintSt();toast("Couldn't publish. "+shortErr(err)+" Your writing is safe here.")});
+}
+function edUnpublish(){
+  var e=edCollect();if(!e||!e.pub)return;
+  confirmDlg({title:"Unpublish “"+(e.title||"this post")+"”?",body:"It comes off the Blog straight away and stays here as a draft, so you can publish it again later.",ok:"Unpublish",run:function(){
+    clearTimeout(e.ct);clearTimeout(e.lt);edCollect();
+    var m=FB.m,slug=e.pub,data=edPayload(e);data.pub="";data.slug=slug;data.slugSet=true;data.updatedAt=m.serverTimestamp();
+    DESK.busy="Unpublishing…";paintSt();
+    m.setDoc(m.doc(FB.db,"drafts",slug),data).then(function(){
+      return e.src==="repo"?m.setDoc(m.doc(FB.db,"posts",slug),{status:"removed",slug:slug,updatedAt:m.serverTimestamp()}):m.deleteDoc(m.doc(FB.db,"posts",slug));
+    }).then(function(){
+      DESK.busy=false;e.pub="";e.slug=slug;e.slugAuto=false;e.hasDraft=true;e.changed=false;e.dirty=false;e.savedAt=Date.now();DESK.list=null;blogReset();
+      if(e.mounted){edCollect();repaint("deskout",edView);edMount()}
+      toast("Unpublished. It's a draft again.");
+    },function(err){DESK.busy=false;paintSt();toast("Couldn't unpublish. "+shortErr(err))});
+  }});
+}
+function edDelete(){
+  var e=edCollect();if(!e)return;
+  confirmDlg({title:"Delete “"+(e.title||"this draft")+"”?",body:e.pub?"It comes off the Blog and out of your posts. This can't be undone.":"The draft is deleted from your account. This can't be undone.",ok:"Delete post",run:function(){
+    clearTimeout(e.ct);clearTimeout(e.lt);e.gone=true;
+    var m=FB.m,jobs=[m.deleteDoc(m.doc(FB.db,"drafts",e.key))];
+    if(e.pub)jobs.push(e.src==="repo"?m.setDoc(m.doc(FB.db,"posts",e.pub),{status:"removed",slug:e.pub,updatedAt:m.serverTimestamp()}):m.deleteDoc(m.doc(FB.db,"posts",e.pub)));
+    DESK.busy="Deleting…";paintSt();
+    Promise.all(jobs).then(function(){
+      DESK.busy=false;lsSet(DKEY+e.key,"");e.mounted=false;e.dirty=false;clearTimeout(e.ct);clearTimeout(e.lt);DESK.ed=null;DESK.list=null;blogReset();
+      location.hash="#/write";toast("Deleted.");
+    },function(err){e.gone=false;DESK.busy=false;paintSt();toast("Couldn't delete. "+shortErr(err))});
+  }});
+}
+
+/* ---------- clicks inside the desk ---------- */
+function edClick(el,ev){
+  var a=el.getAttribute("data-ed"),v=el.getAttribute("data-v");
+  switch(a){
+    case "cmd":ev.preventDefault();edCmd(el.getAttribute("data-c"));break;
+    case "tbl":ev.preventDefault();edTable(el.getAttribute("data-c"));break;
+    case "lang":{var e=DESK.ed;if(!e)break;e.lang=v;lsSet(DLANG,v);$$('[data-ed="lang"]').forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-v")===v)});["edtitle","edbody","edsum"].forEach(function(id){var x=document.getElementById(id);if(x){if(v==="en")x.removeAttribute("lang");else x.setAttribute("lang",v)}});edChanged();break}
+    case "publish":edPublish();break;
+    case "preview":{var e2=DESK.ed;if(!e2)break;edCollect();e2.preview=!e2.preview;if(e2.preview){e2.mounted=false;repaint("deskout",edView);window.scrollTo(0,0)}else{repaint("deskout",edView);edMount()}break}
+    case "cover":DESK.fileFor="cover";var f=$("#edfile");if(f)f.click();break;
+    case "coverrm":{var e3=DESK.ed;e3.cover="";var cb=$("#covbox");if(cb)cb.innerHTML=edCoverBox(e3);edChanged();break}
+    case "unpub":edUnpublish();break;
+    case "del":edDelete();break;
+    case "filter":DESK.filter=v;repaint("deskout",deskListOut);var fb=$('[data-ed="filter"][data-v="'+v+'"]');if(fb)fb.focus();break;
+    case "reload":DESK.err="";repaint("deskout",deskListOut);deskLoad(true).then(function(){repaint("deskout",deskListOut)},function(){repaint("deskout",deskListOut)});break;
+    case "reopen":DESK.ed=null;render();break;
+  }
 }
 
 /* ================= PRIVACY ================= */
@@ -3667,8 +4602,8 @@ function privacyPage(){
 }
 
 /* ================= router ================= */
-var PAGES={home:home,study:study,schools:schools,faq:faq,scholarships:scholarshipsPage,class:classPage,blog:blogPage,privacy:privacyPage};
-var TITLES={home:"Wandering Eric: the EJU and admission guide",study:"Study | Wandering Eric",schools:"Universities and schools | Wandering Eric",faq:"Questions and answers | Wandering Eric",scholarships:"Scholarships for students from Myanmar | Wandering Eric",class:"EJU maths classes with Eric | Wandering Eric",blog:"Blog | Wandering Eric",privacy:"Privacy and your account | Wandering Eric"};
+var PAGES={home:home,study:study,schools:schools,faq:faq,scholarships:scholarshipsPage,class:classPage,blog:blogPage,privacy:privacyPage,write:deskPage};
+var TITLES={home:"Wandering Eric: the EJU and admission guide",study:"Study | Wandering Eric",schools:"Universities and schools | Wandering Eric",faq:"Questions and answers | Wandering Eric",scholarships:"Scholarships for students from Myanmar | Wandering Eric",class:"EJU maths classes with Eric | Wandering Eric",blog:"Blog | Wandering Eric",write:"Your posts | Wandering Eric",privacy:"Privacy and your account | Wandering Eric"};
 /* Exam and Apply became blog posts (text) and Study tabs (tools) in October 2026; old links still land in the right place. */
 function oldRoute(h){
   var p=(h||"").replace(/^#\/?/,"").split("/"),s=p[1]||"",a=p[2]||"";
@@ -3689,6 +4624,8 @@ function render(){
   if(R.r==="schools"&&R.sub==="pre"&&!(prev&&prev.r==="schools"&&prev.sub==="pre")){dReset();U.dpre=true;U.dtypes={N:1,P:1,R:1,F:1,J:1,K:1,S:1}}
   if(!(prev&&prev.r===R.r&&prev.sub===R.sub))hideToast();
   if(DLGOPEN)closeDlg();
+  deskLeave();
+  document.body.classList.toggle("desk",R.r==="write");
   $("#main").innerHTML=PAGES[R.r]();
   $$("[data-nav]").forEach(function(a){if(a.getAttribute("data-nav")===R.r||a.getAttribute("data-also")===R.r)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   var t=TITLES[R.r];
@@ -3709,21 +4646,26 @@ function fitMath(){
   var m=todo.map(function(p){var el=p[0];return el.clientWidth>0&&el.scrollWidth>el.clientWidth+1?[el.clientWidth/el.scrollWidth,parseFloat(getComputedStyle(p[1]).fontSize)]:null});
   m.forEach(function(x,j){if(x)todo[j][1].style.fontSize=(Math.round(x[1]*Math.max(0.62,x[0]*0.97)*10)/10)+"px"});
 }
-function after(){xpDrawAll();fitMath()}
-function repaint(id,fn){var el=document.getElementById(id);if(el){el.innerHTML=fn();if(id==="fout"){xpDrawAll();fitMath()}}}
+function after(){xpDrawAll();fitMath();hydrateMedia()}
+function repaint(id,fn){var el=document.getElementById(id);if(el){el.innerHTML=fn();if(id==="fout"){xpDrawAll();fitMath()}hydrateMedia(el)}}
 var fitT=0;window.addEventListener("resize",function(){clearTimeout(fitT);fitT=setTimeout(fitMath,150)});
 var booted=false;
 function cssq(v){return window.CSS&&CSS.escape?CSS.escape(v):String(v).replace(/"/g,'\\"')}
 function rerenderKeep(focusSel){
+  if(R.r==="write"&&DESK.ed&&DESK.ed.mounted){deskRefreshChrome();return}
   var y=window.scrollY, ae=document.activeElement, sel=focusSel;
   if(!sel&&ae&&ae.getAttribute){
     var act=ae.getAttribute("data-act"),dv=ae.getAttribute("data-v"),din=ae.getAttribute("data-in"),dk=ae.getAttribute("data-k");
     if(act)sel='[data-act="'+act+'"]'+(dv!=null?'[data-v="'+cssq(dv)+'"]':'')+(dk!=null?'[data-k="'+cssq(dk)+'"]':'');
     else if(din)sel='[data-in="'+din+'"]'+(dk!=null?'[data-k="'+cssq(dk)+'"]':'');
   }
+  /* On phones, giving a menu (select) focus from code opens its picker again, so a choice seemed not to stick.
+     Touch screens keep focus off a re-rendered menu; keyboards still get it back. */
+  if(!focusSel&&ae&&ae.tagName==="SELECT"&&TOUCH())sel=null;
   $("#main").innerHTML=PAGES[R.r](); after(); window.scrollTo(0,y);
   if(sel){var n=$(sel);if(n)n.focus({preventScroll:true})}
 }
+function TOUCH(){try{return matchMedia("(hover: none), (pointer: coarse)").matches}catch(e){return false}}
 function reJourney(sel){var o=$(".steps");if(!o)return;var tmp=document.createElement("div");tmp.innerHTML=journey();var old=[$(".showall"),o];old[0].replaceWith(tmp.firstChild);$(".steps").replaceWith(tmp.firstChild);var n=$(sel);if(n)n.focus({preventScroll:true})}
 function stopI(){if(U.itimer){clearInterval(U.itimer);U.itimer=null}}
 function focusIn(sel){var e=$(sel);if(e)e.focus()}
@@ -3735,6 +4677,7 @@ function toastMsg(m){toast(m)}
 
 /* ================= events ================= */
 document.addEventListener("click",function(ev){
+  var edEl=ev.target.closest("[data-ed]");if(edEl){edClick(edEl,ev);return}
   var el=ev.target.closest("[data-act]"); if(!el)return;
   var a=el.getAttribute("data-act"), v=el.getAttribute("data-v"), k=el.getAttribute("data-k");
   switch(a){
@@ -3838,6 +4781,7 @@ document.addEventListener("click",function(ev){
     case "copypage":{var pu=location.href;var pfin=function(ok){var m=$("#dlgerr");if(m)m.textContent=ok?"Link copied. Paste it into Safari or Chrome.":"Couldn't copy here. Press and hold the link above to copy it."};
       try{navigator.clipboard.writeText(pu).then(function(){pfin(true)},function(){pfin(false)})}catch(e){pfin(false)}break}
     case "signout":signOut();break;
+    case "deskin":signIn();break;
     case "delcloud":deleteCloud();break;
     case "dlgclose":closeDlg();break;
     /* ---- saved scholarships ---- */
@@ -3852,6 +4796,8 @@ document.addEventListener("click",function(ev){
   }
 });
 
+/* toolbar buttons keep the caret in the post instead of taking focus */
+document.addEventListener("mousedown",function(ev){if(ev.target.closest&&ev.target.closest(".edtools button,.edtbl button"))ev.preventDefault()});
 document.addEventListener("input",function(ev){
   var el=ev.target, k=el.getAttribute("data-in");
   if(el.hasAttribute("data-stmt")){var id=el.getAttribute("data-stmt");S.stmt[id]=el.value;save();var c=document.getElementById("c"+id);if(c)c.textContent=wc(el.value);var t=$("#stot");if(t)t.textContent="Total "+wc(STATEMENT_SECTIONS.map(function(x){return S.stmt[x.id]||""}).join("\n\n"));return}
@@ -3869,6 +4815,7 @@ document.addEventListener("input",function(ev){
     case "ssort":U.ssort=el.value;U.spage=0;rerenderKeep();break;
 
     case "dsort":U.dsort=el.value;U.dpage=0;rerenderKeep();break;
+    case "msort":U.msort=el.value;U.mpage=0;rerenderKeep();break;
     case "dreg":U.dreg=+el.value;U.dpref=0;U.dpage=0;rerenderKeep();break;
     case "dpref":U.dpref=+el.value;U.dpage=0;rerenderKeep();break;
     case "dfield":U.dfield=el.value;U.dpage=0;rerenderKeep();break;
@@ -3902,7 +4849,7 @@ document.addEventListener("keydown",function(ev){
     var sib=ev.key==="ArrowRight"?el.nextElementSibling:el.previousElementSibling;
     if(sib){ev.preventDefault();el.setAttribute("tabindex","-1");sib.setAttribute("tabindex","0");sib.focus()}
   }
-  var typing=/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+  var typing=/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)||!!document.activeElement.isContentEditable;
   if(ev.key==="/"&&!typing&&!$(".ovl")&&!$(".dlgbg")){ev.preventDefault();openSearch();return}
   /* quiz: A to D or 1 to 4 picks a choice */
   if(!typing&&R.r==="study"&&U.fmode==="quiz"&&U.quiz&&U.quiz.opts&&U.quiz.pick==null&&!ev.metaKey&&!ev.ctrlKey&&!ev.altKey){

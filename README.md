@@ -2,7 +2,7 @@
 
 The EJU and admission guide for students from Myanmar, with Eric's blog. One HTML file, no framework, published on GitHub Pages.
 
-- `index.html` is the whole site (v12). Routes are hash routes: `#/study` (with tabs `eju` and `apply`), `#/schools`, `#/scholarships`, `#/blog`, `#/faq`, `#/class`, `#/privacy`. The old `#/exam` and `#/apply` addresses redirect to their new homes (see `oldRoute` in `index.html`).
+- `index.html` is the whole site (v13). Routes are hash routes: `#/study` (with tabs `eju` and `apply`), `#/schools`, `#/scholarships`, `#/blog`, `#/faq`, `#/class`, `#/privacy`, and `#/write` (Eric's writing desk). The old `#/exam` and `#/apply` addresses redirect to their new homes (see `oldRoute` in `index.html`).
 - The school list is sorted by default by QS 2027 place, then by each university's highest-faculty 偏差値 (河合塾, from 日本の学校 and Kei-Net, collected October 2026; the `HEN` table in `index.html`), then north to south. The 偏差値 is used only for ordering and is never shown.
 - `posts/` holds the blog posts, one Markdown file each. `media/` holds their images.
 - `scripts/build.mjs` copies everything into `dist/` and writes `dist/posts/index.json`, the list the Blog page reads. It also checks Burmese text for Zawgyi and converts it to Unicode.
@@ -12,12 +12,19 @@ The EJU and admission guide for students from Myanmar, with Eric's blog. One HTM
 
 ## Writing a post
 
-1. Open https://app.pagescms.org, sign in with GitHub and open this repository.
-2. Choose Blog posts, then Add an entry.
-3. Fill in the title, the web address (lowercase letters, numbers and hyphens, in English), the date and the language. Write the post. Maths goes between dollar signs: `$x^2$` inside a sentence, or `$$ ... $$` on its own lines for a big formula.
-4. Save. Pages CMS commits the file to `posts/`, the workflow rebuilds the site, and the post is live at `#/blog/<web-address>` about a minute later.
+The site has its own writing desk (v13). Nothing to install, no GitHub.
 
-Tick Draft to keep a post off the site while you work on it. Burmese must be typed in Unicode (the standard keyboard on any modern phone or computer); if a Zawgyi text is pasted in, the build converts it and prints a warning in the Actions log, but the file itself stays as it was, so please fix it there.
+1. Open the site, tap the account button at the top right and sign in with Google as **pmkyaw412@gmail.com** or **pmkyawclass@gmail.com**.
+2. Open the account menu and choose **Write a Post** (or go to `#/write`). The Blog page also shows Write a post and Your posts for these two accounts.
+3. Write. The toolbar has headings, bold, italic, links, lists, quotes, photos, formulas (∑), tables and dividers. Typing `## `, `- ` or `1. ` at the start of a line works too.
+4. Drafts save themselves as you type, on the device and in your account. Press **Preview** to see the post as readers will, then **Publish**.
+5. Later edits stay private until you press **Update**. Post settings (under the post) hold the summary, cover photo, tags, date and web address, plus Unpublish and Delete.
+
+How it is stored: published posts in Firestore `posts/<web-address>` (anyone can read; the Blog reads them over Firestore's REST API, so readers never download Firebase), drafts in `drafts/<id>` (only the two accounts), photos in `media/<id>` (shrunk in the browser to under about 700 KB). The Markdown files in `posts/` still show on the Blog; publishing one of them from the desk puts a copy in Firestore that replaces the file, and deleting one leaves a "removed" marker that hides it.
+
+**One-time setup:** the rules in `firestore.rules` must be published in the Firebase console (Firestore Database, Rules, paste, Publish). Until then the desk can't save.
+
+Pages CMS (`.pages.yml`, https://app.pagescms.org) still works for editing the Markdown files in `posts/` if ever needed.
 
 ## Building locally
 

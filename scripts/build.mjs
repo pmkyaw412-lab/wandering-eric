@@ -82,6 +82,7 @@ for (const file of files) {
   await writeFile(path.join(out, "posts", file), `---\n${m[1]}\n---\n${body}`);
 }
 posts.sort((a, b) => (b.when || "").localeCompare(a.when || "") || a.slug.localeCompare(b.slug));
-posts.forEach((p) => delete p.when);
+// "when" keeps the time, so the site can sort these together with posts written in its writing desk
+posts.forEach((p) => { p.when = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(p.when) ? p.when.slice(0, 16) : p.date ? p.date + "T09:00" : ""; });
 await writeFile(path.join(out, "posts", "index.json"), JSON.stringify({ generated: new Date().toISOString(), posts }, null, 1));
 console.log(`${posts.length} post${posts.length === 1 ? "" : "s"} listed in dist/posts/index.json`);
