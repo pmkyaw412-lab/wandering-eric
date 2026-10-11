@@ -76,10 +76,12 @@ for (const file of files) {
   const lang = ["my", "en", "ja"].includes(fm.lang) ? fm.lang : (MYANMAR.test(title + body) ? "my" : "en");
   const tags = Array.isArray(fm.tags) ? fm.tags.map(String).filter(Boolean) : (fm.tags ? String(fm.tags).split(",").map((t) => t.trim()).filter(Boolean) : []);
   const cover = fm.cover ? String(fm.cover).replace(/^\//, "") : "";
-  posts.push({ slug, file, title, date: isoDate(fm.date), lang, summary, cover, tags, mins: readingMinutes(body, lang) });
+  const when = fm.date instanceof Date ? fm.date.toISOString() : String(fm.date || "");
+  posts.push({ slug, file, title, date: isoDate(fm.date), when, lang, summary, cover, tags, mins: readingMinutes(body, lang) });
   // the site strips the front matter itself; keep the file whole so the copy in dist matches the source
   await writeFile(path.join(out, "posts", file), `---\n${m[1]}\n---\n${body}`);
 }
-posts.sort((a, b) => (b.date || "").localeCompare(a.date || "") || a.slug.localeCompare(b.slug));
+posts.sort((a, b) => (b.when || "").localeCompare(a.when || "") || a.slug.localeCompare(b.slug));
+posts.forEach((p) => delete p.when);
 await writeFile(path.join(out, "posts", "index.json"), JSON.stringify({ generated: new Date().toISOString(), posts }, null, 1));
 console.log(`${posts.length} post${posts.length === 1 ? "" : "s"} listed in dist/posts/index.json`);

@@ -36,9 +36,13 @@ content:
           regex: "^[a-z0-9]+(-[a-z0-9]+)*$"
           message: "Use lowercase letters, numbers and hyphens, such as eju-maths-course-2"
       - name: date
-        label: Date
+        label: Date and time
+        description: Newer posts appear first. The time only decides the order of posts written on the same day.
         type: date
         required: true
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm"
       - name: lang
         label: Language of this post
         type: select

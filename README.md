@@ -2,7 +2,8 @@
 
 The EJU and admission guide for students from Myanmar, with Eric's blog. One HTML file, no framework, published on GitHub Pages.
 
-- `index.html` is the whole site (v11). Routes are hash routes: `#/exam`, `#/study`, `#/schools`, `#/apply`, `#/faq`, `#/scholarships`, `#/blog`, `#/class`, `#/privacy`.
+- `index.html` is the whole site (v12). Routes are hash routes: `#/study` (with tabs `eju` and `apply`), `#/schools`, `#/scholarships`, `#/blog`, `#/faq`, `#/class`, `#/privacy`. The old `#/exam` and `#/apply` addresses redirect to their new homes (see `oldRoute` in `index.html`).
+- The school list is sorted by default by QS 2027 place, then by each university's highest-faculty 偏差値 (河合塾, from 日本の学校 and Kei-Net, collected October 2026; the `HEN` table in `index.html`), then north to south. The 偏差値 is used only for ordering and is never shown.
 - `posts/` holds the blog posts, one Markdown file each. `media/` holds their images.
 - `scripts/build.mjs` copies everything into `dist/` and writes `dist/posts/index.json`, the list the Blog page reads. It also checks Burmese text for Zawgyi and converts it to Unicode.
 - `.github/workflows/pages.yml` runs that build on every push to `main` and publishes `dist/` to GitHub Pages.
