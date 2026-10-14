@@ -50,7 +50,7 @@ function send(res, code, obj, type) { res.writeHead(code, { "content-type": type
 
 async function fontCSS() {
   const parts = [];
-  const pick = [["lexend", ["400", "500", "600"]], ["biz-udpgothic", ["400", "700"]], ["noto-sans-myanmar", ["400", "500", "700"]]];
+  const pick = [["lexend", ["400", "500", "600"]], ["biz-udpgothic", ["400", "700"]], ["noto-sans-myanmar", ["400", "500", "600", "700"]], ["noto-sans", ["400", "600", "400-italic"]]];
   for (const [pkg, ws] of pick) for (const w of ws) {
     try { let css = await readFile(path.join(NM, "@fontsource", pkg, w + ".css"), "utf8"); css = css.replace(/url\(\.\/files\//g, `url(http://localhost:8000/__cdn/fonts/${pkg}/files/`); parts.push(css); } catch (e) {}
   }

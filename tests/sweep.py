@@ -10,8 +10,7 @@ ROUTES = ["", "#/home/steps", "#/study", "#/study/terms", "#/study/eju", "#/stud
           "#/study/apply", "#/study/apply/statement", "#/study/apply/interview", "#/study/apply/essay",
           "#/schools", "#/schools/pre", "#/schools/list", "#/schools/match", "#/schools/guide",
           "#/scholarships", "#/scholarships/saved", "#/scholarships/check", "#/scholarships/guide",
-          "#/blog", "#/blog/the-eju-explained", "#/blog/eju-maths-answer-sheet", "#/blog/eju-past-papers", "#/blog/what-studying-in-japan-costs",
-          "#/blog/application-documents", "#/blog/statement-of-purpose", "#/blog/interview-and-essay", "#/blog/from-offer-to-arrival", "#/blog/mingalaba", "#/blog/welcome",
+          "#/blog", "#/blog/sample-english", "#/blog/sample-burmese", "#/blog/no-such-post",
           "#/faq", "#/class", "#/privacy", "#/write", "#/exam", "#/apply/money", "#/nonsense"]
 
 DEVICES = {
@@ -28,7 +27,49 @@ DEVICES = {
     "narrow-320": (None, {"viewport": {"width": 320, "height": 640}, "is_mobile": True, "has_touch": True, "device_scale_factor": 2}),
 }
 
+
+# two sample posts, only in the test stand-in, so the blog list and post pages have something to show
+SAMPLE_EN = """This sample post checks how the blog reads: plain paragraphs, **bold words**, *a little italic*, and [a link to the scholarships](#/scholarships).
+
+## A heading inside a post
+
+A second paragraph that runs long enough to wrap onto several lines on a phone, so the line length and the line spacing can be judged at a glance, the way a student would read it on the train home.
+
+- First point in a list
+- Second point, which is a little longer than the first one
+- Third point
+
+> A quoted line, set apart from the text.
+
+### A smaller heading
+
+| Subject | Time | Score |
+|---|---|---|
+| Maths Course 2 | 80 minutes | 200 |
+| Physics and chemistry | 80 minutes | 200 |
+
+The area under $y = x^2$ from 0 to 1 is $\\frac{1}{3}$.
+
+$$\\int_0^1 x^2\\,dx = \\frac{1}{3}$$
+"""
+SAMPLE_MY = """ဂျပန်နိုင်ငံရှိ တက္ကသိုလ်များသို့ ဝင်ခွင့်ရရန် EJU စာမေးပွဲကို နှစ်စဉ် ဖြေဆိုကြပါသည်။ ဤစာသည် စမ်းသပ်ရန်အတွက်သာ ဖြစ်ပါသည်။
+
+## ခေါင်းစဉ်ငယ်
+
+သင်္ချာ၊ ရူပဗေဒနှင့် ဓာတုဗေဒ ဘာသာရပ်များကို ပြင်ဆင်ရာတွင် အချိန်ဇယားကို စနစ်တကျ စီစဉ်ထားရန် အရေးကြီးပါသည်။
+
+- ပထမအချက်
+- ဒုတိယအချက်
+"""
+def seed_posts():
+    for slug, title, lang, body, summary in [
+        ("sample-english", "A sample post to check how the blog reads", "en", SAMPLE_EN, "Headings, a list, a table and some maths, to judge the type."),
+        ("sample-burmese", "ဘလော့ဂ် စာမျက်နှာ စမ်းသပ်ချက်", "my", SAMPLE_MY, "မြန်မာစာ စာကြောင်းအကွာအဝေး စစ်ဆေးရန်"),
+    ]:
+        server("/__fake/put", {"p": "posts/" + slug, "data": {"status": "published", "title": title, "lang": lang, "date": "2026-10-14T09:00", "summary": summary, "body": body, "tags": ["test"]}})
+
 key, outdir = sys.argv[1], sys.argv[2]
+seed_posts()
 os.makedirs(outdir, exist_ok=True)
 name, extra = DEVICES[key]
 report = {"device": key, "routes": {}}
