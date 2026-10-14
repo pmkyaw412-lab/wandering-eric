@@ -4782,7 +4782,9 @@ function refreshFields(){var p=SYNCPREV||{},a=document.activeElement,st=false;
     else if(din==="essay"){now=S.essay||"";was=p.essay!=null?p.essay:now}
     else{now=String(S.target);was=p.target!=null?String(p.target):now}
     if(el.value===now)return;
-    if(el===a){if(el.value!==String(was))return;var s0=el.selectionStart,s1=el.selectionEnd;el.value=now;try{el.setSelectionRange(Math.min(s0,now.length),Math.min(s1,now.length))}catch(x){}}
+    if(el===a){if(el.value!==String(was))return;var s0=el.selectionStart,s1=el.selectionEnd,atEnd=s0===s1&&s0===el.value.length;el.value=now;
+      /* a caret that was at the end (or in an empty box) stays at the end of the new text */
+      try{if(atEnd)el.setSelectionRange(now.length,now.length);else el.setSelectionRange(Math.min(s0,now.length),Math.min(s1,now.length))}catch(x){}}
     else el.value=now;
     if(id!=null){st=true;var c=document.getElementById("c"+id);if(c)c.textContent=wc(now)}});
   if(st){var t=$("#stot");if(t)t.textContent="Total "+wc(STATEMENT_SECTIONS.map(function(x){return S.stmt[x.id]||""}).join("\n\n"))}

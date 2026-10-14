@@ -24,11 +24,18 @@ try:
         except Exception:
             time.sleep(0.2)
     failed = []
+    def step(label, args):
+        """Run one part and show its output; if it crashed, say so in the GitHub summary too."""
+        r = subprocess.run([sys.executable] + args, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        sys.stdout.write(r.stdout); sys.stdout.write(r.stderr); sys.stdout.flush()
+        if r.returncode:
+            failed.append(label)
+            if os.environ.get("GITHUB_ACTIONS") and "::error" not in r.stdout:
+                tail = " | ".join((r.stdout + r.stderr).strip().splitlines()[-6:])[:900]
+                print(f"::error title={label} stopped ({os.environ.get('TEST_BROWSER', 'chromium')})::{tail}", flush=True)
     for d in DEVICES:
-        r = subprocess.run([sys.executable, os.path.join(HERE, "sweep.py"), d, OUT])
-        if r.returncode: failed.append("pages on " + d)
-    r = subprocess.run([sys.executable, os.path.join(HERE, "synctest.py")])
-    if r.returncode: failed.append("sign-in and sync")
+        step("pages on " + d, [os.path.join(HERE, "sweep.py"), d, OUT])
+    step("sign-in and sync", [os.path.join(HERE, "synctest.py")])
     print("\nAll checks passed." if not failed else "\nFailed: " + ", ".join(failed))
     sys.exit(1 if failed else 0)
 finally:

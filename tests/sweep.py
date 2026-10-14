@@ -52,7 +52,7 @@ with sync_playwright() as p:
         pg.screenshot(path=f"{outdir}/{key}__{nm}.png", full_page=False)
         report["routes"][r or "/"] = {"hash": pg.evaluate("location.hash"), "title": pg.title(), "overflow": ov, "smallInputs": small, "events": list(ev), "blocked": list(blocked)}
     b.close()
-json.dump(report, open(f"{outdir}/{key}.json", "w"), indent=1, ensure_ascii=False)
+json.dump(report, open(f"{outdir}/{key}.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 bad = {r: v for r, v in report["routes"].items() if v["events"] or v["blocked"] or v["overflow"]["sw"] > v["overflow"]["cw"] or v["overflow"]["bad"] or v["smallInputs"]}
 print(key, "routes:", len(report["routes"]), "with issues:", len(bad))
 for r, v in bad.items():
