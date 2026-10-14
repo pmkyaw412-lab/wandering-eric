@@ -1359,16 +1359,34 @@ var S={steps:{},docs:{},stars:{},stmt:{},essay:"",target:800,elig:{},
   frec:{},        /* formula id -> {k: times known, w: times missed, s: current streak} */
   flang:"en", fess:false, fdiag:true,
   mq:{f:[],r:[],k:["u"],o:[],pre:"",en:"",intl:""}};
+var LASTKEY=null; /* the stored copy as this tab last wrote or read it */
 function loadState(){
-  var v=lsGet(KEY)||lsGet(OLDKEY);
+  LASTKEY=lsGet(KEY);
+  var v=LASTKEY||lsGet(OLDKEY);
   if(!v)return;
   try{var o=JSON.parse(v);Object.keys(S).forEach(function(k){if(o[k]!==undefined&&o[k]!==null)S[k]=o[k]})}catch(e){}
   if(!S.mq||!S.mq.f)S.mq={f:[],r:[],k:["u"],o:[],pre:"",en:"",intl:""};
   if(!S.mq.k){S.mq.k=["u","v"];S.mq.o=S.mq.t==="np"?["n","p"]:S.mq.t==="r"?["r"]:[];delete S.mq.t}
 }
-var saveT;
-function save(){clearTimeout(saveT);saveT=setTimeout(function(){lsSet(KEY,JSON.stringify(S));cloudPush()},250)}
-window.addEventListener("storage",function(e){if(e.key===KEY&&e.newValue){try{var o=JSON.parse(e.newValue);Object.keys(S).forEach(function(k){if(o[k]!==undefined)S[k]=o[k]});if(booted)rerenderKeep()}catch(x){}}});
+var saveT=0;
+/* Several tabs share one stored copy. Before writing, take in what another tab stored since this tab last looked,
+   comparing three ways, so no tab overwrites another tab's newer changes with its own older copy. */
+function takeStored(cur){try{var st=JSON.parse(cur),bs=LASTKEY?JSON.parse(LASTKEY):{},ch=false;keepPrev();
+  Object.keys(S).forEach(function(k){if(st[k]===undefined||st[k]===null)return;var v=mergeKey(k,bs[k],S[k],st[k],false);if(!same(v,S[k])){S[k]=v;ch=true}});
+  return ch}catch(x){return false}}
+function writeKey(){var cur=lsGet(KEY);if(cur&&cur!==LASTKEY&&takeStored(cur))syncRender();var out=JSON.stringify(S);lsSet(KEY,out);LASTKEY=out}
+function save(){clearTimeout(saveT);saveT=setTimeout(function(){saveT=0;writeKey();FB.hold=false;cloudPush()},250);askPersist()}
+/* write anything still waiting as soon as the page is hidden or closed (phones switch apps right after a tap) */
+function flushSave(){if(saveT){clearTimeout(saveT);saveT=0;writeKey();cloudPush()}if(FB.pushT)cloudPush(true)}
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")flushSave()});
+window.addEventListener("pagehide",flushSave);
+/* ask the browser not to clear this site's storage on its own (Safari otherwise may after a week without a visit) */
+var PERSIST=false;function askPersist(){if(PERSIST||!SAFARI)return;PERSIST=true;try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(function(){})}catch(e){}}
+window.addEventListener("storage",function(e){
+  /* another tab saved: take in its changes, keeping what this tab changed since (say, text being typed).
+     The copy stored now is used rather than the event's, which may already be out of date. */
+  if(e.key===KEY){var cur=lsGet(KEY);if(!cur||cur===LASTKEY)return;var ch=takeStored(cur);LASTKEY=cur;if(ch)syncRender()}
+  if(e.key===SYNCKEY&&FB.user&&FB.attached){var nb=syncBase(FB.user.uid);if(nb)FB.base=nb}});
 
 /* ---------- dates ---------- */
 var NOW=new Date(), TODAY=new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
@@ -3623,8 +3641,9 @@ function fbLoad(){
     FB.m=m;FB.app=m.initializeApp(FBC);FB.auth=m.getAuth(FB.app);FB.db=m.getFirestore(FB.app);
     m.onAuthStateChanged(FB.auth,function(u){
       var was=FB.user;FB.user=u;FB.err="";
-      if(u){lsSet(AUTHKEY,"1");cloudAttach()}else{cloudDetach();if(was||lsGet(AUTHKEY))lsSet(AUTHKEY,"")}
-      paintAcct();if(booted&&(u||was||R.r==="write"))rerenderKeep();
+      FB.retry=0;
+      if(u){lsSet(AUTHKEY,"1");cloudAttach()}else{FB.deleting=false;cloudDetach();if(was||lsGet(AUTHKEY))lsSet(AUTHKEY,"")}
+      paintAcct();if(u||was||R.r==="write")syncRender();
     });
     return m;
   });
@@ -3655,50 +3674,125 @@ function signIn(){
       FB.err=(c==="auth/popup-blocked"&&late&&FB.m)?"Sign-in is ready now. Tap Continue with Google again to open the Google window.":shortErr(e);
       var el=$("#dlgerr");if(el)el.textContent=FB.err;else toast("Couldn't sign in. "+FB.err)});
 }
-function signOut(){closeDlg();if(!FB.m)return;FB.m.signOut(FB.auth).then(function(){toast("Signed out. What you saved stays on this device.")},function(e){toast("Couldn't sign out. "+shortErr(e))})}
+function signOut(){closeDlg();if(!FB.m)return;
+  /* send anything still waiting before signing out (give up after a few seconds when offline) */
+  var waiting=!!saveT||!!FB.pushT;
+  if(saveT){clearTimeout(saveT);saveT=0;writeKey()}
+  var flush=waiting&&FB.attached?Promise.race([cloudPush(true),new Promise(function(r){setTimeout(r,3000)})]):Promise.resolve();
+  flush.then(function(){return FB.m.signOut(FB.auth)}).then(function(){toast("Signed out. What you saved stays on this device.")},function(e){toast("Couldn't sign out. "+shortErr(e))})}
 function cloudPick(){var o={};CLOUD.forEach(function(k){o[k]=S[k]});return o}
+function cloudOnly(d){var o={};CLOUD.forEach(function(k){if(d&&d[k]!==undefined&&d[k]!==null)o[k]=d[k]});return o}
 function isObj(v){return !!v&&typeof v==="object"&&!Array.isArray(v)}
-function cloudMerge(c){ /* first contact after signing in: the cloud copy wins, anything only on this device is added */
-  var ch=false;
-  CLOUD.forEach(function(k){var cv=c[k],lv=S[k];if(cv===undefined||cv===null)return;
-    if(k==="mq"){var any=isObj(cv)&&((cv.f||[]).length||(cv.r||[]).length||(cv.k||[]).length||(cv.o||[]).length||cv.pre||cv.en||cv.intl);
-      if(any&&JSON.stringify(cv)!==JSON.stringify(lv)){S.mq=cv;ch=true}return}
-    if(isObj(cv)&&isObj(lv)){Object.keys(cv).forEach(function(id){if(JSON.stringify(lv[id])!==JSON.stringify(cv[id])){lv[id]=cv[id];ch=true}});return}
-    if(typeof cv==="string"){if(cv&&cv!==lv){S[k]=cv;ch=true}return}
-    if(cv!==lv){S[k]=cv;ch=true}});
-  return ch;
+/* compare by content, whatever order the keys come in (Firestore hands maps back sorted) */
+function stable(v){if(Array.isArray(v))return "["+v.map(stable).join(",")+"]";if(isObj(v))return "{"+Object.keys(v).filter(function(k){return v[k]!==undefined}).sort().map(function(k){return JSON.stringify(k)+":"+stable(v[k])}).join(",")+"}";return v===undefined?"null":JSON.stringify(v)}
+function same(a,b){return stable(a)===stable(b)}
+function clone(v){return v===undefined?undefined:JSON.parse(JSON.stringify(v))}
+/* The account's data as this device last saw it (the "base"), kept per account. With it, a change on this
+   device and a change on another device are told apart, so neither overwrites the other and removals stay removed. */
+var SYNCKEY="wandering-eric:sync";
+function syncBase(uid){try{var o=JSON.parse(lsGet(SYNCKEY)||"null");return o&&o.u===uid&&isObj(o.d)?o.d:null}catch(e){return null}}
+function setBase(uid,d){FB.base=d;lsSet(SYNCKEY,JSON.stringify({u:uid,d:d}))}
+function mqAny(c){return isObj(c)&&((c.f||[]).length||(c.r||[]).length||(c.k||[]).length||(c.o||[]).length||c.pre||c.en||c.intl)}
+function mergeKey(k,b,l,c,first){
+  if(c===undefined||c===null)return l;
+  if(first){ /* first time this account meets this device: the account wins, anything only on this device is added */
+    if(k==="mq")return mqAny(c)?clone(c):l;
+    if(typeof c==="string"&&!c)return l;
+    if(isObj(c)&&isObj(l)){var o=clone(l);Object.keys(c).forEach(function(id){o[id]=clone(c[id])});return o}
+    return clone(c);
+  }
+  if(same(l,b))return clone(c);   /* only the account changed */
+  if(same(c,b))return l;          /* only this device changed */
+  if(k!=="mq"&&isObj(l)&&isObj(c)){ /* both changed: item by item */
+    var bb=isObj(b)?b:{},out={},ids={};
+    Object.keys(l).concat(Object.keys(c)).forEach(function(id){ids[id]=1});
+    Object.keys(ids).forEach(function(id){var li=l[id],ci=c[id],v=same(li,bb[id])?ci:li;if(v!==undefined)out[id]=clone(v)});
+    return out;
+  }
+  return l; /* both changed the same thing: the latest edit on this device wins */
 }
-function cloudTake(c){ /* later changes from another device: the cloud is the truth */
-  var ch=false;CLOUD.forEach(function(k){if(c[k]===undefined)return;if(JSON.stringify(c[k])!==JSON.stringify(S[k])){S[k]=JSON.parse(JSON.stringify(c[k]));ch=true}});return ch;
-}
+function mergeAll(b,c,first){var ch=false;keepPrev();CLOUD.forEach(function(k){var v=mergeKey(k,b?b[k]:undefined,S[k],c[k],first);if(!same(v,S[k])){S[k]=v;ch=true}});return ch}
 function cloudAttach(){
-  var m=FB.m,u=FB.user;if(!m||!u)return;cloudDetach();
-  FB.ref=m.doc(FB.db,"users",u.uid);FB.syncing=true;paintAcct();
-  m.getDoc(FB.ref).then(function(snap){
-    var c=snap.exists()?snap.data():{};
-    if(cloudMerge(c))lsSet(KEY,JSON.stringify(S));
-    FB.attached=true;
-    return cloudPush(true);
+  var m=FB.m,u=FB.user;if(!m||!u||FB.deleting)return;cloudDetach();
+  var ref=m.doc(FB.db,"users",u.uid),b=syncBase(u.uid);FB.ref=ref;FB.syncing=true;FB.err="";FB.hold=false;paintAcct();
+  m.getDoc(ref).then(function(snap){
+    if(FB.ref!==ref)return;
+    /* "no record" read from the cache while offline is not an answer: try again later */
+    if(!snap.exists()&&snap.metadata&&snap.metadata.fromCache)throw Object.assign(new Error("offline"),{code:"unavailable"});
+    /* this device synced with the account before, and now the record is gone: it was deleted on another device */
+    if(!snap.exists()&&b){goneElsewhere();return}
+    var c=snap.exists()?cloudOnly(snap.data()):{};
+    if(mergeAll(b,c,!b)){writeKey();syncRender()}
+    FB.attached=true;FB.exists=snap.exists();FB.retry=0;
+    if(snap.exists())setBase(u.uid,c);else FB.base=null; /* the base is kept only once the record exists */
+    if(!snap.exists()||!same(cloudPick(),c))return cloudPush(true);
   }).then(function(){
-    FB.syncing=false;paintAcct();if(booted)rerenderKeep();
-    FB.unsub=m.onSnapshot(FB.ref,function(snap){if(snap.metadata.hasPendingWrites||!snap.exists())return;if(cloudTake(snap.data())){lsSet(KEY,JSON.stringify(S));if(booted)rerenderKeep()}},function(e){FB.err=shortErr(e);paintAcct()});
-  }).catch(function(e){FB.syncing=false;FB.err=shortErr(e);paintAcct();toast("Couldn't load your saved items from your account. "+FB.err)});
+    if(FB.ref!==ref)return;
+    FB.syncing=false;paintAcct();syncNotes();
+    FB.unsub=m.onSnapshot(ref,function(snap){
+      if(FB.ref!==ref||snap.metadata.hasPendingWrites)return;
+      if(!snap.exists()&&snap.metadata.fromCache)return; /* offline: the cache knows nothing yet, which says nothing */
+      var had=FB.exists;FB.exists=snap.exists();
+      if(!FB.exists){if(had)goneElsewhere();return}
+      var c=cloudOnly(snap.data()),b=FB.base;setBase(u.uid,c);
+      if(mergeAll(b,c,false)){writeKey();syncRender()}
+      if(!FB.hold&&!same(cloudPick(),c))cloudPush(); /* this device still has changes the account hasn't got */
+    },function(e){FB.err=shortErr(e);paintAcct();syncNotes()});
+  }).catch(function(e){if(FB.ref!==ref)return;FB.syncing=false;FB.err=shortErr(e);paintAcct();syncNotes();
+    /* try again, waiting longer each time (a weak signal can fail without the browser noticing it is offline) */
+    var n=FB.retry=(FB.retry||0)+1;clearTimeout(FB.retryT);
+    FB.retryT=setTimeout(function(){if(FB.user&&!FB.attached&&!FB.deleting)cloudAttach()},Math.min(120000,5000*Math.pow(2,n-1)));
+    if(n===1)toast("Couldn't load your saved items from your account. "+FB.err+" Your changes stay on this device and sync when the connection is back.")});
 }
-function cloudDetach(){if(FB.unsub){FB.unsub();FB.unsub=null}clearTimeout(FB.pushT);FB.ref=null;FB.attached=false;FB.syncing=false}
+/* the account's record was deleted from another device: stop syncing and sign out here, without bringing it back */
+function goneElsewhere(){cloudDetach();lsSet(SYNCKEY,"");if(FB.m)FB.m.signOut(FB.auth).catch(function(){});toast("Your account data was deleted on another device, so you're signed out here. What you saved stays on this device.")}
+/* back online, or back to this tab, after a failed start: try again */
+function retrySync(){if(!fbOn())return;if(FB.user&&!FB.attached&&!FB.deleting&&!FB.syncing)cloudAttach();else if(!FB.m&&lsGet(AUTHKEY)==="1")fbLoad().catch(function(){})}
+window.addEventListener("online",retrySync);
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")retrySync()});
+function cloudDetach(){if(FB.unsub){FB.unsub();FB.unsub=null}clearTimeout(FB.pushT);clearTimeout(FB.retryT);FB.pushT=0;FB.ref=null;FB.attached=false;FB.syncing=false;FB.base=null;FB.exists=false}
 function cloudPush(now){
-  if(!FB.attached||!FB.ref||!FB.m)return Promise.resolve();
-  clearTimeout(FB.pushT);
-  var run=function(){var data=JSON.parse(JSON.stringify(cloudPick()));data.updatedAt=FB.m.serverTimestamp();data.v=11;return FB.m.setDoc(FB.ref,data).catch(function(e){FB.err=shortErr(e);paintAcct()})};
+  if(!FB.attached||!FB.ref||!FB.m||FB.deleting)return Promise.resolve();
+  clearTimeout(FB.pushT);FB.pushT=0;
+  var ref=FB.ref,uid=FB.user&&FB.user.uid,m=FB.m;
+  function fail(e){FB.err=shortErr(e);paintAcct();syncNotes();
+    /* refused for good (rules, quota): don't retry on every update from the account, only after the next change */
+    if(/permission-denied|invalid-argument|resource-exhausted|failed-precondition|unauthenticated|out-of-range/.test(e&&e.code||""))FB.hold=true}
+  function ok(){if(FB.err){FB.err="";paintAcct();syncNotes()}}
+  function whole(data){var send=clone(data);send.updatedAt=m.serverTimestamp();send.v=11;
+    return m.setDoc(ref,send).then(function(){if(FB.ref===ref&&uid){setBase(uid,data);FB.exists=true}ok()},fail)}
+  /* Only what changed since the account was last seen is written, item by item (a saved school, one formula's record,
+     one part of the statement). So two devices saving different things at the same moment both keep theirs. */
+  var run=function(){FB.pushT=0;
+    var data=clone(cloudPick()),b=FB.base;
+    if(!FB.exists||!b||!m.updateDoc||!m.FieldPath)return whole(data);
+    var args=[],ops=[];
+    try{CLOUD.forEach(function(k){var l=data[k],bv=b[k];
+      if(k!=="mq"&&isObj(l)&&isObj(bv)){var ids={};Object.keys(l).concat(Object.keys(bv)).forEach(function(id){ids[id]=1});
+        Object.keys(ids).forEach(function(id){if(same(l[id],bv[id]))return;
+          args.push(new m.FieldPath(k,id),l[id]===undefined?m.deleteField():clone(l[id]));ops.push([k,id,l[id]])})}
+      else if(!same(l,bv)){args.push(k,l===undefined?m.deleteField():clone(l));ops.push([k,null,l])}})}catch(x){return whole(data)}
+    if(!args.length)return Promise.resolve();
+    args.push("updatedAt",m.serverTimestamp(),"v",11);
+    var w;try{w=m.updateDoc.apply(null,[ref].concat(args))}catch(x){return whole(data)} /* safety net: the old whole-record save */
+    return w.then(function(){
+      /* the account now has these changes: add them to the base as it stands now */
+      if(FB.ref===ref&&uid){var nb=clone(FB.base||b);ops.forEach(function(o){var k=o[0],id=o[1],v=clone(o[2]);
+        if(id===null){if(v===undefined)delete nb[k];else nb[k]=v}else{if(!isObj(nb[k]))nb[k]={};if(v===undefined)delete nb[k][id];else nb[k][id]=v}});setBase(uid,nb)}
+      ok()},function(e){if(e&&e.code==="not-found"){if(FB.ref===ref)goneElsewhere();return}if(e&&e.code==="invalid-argument"&&FB.ref===ref)return whole(data);fail(e)});
+  };
   if(now)return run();
   FB.pushT=setTimeout(run,1200);return Promise.resolve();
 }
 function deleteCloud(){
   closeDlg();var m=FB.m,u=FB.user;if(!m||!u)return;
   confirmDlg({title:"Delete your account data?",body:"Your saved universities and scholarships, formula progress, starred words, ticks and drafts are deleted from your Google-linked account and your sign-in is removed. What is on this device stays here. This can't be undone.",ok:"Delete account data",run:function(){
-    cloudDetach();
-    m.deleteDoc(m.doc(FB.db,"users",u.uid)).then(function(){return m.deleteUser(u)}).then(function(){toast("Your account data is deleted. You are signed out.")}).catch(function(e){
-      if(e&&e.code==="auth/requires-recent-login"){m.signOut(FB.auth);toast("Your saved data is deleted. To remove the sign-in itself, sign in once more and choose Delete account data again.")}
-      else toast("Couldn't delete everything. "+shortErr(e));
+    FB.deleting=true;cloudDetach();lsSet(SYNCKEY,""); /* nothing syncs again until signed out, so the record can't come back */
+    var gone=false;
+    m.deleteDoc(m.doc(FB.db,"users",u.uid)).then(function(){gone=true;return m.deleteUser(u)}).then(function(){toast("Your account data is deleted. You are signed out.")}).catch(function(e){
+      m.signOut(FB.auth).catch(function(){});
+      if(e&&e.code==="auth/requires-recent-login")toast("Your saved data is deleted. To remove the sign-in itself, sign in once more and choose Delete account data again.");
+      else toast(gone?"Your saved data is deleted, but the sign-in couldn't be removed ("+shortErr(e)+"). Sign in again and choose Delete account data to finish.":"Couldn't delete your account data. "+shortErr(e));
     });
   }});
 }
@@ -3710,11 +3804,13 @@ function acctBtn(){
   return '<button class="acct'+(FB.busy?' busy':'')+'" data-act="acct" aria-haspopup="dialog" aria-label="'+(FB.busy?'Signing in':'Sign in with Google')+'" title="'+(FB.busy?'Signing in':'Sign in with Google')+'">'+ICON.user+'</button>';
 }
 function paintAcct(){var el=document.getElementById("acct");if(el)el.innerHTML=acctBtn()}
+function syncText(){return FB.syncing?'Fetching your saved items from your account.':FB.err?'Not syncing right now: '+FB.err:'Kept in your Google account, so your phone and laptop show the same.'}
+function syncNotes(){$$(".synced>span").forEach(function(s){s.textContent=syncText()})}
 function syncNote(what){
   if(!fbOn())return "";
-  if(FB.user)return '<p class="synced">'+ICON.cloud+'<span>'+(FB.syncing?'Fetching your saved items from your account.':FB.err?'Not syncing right now: '+esc(FB.err):'Kept in your Google account, so your phone and laptop show the same.')+'</span></p>';
+  if(FB.user)return '<p class="synced">'+ICON.cloud+'<span>'+esc(syncText())+'</span></p>';
   var t=what==="schol"?"Sign in with Google to keep your saved scholarships on every device.":"Sign in with Google to keep this list on your phone and laptop.";
-  return '<div class="syncnote"><p><b>'+t+'</b> Your formula progress, drafts and ticks come along too.</p><button class="btn ghost sm" data-act="signin">Continue with Google</button></div>';
+  return '<div class="syncnote"><p><b>'+t+'</b> Your formula progress, drafts and ticks come along too.'+(IOS?' On iPhone and iPad, Safari can clear what a site keeps after about a week without a visit, so signing in also keeps your list safe.':'')+'</p><button class="btn ghost sm" data-act="signin">Continue with Google</button></div>';
 }
 /* dialogs: sign-in sheet and account menu live in #dlg, like the confirm dialog */
 var DLGOPEN="";
@@ -3724,11 +3820,13 @@ function dlgKey(e){if(e.key==="Escape"){e.preventDefault();closeDlg();return}
 function openDlg(kind,html,focusSel){DLGFOCUS=document.activeElement;var box=document.getElementById("dlg");box.innerHTML=html;DLGOPEN=kind;document.addEventListener("keydown",dlgKey,true);
   var bg=box.querySelector(".dlgbg");if(bg)bg.onclick=function(e){if(e.target===this)closeDlg()};var f=box.querySelector(focusSel);if(f)f.focus()}
 /* Google refuses to sign anyone in inside Facebook, Messenger, Instagram, LINE and other in-app browsers */
-var INAPP=/FBAN|FBAV|FB_IAB|FBIOS|Instagram|\bLine\/|MicroMessenger|; wv\)/i.test(navigator.userAgent||"");
+var IOS=/iP(hone|ad|od)/.test(navigator.userAgent||"")||(/Macintosh/.test(navigator.userAgent||"")&&navigator.maxTouchPoints>1);
+var SAFARI=IOS||(/Safari\//.test(navigator.userAgent||"")&&!/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|Firefox/.test(navigator.userAgent||""));
+var INAPP=/FBAN|FBAV|FB_IAB|FBIOS|Instagram|\bLine\/|MicroMessenger|Viber|musical_ly|BytedanceWebview|TikTok|Snapchat|KAKAOTALK|; wv\)/i.test(navigator.userAgent||"");
 function inAppDlg(){
   var url=location.href;
   openDlg("signin",'<div class="dlgbg"><div class="dlg signin inapp" role="dialog" aria-modal="true" aria-labelledby="sit" aria-describedby="sid"><h2 id="sit">Open this page in your browser to sign in</h2>'+
-    '<p id="sid">Google doesn\'t allow signing in inside the Facebook, Messenger or Instagram browser. Tap the menu (⋯) and choose Open in browser, or copy the link and paste it into Safari or Chrome.</p>'+
+    '<p id="sid">Google doesn\'t allow signing in inside apps like Facebook, Messenger, Viber or Instagram. Tap the app\'s menu (⋯ or ⋮) and choose Open in browser, or copy the link and paste it into Safari or Chrome.</p>'+
     '<span class="link">'+esc(url)+'</span>'+
     '<p class="fine">Everything on this site works without signing in. What you save stays in this browser.</p>'+
     '<div class="acts"><button class="btn" data-act="copypage" id="dlgbtn">Copy the link</button><button class="btn ghost" data-act="dlgclose">Not now</button></div>'+
@@ -4624,6 +4722,7 @@ function render(){
   if(R.r==="schools"&&R.sub==="pre"&&!(prev&&prev.r==="schools"&&prev.sub==="pre")){dReset();U.dpre=true;U.dtypes={N:1,P:1,R:1,F:1,J:1,K:1,S:1}}
   if(!(prev&&prev.r===R.r&&prev.sub===R.sub))hideToast();
   if(DLGOPEN)closeDlg();
+  SYNCWAIT=false;
   deskLeave();
   document.body.classList.toggle("desk",R.r==="write");
   $("#main").innerHTML=PAGES[R.r]();
@@ -4652,18 +4751,57 @@ var fitT=0;window.addEventListener("resize",function(){clearTimeout(fitT);fitT=s
 var booted=false;
 function cssq(v){return window.CSS&&CSS.escape?CSS.escape(v):String(v).replace(/"/g,'\\"')}
 function rerenderKeep(focusSel){
+  SYNCWAIT=false;
   if(R.r==="write"&&DESK.ed&&DESK.ed.mounted){deskRefreshChrome();return}
-  var y=window.scrollY, ae=document.activeElement, sel=focusSel;
+  var y=window.scrollY, ae=document.activeElement, sel=focusSel, caret=null;
   if(!sel&&ae&&ae.getAttribute){
-    var act=ae.getAttribute("data-act"),dv=ae.getAttribute("data-v"),din=ae.getAttribute("data-in"),dk=ae.getAttribute("data-k");
+    var act=ae.getAttribute("data-act"),dv=ae.getAttribute("data-v"),din=ae.getAttribute("data-in"),dk=ae.getAttribute("data-k"),dst=ae.getAttribute("data-stmt");
     if(act)sel='[data-act="'+act+'"]'+(dv!=null?'[data-v="'+cssq(dv)+'"]':'')+(dk!=null?'[data-k="'+cssq(dk)+'"]':'');
     else if(din)sel='[data-in="'+din+'"]'+(dk!=null?'[data-k="'+cssq(dk)+'"]':'');
+    else if(dst!=null)sel='[data-stmt="'+cssq(dst)+'"]';
+    else if(ae.id&&$("#main").contains(ae))sel="#"+cssq(ae.id);
+    /* keep the caret where it was in a text box */
+    try{if(sel&&typeof ae.selectionStart==="number"&&/^(TEXTAREA|INPUT)$/.test(ae.tagName))caret=[ae.selectionStart,ae.selectionEnd]}catch(e){}
   }
   /* On phones, giving a menu (select) focus from code opens its picker again, so a choice seemed not to stick.
      Touch screens keep focus off a re-rendered menu; keyboards still get it back. */
   if(!focusSel&&ae&&ae.tagName==="SELECT"&&TOUCH())sel=null;
   $("#main").innerHTML=PAGES[R.r](); after(); window.scrollTo(0,y);
-  if(sel){var n=$(sel);if(n)n.focus({preventScroll:true})}
+  if(sel){var n=$(sel);if(n){n.focus({preventScroll:true});if(caret)try{n.setSelectionRange(caret[0],caret[1])}catch(e){}}}
+}
+/* Redraw after something arrived from the account or another tab. Not while the student is typing in a text box
+   (a redraw would interrupt the keyboard, and Burmese or Japanese input mid-word): wait until they leave it. */
+var SYNCWAIT=false,SYNCPREV=null;
+function keepPrev(){SYNCPREV={stmt:clone(S.stmt)||{},essay:S.essay,target:S.target}}
+/* While the redraw waits, text boxes still show what arrived, so nobody types on top of an older version.
+   The box being typed in changes only if the student hasn't touched it since. */
+function refreshFields(){var p=SYNCPREV||{},a=document.activeElement,st=false;
+  $$('#main textarea[data-stmt],#main [data-in="essay"],#main [data-in="target"]').forEach(function(el){
+    var id=el.getAttribute("data-stmt"),din=el.getAttribute("data-in"),now,was;
+    if(id!=null){now=S.stmt[id]||"";was=p.stmt?(p.stmt[id]||""):now}
+    else if(din==="essay"){now=S.essay||"";was=p.essay!=null?p.essay:now}
+    else{now=String(S.target);was=p.target!=null?String(p.target):now}
+    if(el.value===now)return;
+    if(el===a){if(el.value!==String(was))return;var s0=el.selectionStart,s1=el.selectionEnd;el.value=now;try{el.setSelectionRange(Math.min(s0,now.length),Math.min(s1,now.length))}catch(x){}}
+    else el.value=now;
+    if(id!=null){st=true;var c=document.getElementById("c"+id);if(c)c.textContent=wc(now)}});
+  if(st){var t=$("#stot");if(t)t.textContent="Total "+wc(STATEMENT_SECTIONS.map(function(x){return S.stmt[x.id]||""}).join("\n\n"))}
+  updEssay();
+}
+/* A mouse press moves focus before its click lands; redrawing in between would eat the click. So with a button
+   held down, the redraw waits for it to come up (the click is handled in that same moment, before the redraw). */
+var PDOWN=false;
+function syncFlush(){if(SYNCWAIT&&!PDOWN&&!typingIn()){SYNCWAIT=false;rerenderKeep()}}
+document.addEventListener("pointerdown",function(){PDOWN=true},true);
+function pUp(){PDOWN=false;if(SYNCWAIT)setTimeout(syncFlush,0)}
+document.addEventListener("pointerup",pUp,true);document.addEventListener("pointercancel",pUp,true);
+document.addEventListener("focusout",function(){if(SYNCWAIT)setTimeout(syncFlush,0)});
+function typingIn(){var a=document.activeElement;return !!a&&/^(TEXTAREA|INPUT)$/.test(a.tagName)&&!/^(checkbox|radio|range|button|submit|reset|file|color)$/i.test(a.type||"")&&!!$("#main")&&$("#main").contains(a)}
+function syncRender(){
+  if(!booted)return;
+  if(R.r==="write"){rerenderKeep();return}
+  if(!typingIn()){rerenderKeep();return}
+  refreshFields();SYNCWAIT=true; /* the full redraw happens when the student leaves the text boxes (focusout above) */
 }
 function TOUCH(){try{return matchMedia("(hover: none), (pointer: coarse)").matches}catch(e){return false}}
 function reJourney(sel){var o=$(".steps");if(!o)return;var tmp=document.createElement("div");tmp.innerHTML=journey();var old=[$(".showall"),o];old[0].replaceWith(tmp.firstChild);$(".steps").replaceWith(tmp.firstChild);var n=$(sel);if(n)n.focus({preventScroll:true})}

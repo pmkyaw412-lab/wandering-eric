@@ -2,7 +2,7 @@
 
 The EJU and admission guide for students from Myanmar, with Eric's blog. One HTML file, no framework, published on GitHub Pages.
 
-- `index.html` is the whole site (v13). Routes are hash routes: `#/study` (with tabs `eju` and `apply`), `#/schools`, `#/scholarships`, `#/blog`, `#/faq`, `#/class`, `#/privacy`, and `#/write` (Eric's writing desk). The old `#/exam` and `#/apply` addresses redirect to their new homes (see `oldRoute` in `index.html`).
+- `index.html` is the whole site (v14). Routes are hash routes: `#/study` (with tabs `eju` and `apply`), `#/schools`, `#/scholarships`, `#/blog`, `#/faq`, `#/class`, `#/privacy`, and `#/write` (Eric's writing desk). The old `#/exam` and `#/apply` addresses redirect to their new homes (see `oldRoute` in `index.html`).
 - The school list is sorted by default by QS 2027 place, then by each university's highest-faculty 偏差値 (河合塾, from 日本の学校 and Kei-Net, collected October 2026; the `HEN` table in `index.html`), then north to south. The 偏差値 is used only for ordering and is never shown.
 - `posts/` holds the blog posts, one Markdown file each. `media/` holds their images.
 - `scripts/build.mjs` copies everything into `dist/` and writes `dist/posts/index.json`, the list the Blog page reads. It also checks Burmese text for Zawgyi and converts it to Unicode.
@@ -40,4 +40,6 @@ Then open the address it prints. The blog needs the site served over http (not o
 
 Signing in with Google is optional. It is done with Firebase Authentication, and the student's saved items live in one Firestore document, `users/<uid>`, that only that student can read or write (see `firestore.rules`). The Firebase settings are in `FBC` near the end of `index.html`; they are safe to publish, because the rules protect the data. The Firestore database is in Tokyo (`asia-northeast1`).
 
-Firebase is only downloaded by the browser when someone opens the sign-in sheet (so the Google window can open straight from the tap, which phones require), or on later visits for someone who has signed in before. Inside the Facebook, Messenger, Instagram or LINE browsers, where Google refuses to sign anyone in, the sheet instead explains how to open the page in Safari or Chrome.
+Firebase is only downloaded by the browser when someone opens the sign-in sheet (so the Google window can open straight from the tap, which phones require), or on later visits for someone who has signed in before. Inside the Facebook, Messenger, Instagram, Viber, TikTok, LINE and similar in-app browsers, where Google refuses to sign anyone in, the sheet instead explains how to open the page in Safari or Chrome.
+
+How syncing works (v14): each device keeps a copy of the account's record as it last saw it (`wandering-eric:sync` in local storage). When something arrives from the account, the site compares three versions (that copy, this device, the account), so a change made on one device and a change made on another are both kept, and something removed stays removed. Saves write only the items that changed (one saved school, one formula's record, one part of the statement) with `updateDoc`, so two devices saving at the same moment don't overwrite each other. Anything waiting is written straight away when the page is hidden or closed and before signing out. While a student is typing, the page doesn't redraw; text boxes are updated in place instead.
