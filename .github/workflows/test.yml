@@ -1,0 +1,50 @@
+name: Test the site
+
+on:
+  push:
+    branches: [main]
+    paths: ["index.html", "tests/**", ".github/workflows/test.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.browser }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, browser: chromium }
+          - { os: ubuntu-latest, browser: firefox }
+          - { os: ubuntu-latest, browser: webkit }
+          - { os: macos-latest, browser: webkit }
+          - { os: windows-latest, browser: msedge }
+          - { os: windows-latest, browser: firefox }
+    env:
+      TEST_BROWSER: ${{ matrix.browser }}
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install playwright==1.56.0
+      - name: Install the browser
+        if: matrix.browser != 'msedge'
+        run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - run: python tests/run.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ matrix.browser }}-${{ matrix.os }}
+          path: test-results/
+          retention-days: 7
