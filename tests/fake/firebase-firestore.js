@@ -30,7 +30,9 @@ function localEstimate(data) { // pending serverTimestamp() reads as null, like 
   return JSON.parse(JSON.stringify(data, (k, v) => (v && v.__st ? null : v)));
 }
 async function serverGet(path) {
-  const r = await fetch(SERVER + "/doc?p=" + encodeURIComponent(path), { headers: hdrs(), cache: "no-store" });
+  let r;
+  try { r = await fetch(SERVER + "/doc?p=" + encodeURIComponent(path), { headers: hdrs(), cache: "no-store" }); }
+  catch (e) { throw fsErr("unavailable"); } // a cancelled request (WebKit closes them when a tab goes away)
   if (r.status === 403) throw fsErr("permission-denied");
   if (!r.ok) throw fsErr("unavailable");
   return r.json();
@@ -86,7 +88,9 @@ export function deleteDoc(ref) {
   pend(ref.path, 1);
   return new Promise((res, rej) => setTimeout(async () => {
     if (offline()) { pend(ref.path, -1); return rej(fsErr("unavailable")); }
-    const r = await fetch(SERVER + "/doc?p=" + encodeURIComponent(ref.path), { method: "POST", headers: hdrs(), body: JSON.stringify({ op: "delete" }) });
+    let r;
+    try { r = await fetch(SERVER + "/doc?p=" + encodeURIComponent(ref.path), { method: "POST", headers: hdrs(), body: JSON.stringify({ op: "delete" }) }); }
+    catch (e) { pend(ref.path, -1); return rej(fsErr("unavailable")); }
     pend(ref.path, -1);
     if (r.status === 403) return rej(fsErr("permission-denied"));
     res();
@@ -97,7 +101,7 @@ export function getDocs(coll) {
   return fetch(SERVER + "/list?c=" + encodeURIComponent(coll.path), { headers: hdrs(), cache: "no-store" }).then((r) => {
     if (r.status === 403) throw fsErr("permission-denied");
     return r.json();
-  }).then((rows) => {
+  }, () => { throw fsErr("unavailable"); }).then((rows) => {
     const docs = rows.map((d) => ({ id: d.id, exists: () => true, data: () => d.data }));
     return { docs, size: docs.length, empty: !docs.length, forEach: (fn) => docs.forEach(fn) };
   });
