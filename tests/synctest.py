@@ -10,6 +10,12 @@ RESULTS = []
 ONLY = set(sys.argv[1:])
 
 
+def real_errors(errs):
+    """Page errors from the site. WebKit on macOS reports the test stand-in's own cancelled polling requests
+    (to /__fake/) as page errors; those are not the site's and are left out."""
+    return [e for e in errs if not ("__fake/" in e and "access control checks" in e)]
+
+
 def check(name, ok, detail=""):
     RESULTS.append((name, bool(ok), detail))
     print(("PASS " if ok else "FAIL ") + name + ("" if ok else "  -> " + str(detail)[:400]), flush=True)
@@ -90,7 +96,7 @@ with sync_playwright() as p:
         pg.goto("about:blank")
         pg2 = ctx.new_page(); pg2.goto(BASE); pg2.wait_for_timeout(300)
         check("signed out: a save made just before leaving the page is kept", ks[2] in local(pg2).get("saved", {}), list(local(pg2).get("saved", {}).keys()))
-        check("signed out: no script errors", not errs, errs)
+        check("signed out: no script errors", not real_errors(errs), real_errors(errs))
         ctx.close()
 
     # ---------- sign in, second device, removal while the other device is open ----------
@@ -116,7 +122,7 @@ with sync_playwright() as p:
         pb.goto(BASE + "#/schools"); pb.wait_for_timeout(300)
         toggle_school(pb, ks[0]); pb.wait_for_timeout(2600)
         check("live sync: a removal on the laptop reaches the open phone", ks[0] not in local(pa).get("saved", {}), list(local(pa).get("saved", {}).keys()))
-        check("two devices: no script errors", not errs, errs)
+        check("two devices: no script errors", not real_errors(errs), real_errors(errs))
         A.close(); Bc.close()
 
     # ---------- removal made while the other device was closed comes back? ----------
@@ -143,7 +149,7 @@ with sync_playwright() as p:
         pa2.goto(BASE); pa2.wait_for_timeout(3000)
         check("reopened phone: a school removed on the laptop stays removed", ks[1] not in local(pa2).get("saved", {}), list(local(pa2).get("saved", {}).keys()))
         check("reopened phone: the cloud still has it removed", ks[1] not in (cloud() or {}).get("saved", {}), list((cloud() or {}).get("saved", {}).keys()))
-        check("resurrect: no script errors", not errs, errs)
+        check("resurrect: no script errors", not real_errors(errs), real_errors(errs))
         A2.close()
 
     # ---------- quick taps while a write is on its way ----------
@@ -161,7 +167,7 @@ with sync_playwright() as p:
         l = set(local(pa).get("saved", {}).keys()); c = set(((cloud() or {}).get("saved") or {}).keys())
         check("quick taps: every school stays saved on the phone", set(ks) <= l, sorted(set(ks) - l))
         check("quick taps: every school reaches the account", set(ks) <= c, sorted(set(ks) - c))
-        check("race: no script errors", not errs, errs)
+        check("race: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
     # ---------- typing a statement while signed in ----------
@@ -189,7 +195,7 @@ with sync_playwright() as p:
         check("typing while signed in: the text is intact", val == typed, repr(val))
         check("typing while signed in: the draft reaches the account", ((cloud() or {}).get("stmt") or {}).get(sid) == typed, (cloud() or {}).get("stmt"))
         writes = [x for x in server("/__fake/dump")["log"] if x["op"] == "set"]
-        check("typing: no script errors", not errs, errs)
+        check("typing: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
     # ---------- typing before Firebase has arrived (slow connection, returning user) ----------
@@ -216,7 +222,7 @@ with sync_playwright() as p:
         check("slow connection: text typed before sign-in finished is kept", val.endswith("New line typed today. More."), repr(val))
         check("slow connection: the text box still has focus after sign-in finished", foc, foc)
         check("slow connection: today's text reaches the account", (((cloud() or {}).get("stmt") or {}).get(sid) or "").endswith("New line typed today. More."), (cloud() or {}).get("stmt"))
-        check("slowboot: no script errors", not errs, errs)
+        check("slowboot: no script errors", not real_errors(errs), real_errors(errs))
         A3.close()
 
     # ---------- sign out right after a change ----------
@@ -231,7 +237,7 @@ with sync_playwright() as p:
         pa.wait_for_timeout(2500)
         check("sign out straight after saving: the save reaches the account", ks[0] in ((cloud() or {}).get("saved") or {}), (cloud() or {}).get("saved"))
         check("sign out: what you saved stays on this device", ks[0] in local(pa).get("saved", {}))
-        check("signout: no script errors", not errs, errs)
+        check("signout: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
     # ---------- delete account data ----------
@@ -250,7 +256,7 @@ with sync_playwright() as p:
         check("delete account data: the cloud record is gone", cloud() is None, cloud())
         check("delete account data: signed out", pa.locator("#acct button.in").count() == 0)
         check("delete account data: the device keeps its list", ks[0] in local(pa).get("saved", {}))
-        check("delete: no script errors", not errs, errs)
+        check("delete: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
     # ---------- storage blocked (some private modes, some in-app browsers) ----------
@@ -262,7 +268,7 @@ with sync_playwright() as p:
         check("blocked storage: the page warns that nothing is kept", warn > 0)
         ks = school_keys(pa, 1); toggle_school(pa, ks[0]); pa.wait_for_timeout(300)
         check("blocked storage: saving still works for this visit", pa.locator(f'[data-act="save"][data-k="{ks[0]}"][aria-pressed="true"]').count() == 1)
-        check("nostorage: no script errors", not errs, errs)
+        check("nostorage: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
     # ---------- in-app browsers ----------
@@ -296,7 +302,7 @@ with sync_playwright() as p:
         sign_in(pb); pb.wait_for_timeout(1800)
         l = set(local(pb).get("saved", {}).keys()); c = set(((cloud() or {}).get("saved") or {}).keys())
         check("new device: its own items and the account's items are combined", {ks[0], ks[1]} <= l and {ks[0], ks[1]} <= c, (sorted(l), sorted(c)))
-        check("union: no script errors", not errs, errs)
+        check("union: no script errors", not real_errors(errs), real_errors(errs))
         Bc.close()
 
     # ---------- both devices open, both save at about the same time ----------
@@ -328,7 +334,7 @@ with sync_playwright() as p:
         n0 = len([x for x in server("/__fake/dump")["log"] if x["op"] == "set"]); pa.wait_for_timeout(5000)
         n1 = len([x for x in server("/__fake/dump")["log"] if x["op"] == "set"])
         check("no endless writing back and forth when nothing changes", n1 == n0, f"{n1 - n0} writes in 5 idle seconds")
-        check("concurrent: no script errors", not errs, errs)
+        check("concurrent: no script errors", not real_errors(errs), real_errors(errs))
         A.close(); Bc.close()
 
     # ---------- formula practice: quick taps on flashcards ----------
@@ -350,7 +356,7 @@ with sync_playwright() as p:
         tl = sum(v.get("k", 0) for v in lf.values()); tc = sum(v.get("k", 0) for v in cf.values())
         check("flashcards: every 'I know it' is counted on the phone", tl == n, f"{tl} of {n}")
         check("flashcards: every 'I know it' reaches the account", tc == n, f"{tc} of {n}")
-        check("flashcards: no script errors", not errs, errs)
+        check("flashcards: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
     # ---------- offline when the site opens, then back online ----------
@@ -367,7 +373,7 @@ with sync_playwright() as p:
         ks = school_keys(pa2, 1); toggle_school(pa2, ks[0]); pa2.wait_for_timeout(2000)
         pa2.evaluate("window.__FAKE_OFFLINE=false; window.dispatchEvent(new Event('online'))"); pa2.wait_for_timeout(3000)
         check("offline start: a save made offline reaches the account once back online", ks[0] in ((cloud() or {}).get("saved") or {}), (cloud() or {}).get("saved"))
-        check("offline: no script errors", not errs, errs)
+        check("offline: no script errors", not real_errors(errs), real_errors(errs))
         A2.close()
 
     # ---------- a second person signs in on the same phone ----------
@@ -383,7 +389,7 @@ with sync_playwright() as p:
         c2 = cloud("student-2") or {}; c1 = cloud("student-1") or {}
         check("second account on the same phone: it gets the list that was on the phone", ks[0] in (c2.get("saved") or {}), c2.get("saved"))
         check("second account: the first account is untouched", list((c1.get("saved") or {}).keys()) == [ks[0]], c1.get("saved"))
-        check("otheruser: no script errors", not errs, errs)
+        check("otheruser: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
     # ---------- review 1: an idle text box must not overwrite newer text from another device ----------
@@ -403,7 +409,7 @@ with sync_playwright() as p:
         pb.keyboard.press("End"); pb.keyboard.type(" Laptop adds this.", delay=10); pb.wait_for_timeout(3500)
         st = ((cloud() or {}).get("stmt") or {}).get(sid)
         check("typing on the laptop builds on the phone's text instead of replacing it", st == "Written on the phone. Laptop adds this.", repr(st))
-        check("stalebox: no script errors", not errs, errs)
+        check("stalebox: no script errors", not real_errors(errs), real_errors(errs))
         A.close(); Bc.close()
 
     # ---------- review 2: deleted account data must not come back from another open device ----------
@@ -420,7 +426,7 @@ with sync_playwright() as p:
         check("after deleting on the phone, the laptop doesn't bring the record back", cloud() is None, cloud())
         check("the laptop is signed out after the deletion", pb.locator("#acct button.in").count() == 0)
         # the laptop was closed and opens later
-        check("delete2: no script errors", not errs, errs)
+        check("delete2: no script errors", not real_errors(errs), real_errors(errs))
         A.close(); Bc.close()
 
     # ---------- review 3: a refused write is not retried in a loop ----------
@@ -434,7 +440,7 @@ with sync_playwright() as p:
         n = pa.evaluate("globalThis.__FFB.denied||0")
         check("a refused write is tried once, not again and again", n <= 2, f"{n} attempts in 9 s")
         pa.evaluate("window.__FAKE_DENY=false")
-        check("denyloop: no script errors", not errs, errs)
+        check("denyloop: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
     # ---------- review 5: sync starts again after a failed start without an 'online' event ----------
@@ -451,7 +457,7 @@ with sync_playwright() as p:
         ks = school_keys(pa2, 1); toggle_school(pa2, ks[0]); pa2.wait_for_timeout(500)
         pa2.evaluate("window.__FAKE_OFFLINE=false"); pa2.wait_for_timeout(9000)
         check("weak signal: sync recovers by itself and the save reaches the account", ks[0] in ((cloud() or {}).get("saved") or {}), (cloud() or {}).get("saved"))
-        check("retry: no script errors", not errs, errs)
+        check("retry: no script errors", not real_errors(errs), real_errors(errs))
         A2.close()
 
     # ---------- review 2.1: two tabs on one laptop, typing in one while the other merges a change ----------
@@ -481,7 +487,7 @@ with sync_playwright() as p:
         check("two tabs: the phone's save shows in both tabs", ks[0] in local(tb).get("saved", {}), list(local(tb).get("saved", {}).keys()))
         lb = set(local(tb).get("saved", {}).keys()); cs = set(((cloud() or {}).get("saved") or {}).keys())
         check("two tabs: every school saved in tab A is kept, on the device and in the account", set(aks) <= lb and set(aks) <= cs, (sorted(set(aks) - lb), sorted(set(aks) - cs)))
-        check("twotabs: no script errors", not errs, errs)
+        check("twotabs: no script errors", not real_errors(errs), real_errors(errs))
         X.close(); Y.close()
 
     # ---------- review 2.4: the first click after typing works while a sync is waiting ----------
@@ -501,7 +507,7 @@ with sync_playwright() as p:
         ta.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2); ta.mouse.down(); ta.wait_for_timeout(120); ta.mouse.up()
         ta.wait_for_timeout(500)
         check("first click after typing still works when a sync was waiting", ta.evaluate("location.hash") == "#/study/apply/statement", ta.evaluate("location.hash"))
-        check("clickafter: no script errors", not errs, errs)
+        check("clickafter: no script errors", not real_errors(errs), real_errors(errs))
         X.close(); Y.close()
 
     # ---------- two fresh tabs, nothing stored yet: the first saves of one must not blank the other ----------
@@ -517,7 +523,7 @@ with sync_playwright() as p:
         v = tb.locator('[data-in="essay"]').input_value(); st = local(tb)
         check("fresh tabs: the essay typed in one tab survives the other tab's first save", v == "最初の一文。次の文。" and st.get("essay") == v, (v, st.get("essay")))
         check("fresh tabs: the other tab's saved school is kept", k in st.get("saved", {}), list(st.get("saved", {}).keys()))
-        check("freshtabs: no script errors", not errs, errs)
+        check("freshtabs: no script errors", not real_errors(errs), real_errors(errs))
         X.close()
     b.close()
 
