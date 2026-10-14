@@ -1363,10 +1363,13 @@ var LASTKEY=null; /* the stored copy as this tab last wrote or read it */
 function loadState(){
   LASTKEY=lsGet(KEY);
   var v=LASTKEY||lsGet(OLDKEY);
-  if(!v)return;
-  try{var o=JSON.parse(v);Object.keys(S).forEach(function(k){if(o[k]!==undefined&&o[k]!==null)S[k]=o[k]})}catch(e){}
-  if(!S.mq||!S.mq.f)S.mq={f:[],r:[],k:["u"],o:[],pre:"",en:"",intl:""};
-  if(!S.mq.k){S.mq.k=["u","v"];S.mq.o=S.mq.t==="np"?["n","p"]:S.mq.t==="r"?["r"]:[];delete S.mq.t}
+  if(v){
+    try{var o=JSON.parse(v);Object.keys(S).forEach(function(k){if(o[k]!==undefined&&o[k]!==null)S[k]=o[k]})}catch(e){}
+    if(!S.mq||!S.mq.f)S.mq={f:[],r:[],k:["u"],o:[],pre:"",en:"",intl:""};
+    if(!S.mq.k){S.mq.k=["u","v"];S.mq.o=S.mq.t==="np"?["n","p"]:S.mq.t==="r"?["r"]:[];delete S.mq.t}
+  }
+  /* nothing stored yet: what this tab started from is its base, so another tab's first saves read as theirs */
+  if(!LASTKEY)LASTKEY=JSON.stringify(S);
 }
 var saveT=0;
 /* Several tabs share one stored copy. Before writing, take in what another tab stored since this tab last looked,

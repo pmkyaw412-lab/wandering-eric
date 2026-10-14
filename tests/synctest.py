@@ -503,6 +503,22 @@ with sync_playwright() as p:
         check("first click after typing still works when a sync was waiting", ta.evaluate("location.hash") == "#/study/apply/statement", ta.evaluate("location.hash"))
         check("clickafter: no script errors", not errs, errs)
         X.close(); Y.close()
+
+    # ---------- two fresh tabs, nothing stored yet: the first saves of one must not blank the other ----------
+    if want("freshtabs"):
+        errs = []
+        X, ta = device(p, b, None, errs=errs); ta.set_viewport_size({"width": 1280, "height": 800})
+        tb = X.new_page(); tb.on("pageerror", lambda e: errs.append(str(e)))
+        ta.goto(BASE + "#/schools"); tb.goto(BASE + "#/study/apply/essay"); ta.wait_for_timeout(500); tb.wait_for_timeout(500)
+        tb.locator('[data-in="essay"]').click(); tb.keyboard.type("最初の一文。", delay=30); tb.wait_for_timeout(600)
+        k = ta.eval_on_selector_all('[data-act="save"]', "els=>els.map(e=>e.getAttribute('data-k'))")[0]
+        ta.click(f'[data-act="save"][data-k="{k}"]'); ta.wait_for_timeout(800)
+        tb.keyboard.type("次の文。", delay=30); tb.wait_for_timeout(800)
+        v = tb.locator('[data-in="essay"]').input_value(); st = local(tb)
+        check("fresh tabs: the essay typed in one tab survives the other tab's first save", v == "最初の一文。次の文。" and st.get("essay") == v, (v, st.get("essay")))
+        check("fresh tabs: the other tab's saved school is kept", k in st.get("saved", {}), list(st.get("saved", {}).keys()))
+        check("freshtabs: no script errors", not errs, errs)
+        X.close()
     b.close()
 
 fails = [r for r in RESULTS if not r[1]]
