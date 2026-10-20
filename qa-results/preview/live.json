@@ -1,9 +1,9 @@
 {
  "live": "http://localhost:8080/",
- "when": "2026-10-20T04:31:29Z",
+ "when": "2026-10-20T05:24:55Z",
  "pages": {
   "iphone14-webkit /": {
-   "ms": 3692,
+   "ms": 3634,
    "h1": "From the EJU to your acceptance letter.",
    "overflow": {
     "sw": 390,
@@ -27,7 +27,7 @@
    ]
   },
   "iphone14-webkit #/home/steps": {
-   "ms": 826,
+   "ms": 888,
    "h1": "From the EJU to your acceptance letter.",
    "overflow": {
     "sw": 390,
@@ -51,7 +51,7 @@
    ]
   },
   "iphone14-webkit #/study": {
-   "ms": 1881,
+   "ms": 1806,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -78,7 +78,7 @@
    ]
   },
   "iphone14-webkit #/study/eju": {
-   "ms": 1362,
+   "ms": 1415,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -105,7 +105,7 @@
    ]
   },
   "iphone14-webkit #/study/eju/dates": {
-   "ms": 778,
+   "ms": 793,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -129,7 +129,7 @@
    ]
   },
   "iphone14-webkit #/study/eju/answers": {
-   "ms": 762,
+   "ms": 803,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -153,7 +153,7 @@
    ]
   },
   "iphone14-webkit #/study/eju/papers": {
-   "ms": 785,
+   "ms": 811,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -177,7 +177,7 @@
    ]
   },
   "iphone14-webkit #/study/terms": {
-   "ms": 756,
+   "ms": 801,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -202,7 +202,7 @@
    ]
   },
   "iphone14-webkit #/study/apply": {
-   "ms": 749,
+   "ms": 836,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -223,7 +223,7 @@
    ]
   },
   "iphone14-webkit #/study/apply/statement": {
-   "ms": 748,
+   "ms": 831,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -243,7 +243,7 @@
    ]
   },
   "iphone14-webkit #/study/apply/interview": {
-   "ms": 770,
+   "ms": 821,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -264,7 +264,7 @@
    ]
   },
   "iphone14-webkit #/study/apply/essay": {
-   "ms": 758,
+   "ms": 798,
    "h1": "Study",
    "overflow": {
     "sw": 390,
@@ -285,7 +285,7 @@
    ]
   },
   "iphone14-webkit #/schools": {
-   "ms": 776,
+   "ms": 818,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 390,
@@ -306,7 +306,7 @@
    ]
   },
   "iphone14-webkit #/schools/pre": {
-   "ms": 822,
+   "ms": 830,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 390,
@@ -327,7 +327,7 @@
    ]
   },
   "iphone14-webkit #/schools/list": {
-   "ms": 764,
+   "ms": 802,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 390,
@@ -348,7 +348,7 @@
    ]
   },
   "iphone14-webkit #/schools/match": {
-   "ms": 745,
+   "ms": 784,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 390,
@@ -368,7 +368,7 @@
    ]
   },
   "iphone14-webkit #/schools/guide": {
-   "ms": 761,
+   "ms": 822,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 390,
@@ -389,7 +389,7 @@
    ]
   },
   "iphone14-webkit #/scholarships": {
-   "ms": 769,
+   "ms": 829,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 390,
@@ -410,7 +410,7 @@
    ]
   },
   "iphone14-webkit #/scholarships/saved": {
-   "ms": 747,
+   "ms": 815,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 390,
@@ -430,7 +430,7 @@
    ]
   },
   "iphone14-webkit #/scholarships/check": {
-   "ms": 748,
+   "ms": 779,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 390,
@@ -450,7 +450,7 @@
    ]
   },
   "iphone14-webkit #/scholarships/guide": {
-   "ms": 769,
+   "ms": 818,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 390,
@@ -470,7 +470,7 @@
    ]
   },
   "iphone14-webkit #/blog": {
-   "ms": 1127,
+   "ms": 1163,
    "h1": "Blog",
    "overflow": {
     "sw": 390,
@@ -492,7 +492,7 @@
    ]
   },
   "iphone14-webkit #/blog/no-such-post": {
-   "ms": 1136,
+   "ms": 1179,
    "h1": "Post not found",
    "overflow": {
     "sw": 390,
@@ -514,7 +514,7 @@
    ]
   },
   "iphone14-webkit #/faq": {
-   "ms": 742,
+   "ms": 805,
    "h1": "Questions and answers",
    "overflow": {
     "sw": 390,
@@ -536,7 +536,7 @@
    ]
   },
   "iphone14-webkit #/class": {
-   "ms": 763,
+   "ms": 828,
    "h1": "EJU maths classes with Eric",
    "overflow": {
     "sw": 390,
@@ -556,7 +556,7 @@
    ]
   },
   "iphone14-webkit #/privacy": {
-   "ms": 736,
+   "ms": 776,
    "h1": "Privacy and your account",
    "overflow": {
     "sw": 390,
@@ -576,7 +576,7 @@
    ]
   },
   "iphone14-webkit #/write": {
-   "ms": 740,
+   "ms": 785,
    "h1": "Write for the blog",
    "overflow": {
     "sw": 390,
@@ -598,7 +598,7 @@
    ]
   },
   "pixel7-chromium /": {
-   "ms": 2644,
+   "ms": 2179,
    "h1": "From the EJU to your acceptance letter.",
    "overflow": {
     "sw": 412,
@@ -621,7 +621,7 @@
    ]
   },
   "pixel7-chromium #/home/steps": {
-   "ms": 584,
+   "ms": 582,
    "h1": "From the EJU to your acceptance letter.",
    "overflow": {
     "sw": 412,
@@ -644,7 +644,7 @@
    ]
   },
   "pixel7-chromium #/study": {
-   "ms": 1212,
+   "ms": 1563,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -670,7 +670,7 @@
    ]
   },
   "pixel7-chromium #/study/eju": {
-   "ms": 1166,
+   "ms": 1240,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -696,7 +696,7 @@
    ]
   },
   "pixel7-chromium #/study/eju/dates": {
-   "ms": 566,
+   "ms": 558,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -722,7 +722,7 @@
    ]
   },
   "pixel7-chromium #/study/eju/answers": {
-   "ms": 567,
+   "ms": 568,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -748,7 +748,7 @@
    ]
   },
   "pixel7-chromium #/study/eju/papers": {
-   "ms": 567,
+   "ms": 569,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -774,7 +774,7 @@
    ]
   },
   "pixel7-chromium #/study/terms": {
-   "ms": 585,
+   "ms": 579,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -800,7 +800,7 @@
    ]
   },
   "pixel7-chromium #/study/apply": {
-   "ms": 580,
+   "ms": 586,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -826,7 +826,7 @@
    ]
   },
   "pixel7-chromium #/study/apply/statement": {
-   "ms": 581,
+   "ms": 580,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -852,7 +852,7 @@
    ]
   },
   "pixel7-chromium #/study/apply/interview": {
-   "ms": 584,
+   "ms": 567,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -878,7 +878,7 @@
    ]
   },
   "pixel7-chromium #/study/apply/essay": {
-   "ms": 582,
+   "ms": 566,
    "h1": "Study",
    "overflow": {
     "sw": 412,
@@ -956,7 +956,7 @@
    ]
   },
   "pixel7-chromium #/schools/list": {
-   "ms": 566,
+   "ms": 580,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 412,
@@ -982,7 +982,7 @@
    ]
   },
   "pixel7-chromium #/schools/match": {
-   "ms": 605,
+   "ms": 566,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 412,
@@ -1008,7 +1008,7 @@
    ]
   },
   "pixel7-chromium #/schools/guide": {
-   "ms": 598,
+   "ms": 566,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 412,
@@ -1034,7 +1034,7 @@
    ]
   },
   "pixel7-chromium #/scholarships": {
-   "ms": 578,
+   "ms": 584,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 412,
@@ -1086,7 +1086,7 @@
    ]
   },
   "pixel7-chromium #/scholarships/check": {
-   "ms": 566,
+   "ms": 583,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 412,
@@ -1112,7 +1112,7 @@
    ]
   },
   "pixel7-chromium #/scholarships/guide": {
-   "ms": 567,
+   "ms": 565,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 412,
@@ -1138,7 +1138,7 @@
    ]
   },
   "pixel7-chromium #/blog": {
-   "ms": 964,
+   "ms": 984,
    "h1": "Blog",
    "overflow": {
     "sw": 412,
@@ -1194,7 +1194,7 @@
    ]
   },
   "pixel7-chromium #/faq": {
-   "ms": 582,
+   "ms": 566,
    "h1": "Questions and answers",
    "overflow": {
     "sw": 412,
@@ -1222,7 +1222,7 @@
    ]
   },
   "pixel7-chromium #/class": {
-   "ms": 568,
+   "ms": 582,
    "h1": "EJU maths classes with Eric",
    "overflow": {
     "sw": 412,
@@ -1250,7 +1250,7 @@
    ]
   },
   "pixel7-chromium #/privacy": {
-   "ms": 566,
+   "ms": 584,
    "h1": "Privacy and your account",
    "overflow": {
     "sw": 412,
@@ -1278,7 +1278,7 @@
    ]
   },
   "pixel7-chromium #/write": {
-   "ms": 561,
+   "ms": 568,
    "h1": "Write for the blog",
    "overflow": {
     "sw": 412,
@@ -1306,7 +1306,7 @@
    ]
   },
   "desktop-chromium /": {
-   "ms": 2102,
+   "ms": 3033,
    "h1": "From the EJU to your acceptance letter.",
    "overflow": {
     "sw": 1280,
@@ -1329,7 +1329,7 @@
    ]
   },
   "desktop-chromium #/home/steps": {
-   "ms": 547,
+   "ms": 548,
    "h1": "From the EJU to your acceptance letter.",
    "overflow": {
     "sw": 1280,
@@ -1352,7 +1352,7 @@
    ]
   },
   "desktop-chromium #/study": {
-   "ms": 1185,
+   "ms": 1183,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1378,7 +1378,7 @@
    ]
   },
   "desktop-chromium #/study/eju": {
-   "ms": 1133,
+   "ms": 1139,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1404,7 +1404,7 @@
    ]
   },
   "desktop-chromium #/study/eju/dates": {
-   "ms": 532,
+   "ms": 535,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1430,7 +1430,7 @@
    ]
   },
   "desktop-chromium #/study/eju/answers": {
-   "ms": 533,
+   "ms": 535,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1456,7 +1456,7 @@
    ]
   },
   "desktop-chromium #/study/eju/papers": {
-   "ms": 532,
+   "ms": 540,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1482,7 +1482,7 @@
    ]
   },
   "desktop-chromium #/study/terms": {
-   "ms": 535,
+   "ms": 549,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1508,7 +1508,7 @@
    ]
   },
   "desktop-chromium #/study/apply": {
-   "ms": 546,
+   "ms": 541,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1534,7 +1534,7 @@
    ]
   },
   "desktop-chromium #/study/apply/statement": {
-   "ms": 533,
+   "ms": 541,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1560,7 +1560,7 @@
    ]
   },
   "desktop-chromium #/study/apply/interview": {
-   "ms": 533,
+   "ms": 536,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1586,7 +1586,7 @@
    ]
   },
   "desktop-chromium #/study/apply/essay": {
-   "ms": 533,
+   "ms": 547,
    "h1": "Study",
    "overflow": {
     "sw": 1280,
@@ -1612,7 +1612,7 @@
    ]
   },
   "desktop-chromium #/schools": {
-   "ms": 550,
+   "ms": 549,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 1280,
@@ -1664,7 +1664,7 @@
    ]
   },
   "desktop-chromium #/schools/list": {
-   "ms": 533,
+   "ms": 534,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 1280,
@@ -1690,7 +1690,7 @@
    ]
   },
   "desktop-chromium #/schools/match": {
-   "ms": 532,
+   "ms": 533,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 1280,
@@ -1716,7 +1716,7 @@
    ]
   },
   "desktop-chromium #/schools/guide": {
-   "ms": 540,
+   "ms": 538,
    "h1": "Universities and schools",
    "overflow": {
     "sw": 1280,
@@ -1742,7 +1742,7 @@
    ]
   },
   "desktop-chromium #/scholarships": {
-   "ms": 543,
+   "ms": 542,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 1280,
@@ -1768,7 +1768,7 @@
    ]
   },
   "desktop-chromium #/scholarships/saved": {
-   "ms": 532,
+   "ms": 535,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 1280,
@@ -1794,7 +1794,7 @@
    ]
   },
   "desktop-chromium #/scholarships/check": {
-   "ms": 533,
+   "ms": 534,
    "h1": "Scholarships for students from Myanmar",
    "overflow": {
     "sw": 1280,
@@ -1874,7 +1874,7 @@
    ]
   },
   "desktop-chromium #/blog/no-such-post": {
-   "ms": 934,
+   "ms": 935,
    "h1": "Post not found",
    "overflow": {
     "sw": 1280,
@@ -1902,7 +1902,7 @@
    ]
   },
   "desktop-chromium #/faq": {
-   "ms": 535,
+   "ms": 542,
    "h1": "Questions and answers",
    "overflow": {
     "sw": 1280,
@@ -1930,7 +1930,7 @@
    ]
   },
   "desktop-chromium #/class": {
-   "ms": 530,
+   "ms": 533,
    "h1": "EJU maths classes with Eric",
    "overflow": {
     "sw": 1280,
@@ -1958,7 +1958,7 @@
    ]
   },
   "desktop-chromium #/privacy": {
-   "ms": 532,
+   "ms": 536,
    "h1": "Privacy and your account",
    "overflow": {
     "sw": 1280,
@@ -1986,7 +1986,7 @@
    ]
   },
   "desktop-chromium #/write": {
-   "ms": 531,
+   "ms": 532,
    "h1": "Write for the blog",
    "overflow": {
     "sw": 1280,
