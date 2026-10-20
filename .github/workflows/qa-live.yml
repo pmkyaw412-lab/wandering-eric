@@ -43,7 +43,7 @@ jobs:
         continue-on-error: true
         run: |
           if [ "$TARGET" = "preview" ]; then (cd site/dist && python -m http.server 8080 >/dev/null 2>&1 &) ; sleep 2; export LIVE_URL=http://localhost:8080/; fi
-          python qa/live.py "qa-results-$TARGET"
+          if [ "$TARGET" = "back" ]; then python qa/back.py "qa-results-$TARGET"; else python qa/live.py "qa-results-$TARGET"; fi
       - name: Save the results to this branch
         if: always()
         run: |
