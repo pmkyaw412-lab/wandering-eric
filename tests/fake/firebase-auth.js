@@ -28,6 +28,15 @@ export function signInWithPopup(auth, provider) {
     res({ user: F.user });
   }, 120));
 }
+export function reauthenticateWithPopup(user, provider) {
+  const mode = window.__FAKE_POPUP || "ok";
+  return new Promise((res, rej) => setTimeout(() => {
+    if (mode === "closed") return rej(Object.assign(new Error("Firebase: Error (auth/popup-closed-by-user)."), { code: "auth/popup-closed-by-user" }));
+    if (mode === "blocked") return rej(Object.assign(new Error("Firebase: Error (auth/popup-blocked)."), { code: "auth/popup-blocked" }));
+    window.__FAKE_RECENT_LOGIN = false; // a fresh sign-in lets deleteUser go through
+    res({ user });
+  }, 60));
+}
 export function signOut() { return new Promise((res) => setTimeout(() => { writeUser(null); F.user = null; emit(); res(); }, 40)); }
 export function deleteUser(u) {
   if (window.__FAKE_RECENT_LOGIN) return Promise.reject(Object.assign(new Error("Firebase: Error (auth/requires-recent-login)."), { code: "auth/requires-recent-login" }));
