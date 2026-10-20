@@ -46,14 +46,35 @@ with sync_playwright() as p:
                 h1 = page.evaluate("() => (document.querySelector('main h1') || {}).textContent || ''")
                 page.wait_for_timeout(600 if r in ("", "#/study", "#/study/eju") else 0)
                 kx = page.evaluate("() => [document.querySelectorAll('#main .katex').length, document.querySelectorAll('#main .rawtex').length]")
+                mk = page.evaluate("() => ({kxcss: !!document.getElementById('kxcss'), qli: document.querySelectorAll('#main .qlist li').length, ta: document.querySelectorAll('#main textarea').length, timer: document.querySelectorAll('#main .timer').length, emin: !!document.getElementById('emin'), shape: document.querySelectorAll('#main .shape').length})")
             except Exception as e:  # noqa
-                ov, fonts, h1, kx = {"err": str(e)[:200]}, [], "", [0, 0]
+                ov, fonts, h1, kx, mk = {"err": str(e)[:200]}, [], "", [0, 0], {}
             name = r.replace("#/", "").replace("/", "_") or "home"
             try:
                 page.screenshot(path=f"{OUT}/{key}__{name}.jpg", type="jpeg", quality=50, full_page=False)
             except Exception as e:  # noqa
                 ev.append(["screenshot", str(e)[:200]])
-            res["pages"][key + " " + (r or "/")] = {"ms": int((time.time() - t0) * 1000), "h1": h1[:120], "overflow": ov, "events": list(ev), "fonts": sorted(set(fonts))[:40], "katex": kx}
+            res["pages"][key + " " + (r or "/")] = {"ms": int((time.time() - t0) * 1000), "h1": h1[:120], "overflow": ov, "events": list(ev), "fonts": sorted(set(fonts))[:40], "katex": kx, "marker": mk}
+        # Back returns to the same place (fix #11): scroll a long page, move on, press Back
+        bk = {}
+        try:
+            for rr in ("#/faq", "#/schools"):
+                page.goto(LIVE + rr, wait_until="networkidle", timeout=45000)
+                page.wait_for_timeout(700)
+                mx = page.evaluate("() => document.documentElement.scrollHeight - innerHeight")
+                tgt = int(min(1200, mx / 2))
+                page.evaluate("(t) => window.scrollTo(0, t)", tgt)
+                page.wait_for_timeout(900)
+                y0 = page.evaluate("() => scrollY")
+                page.evaluate("() => { location.hash = '#/privacy' }")
+                page.wait_for_timeout(900)
+                y1 = page.evaluate("() => scrollY")
+                page.go_back()
+                page.wait_for_timeout(1200)
+                bk[rr] = {"scrolled_to": y0, "after_move": y1, "after_back": page.evaluate("() => scrollY"), "hash": page.evaluate("() => location.hash")}
+        except Exception as e:  # noqa
+            bk["error"] = str(e)[:200]
+        res.setdefault("back", {})[key] = bk
         if key == "desktop-chromium":
             # open the Google sign-in window, never sign in
             ev.clear()
@@ -89,3 +110,4 @@ print("pages:", len(res["pages"]), "with issues:", len(bad))
 for k, v in bad.items():
     print(" ", k, v["overflow"], v["events"][:4])
 print("signin:", json.dumps(res["signin"], ensure_ascii=False)[:1500])
+print("back:", json.dumps(res.get("back"), ensure_ascii=False)[:1500])
