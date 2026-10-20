@@ -1,0 +1,2032 @@
+{
+ "live": "http://localhost:8080/",
+ "when": "2026-10-20T04:31:29Z",
+ "pages": {
+  "iphone14-webkit /": {
+   "ms": 3692,
+   "h1": "From the EJU to your acceptance letter.",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "KaTeX_Main 400",
+    "KaTeX_Main 700",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "iphone14-webkit #/home/steps": {
+   "ms": 826,
+   "h1": "From the EJU to your acceptance letter.",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "KaTeX_Main 400",
+    "KaTeX_Main 700",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "iphone14-webkit #/study": {
+   "ms": 1881,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "KaTeX_Main 400",
+    "KaTeX_Main 700",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    68,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/eju": {
+   "ms": 1362,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "KaTeX_Main 400",
+    "KaTeX_Main 700",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/eju/dates": {
+   "ms": 778,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "KaTeX_Main 400",
+    "KaTeX_Main 700",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/eju/answers": {
+   "ms": 762,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "KaTeX_Main 400",
+    "KaTeX_Main 700",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/eju/papers": {
+   "ms": 785,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "KaTeX_Main 400",
+    "KaTeX_Main 700",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/terms": {
+   "ms": 756,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "KaTeX_Main 400",
+    "KaTeX_Main 700",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/apply": {
+   "ms": 749,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/apply/statement": {
+   "ms": 748,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/apply/interview": {
+   "ms": 770,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/study/apply/essay": {
+   "ms": 758,
+   "h1": "Study",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/schools": {
+   "ms": 776,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/schools/pre": {
+   "ms": 822,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/schools/list": {
+   "ms": 764,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/schools/match": {
+   "ms": 745,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/schools/guide": {
+   "ms": 761,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/scholarships": {
+   "ms": 769,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"BIZ UDPGothic\" 700",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/scholarships/saved": {
+   "ms": 747,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/scholarships/check": {
+   "ms": 748,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/scholarships/guide": {
+   "ms": 769,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/blog": {
+   "ms": 1127,
+   "h1": "Blog",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"Noto Sans\" 400",
+    "\"Noto Sans\" 600",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/blog/no-such-post": {
+   "ms": 1136,
+   "h1": "Post not found",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"Noto Sans\" 400",
+    "\"Noto Sans\" 600",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/faq": {
+   "ms": 742,
+   "h1": "Questions and answers",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"Noto Sans\" 400",
+    "\"Noto Sans\" 600",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/class": {
+   "ms": 763,
+   "h1": "EJU maths classes with Eric",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/privacy": {
+   "ms": 736,
+   "h1": "Privacy and your account",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "iphone14-webkit #/write": {
+   "ms": 740,
+   "h1": "Write for the blog",
+   "overflow": {
+    "sw": 390,
+    "cw": 390,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "\"BIZ UDPGothic\" 400",
+    "\"Noto Sans\" 400",
+    "\"Noto Sans\" 600",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium /": {
+   "ms": 2644,
+   "h1": "From the EJU to your acceptance letter.",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "pixel7-chromium #/home/steps": {
+   "ms": 584,
+   "h1": "From the EJU to your acceptance letter.",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "pixel7-chromium #/study": {
+   "ms": 1212,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    68,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/eju": {
+   "ms": 1166,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/eju/dates": {
+   "ms": 566,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/eju/answers": {
+   "ms": 567,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/eju/papers": {
+   "ms": 567,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/terms": {
+   "ms": 585,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/apply": {
+   "ms": 580,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/apply/statement": {
+   "ms": 581,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/apply/interview": {
+   "ms": 584,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/study/apply/essay": {
+   "ms": 582,
+   "h1": "Study",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/schools": {
+   "ms": 583,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/schools/pre": {
+   "ms": 584,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/schools/list": {
+   "ms": 566,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/schools/match": {
+   "ms": 605,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/schools/guide": {
+   "ms": 598,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/scholarships": {
+   "ms": 578,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/scholarships/saved": {
+   "ms": 567,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/scholarships/check": {
+   "ms": 566,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/scholarships/guide": {
+   "ms": 567,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/blog": {
+   "ms": 964,
+   "h1": "Blog",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/blog/no-such-post": {
+   "ms": 966,
+   "h1": "Post not found",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/faq": {
+   "ms": 582,
+   "h1": "Questions and answers",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/class": {
+   "ms": 568,
+   "h1": "EJU maths classes with Eric",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/privacy": {
+   "ms": 566,
+   "h1": "Privacy and your account",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "pixel7-chromium #/write": {
+   "ms": 561,
+   "h1": "Write for the blog",
+   "overflow": {
+    "sw": 412,
+    "cw": 412,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium /": {
+   "ms": 2102,
+   "h1": "From the EJU to your acceptance letter.",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "desktop-chromium #/home/steps": {
+   "ms": 547,
+   "h1": "From the EJU to your acceptance letter.",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "desktop-chromium #/study": {
+   "ms": 1185,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    68,
+    0
+   ]
+  },
+  "desktop-chromium #/study/eju": {
+   "ms": 1133,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "desktop-chromium #/study/eju/dates": {
+   "ms": 532,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "desktop-chromium #/study/eju/answers": {
+   "ms": 533,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "desktop-chromium #/study/eju/papers": {
+   "ms": 532,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    2,
+    0
+   ]
+  },
+  "desktop-chromium #/study/terms": {
+   "ms": 535,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/study/apply": {
+   "ms": 546,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/study/apply/statement": {
+   "ms": 533,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/study/apply/interview": {
+   "ms": 533,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/study/apply/essay": {
+   "ms": 533,
+   "h1": "Study",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/schools": {
+   "ms": 550,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/schools/pre": {
+   "ms": 550,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/schools/list": {
+   "ms": 533,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/schools/match": {
+   "ms": 532,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/schools/guide": {
+   "ms": 540,
+   "h1": "Universities and schools",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/scholarships": {
+   "ms": 543,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/scholarships/saved": {
+   "ms": 532,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/scholarships/check": {
+   "ms": 533,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/scholarships/guide": {
+   "ms": 533,
+   "h1": "Scholarships for students from Myanmar",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/blog": {
+   "ms": 933,
+   "h1": "Blog",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/blog/no-such-post": {
+   "ms": 934,
+   "h1": "Post not found",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/faq": {
+   "ms": 535,
+   "h1": "Questions and answers",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/class": {
+   "ms": 530,
+   "h1": "EJU maths classes with Eric",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/privacy": {
+   "ms": 532,
+   "h1": "Privacy and your account",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  },
+  "desktop-chromium #/write": {
+   "ms": 531,
+   "h1": "Write for the blog",
+   "overflow": {
+    "sw": 1280,
+    "cw": 1280,
+    "bad": []
+   },
+   "events": [],
+   "fonts": [
+    "BIZ UDPGothic 400",
+    "BIZ UDPGothic 700",
+    "KaTeX_Main 400",
+    "KaTeX_Math 400",
+    "KaTeX_Size2 400",
+    "KaTeX_Size3 400",
+    "KaTeX_Size4 400",
+    "Lexend 400",
+    "Lexend 500",
+    "Lexend 600",
+    "Noto Sans 400",
+    "Noto Sans 600"
+   ],
+   "katex": [
+    0,
+    0
+   ]
+  }
+ },
+ "signin": {
+  "popup_url_host": "https://accounts.google.com/v3/signin/identifier",
+  "popup_title": "Sign in - Google Accounts",
+  "dialog_error": "",
+  "events": [
+   [
+    "console.error",
+    "Cross-Origin-Opener-Policy policy would block the window.closed call."
+   ],
+   [
+    "console.error",
+    "Cross-Origin-Opener-Policy policy would block the window.closed call."
+   ]
+  ]
+ }
+}
