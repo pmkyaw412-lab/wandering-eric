@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Eric's two Google accounts: the only ones that can write blog posts.
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in ['pmkyaw412@gmail.com', 'pmkyawclass@gmail.com'];
+    }
+
+    // Each signed-in student owns exactly one document, users/<their uid>.
+    // Nobody else can read it, and it holds only the fields the site writes.
+    match /users/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['saved','sschol','frec','stars','steps','docs','stmt','essay','target','elig','mq','flang','fess','fdiag','updatedAt','v'])
+        && request.resource.data.size() <= 20;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Blog posts written in the site's writing desk. Anyone can read them; only Eric can write.
+    // The document id is the post's web address (#/blog/<id>).
+    match /posts/{slug} {
+      allow read: if true;
+      allow write: if isAdmin() && slug.matches('^[a-z0-9]+(-[a-z0-9]+)*$') && slug.size() <= 80;
+    }
+
+    // Drafts and unpublished changes: Eric only.
+    match /drafts/{id} {
+      allow read, write: if isAdmin();
+    }
+
+    // Photos in posts, shrunk in the browser and stored as data URLs (a Firestore document holds up to 1 MiB).
+    match /media/{id} {
+      allow get: if true;
+      allow list: if isAdmin();
+      allow create, update: if isAdmin()
+        && request.resource.data.data is string
+        && request.resource.data.data.size() < 1000000;
+      allow delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

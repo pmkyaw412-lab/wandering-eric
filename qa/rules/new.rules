@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Signed in with Google. The site offers no other way in, so anonymous, email or phone accounts get nothing.
+    function google() {
+      return request.auth != null && request.auth.token.firebase.sign_in_provider == 'google.com';
+    }
+
+    // Eric's two Google accounts: the only ones that can write blog posts.
+    function isAdmin() {
+      return google()
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in ['pmkyaw412@gmail.com', 'pmkyawclass@gmail.com'];
+    }
+
+    // A field that is either absent or of the right type (and, for maps and text, not oversized).
+    function optMap(d, k, n) { return !(k in d) || (d[k] is map && d[k].size() <= n); }
+    function optStr(d, k, n) { return !(k in d) || (d[k] is string && d[k].size() <= n); }
+    function optBool(d, k) { return !(k in d) || d[k] is bool; }
+    function optNum(d, k) { return !(k in d) || d[k] is number; }
+
+    // A student's record: only the fields the site writes, each of the type the site writes.
+    function studentRecord(d) {
+      return d.keys().hasOnly(['saved','sschol','frec','stars','steps','docs','stmt','essay','target','elig','mq','flang','fess','fdiag','updatedAt','v'])
+        && optMap(d, 'saved', 2000) && optMap(d, 'sschol', 500) && optMap(d, 'frec', 2000) && optMap(d, 'stars', 500)
+        && optMap(d, 'steps', 100) && optMap(d, 'docs', 200) && optMap(d, 'stmt', 20) && optStr(d, 'essay', 50000)
+        && optNum(d, 'target') && optMap(d, 'elig', 50) && optMap(d, 'mq', 20) && optStr(d, 'flang', 8)
+        && optBool(d, 'fess') && optBool(d, 'fdiag') && optNum(d, 'v');
+    }
+
+    // Each signed-in student owns exactly one document, users/<their uid>. Nobody else can read it.
+    match /users/{uid} {
+      allow read, delete: if google() && request.auth.uid == uid;
+      allow create, update: if google() && request.auth.uid == uid && studentRecord(request.resource.data);
+    }
+
+    // Blog posts written in the site's writing desk. Anyone can read them; only Eric can write.
+    // The document id is the post's web address (#/blog/<id>).
+    match /posts/{slug} {
+      allow read: if true;
+      allow write: if isAdmin() && slug.matches('^[a-z0-9]+(-[a-z0-9]+)*$') && slug.size() <= 80;
+    }
+
+    // Drafts and unpublished changes: Eric only.
+    match /drafts/{id} {
+      allow read, write: if isAdmin();
+    }
+
+    // Photos in posts, shrunk in the browser and stored as data URLs (a Firestore document holds up to 1 MiB).
+    match /media/{id} {
+      allow get: if true;
+      allow list: if isAdmin();
+      allow create, update: if isAdmin()
+        && request.resource.data.data is string
+        && request.resource.data.data.size() < 1000000;
+      allow delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
