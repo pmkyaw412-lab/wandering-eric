@@ -1,0 +1,37 @@
+henticate the CLI.
+[33m[1m⚠ [22m[39m Could not find config (firebase.json) so using defaults.
+[36m[1mi  emulators:[22m[39m Starting emulators: firestore
+[36m[1mi  emulators:[22m[39m Detected demo project ID "demo-wandering-eric", emulated services will use a demo configuration and attempts to access non-emulated services for this project will fail.
+[33m[1m⚠  firestore:[22m[39m Did not find a Cloud Firestore rules file specified in a firebase.json config file.
+[33m[1m⚠  firestore:[22m[39m The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration.
+[33m[1m⚠ [22m[39m It appears you are running in a CI environment. You can avoid downloading the Firestore Emulator repeatedly by caching the /home/runner/.cache/firebase/emulators directory.
+[36m[1mi  firestore:[22m[39m downloading cloud-firestore-emulator-v1.19.8.jar...
+
+[36m[1mi  firestore:[22m[39m Firestore Emulator logging to [1mfirestore-debug.log[22m
+[32m[1m✔  firestore:[22m[39m Firestore Emulator UI websocket is running on 9150.
+[36m[1mi [22m[39m Running script: [1mnode qa/rules/test.mjs qa/rules/old.rules old[22m
+[2026-10-20T04:17:53.498Z]  @firebase/firestore: Firestore (10.14.1): GrpcConnection RPC 'Write' stream 0x1bcca5fc error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L15, false for 'create' @ L44, false for 'update' @ L15, false for 'update' @ L44
+[2026-10-20T04:17:53.517Z]  @firebase/firestore: Firestore (10.14.1): GrpcConnection RPC 'Write' stream 0x1bcca5f9 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+evaluation error at L15:32 for 'create' @ L15, false for 'create' @ L44, evaluation error at L15:32 for 'update' @ L15, false for 'update' @ L44, false for 'update' @ L15, false for 'update' @ L44
+[2026-10-20T04:17:53.740Z]  @firebase/firestore: Firestore (10.14.1): GrpcConnection RPC 'Write' stream 0x1bcca600 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L25, false for 'create' @ L44, false for 'update' @ L25, false for 'update' @ L44
+[2026-10-20T04:17:53.749Z]  @firebase/firestore: Firestore (10.14.1): GrpcConnection RPC 'Write' stream 0x1bcca5fd error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L25, false for 'create' @ L44, false for 'update' @ L25, false for 'update' @ L44
+[2026-10-20T04:17:53.802Z]  @firebase/firestore: Firestore (10.14.1): GrpcConnection RPC 'Write' stream 0x1bcca603 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L25, false for 'create' @ L44, false for 'update' @ L25, false for 'update' @ L44
+[2026-10-20T04:17:53.874Z]  @firebase/firestore: Firestore (10.14.1): GrpcConnection RPC 'Write' stream 0x1bcca604 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L37, false for 'create' @ L44, false for 'update' @ L37, false for 'update' @ L44
+[2026-10-20T04:17:53.908Z]  @firebase/firestore: Firestore (10.14.1): GrpcConnection RPC 'Write' stream 0x1bcca606 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+false for 'create' @ L44, false for 'update' @ L44
+old 25 of 30 as expected
+  UNEXPECTED: target must be a number (expected deny) Expected request to fail, but it succeeded.
+  UNEXPECTED: essay must be text (expected deny) Expected request to fail, but it succeeded.
+  UNEXPECTED: saved must be a map (expected deny) Expected request to fail, but it succeeded.
+  UNEXPECTED: anonymous account cannot create a record (expected deny) Expected request to fail, but it succeeded.
+  UNEXPECTED: email/password account with Eric's address cannot write posts (expected deny) Expected request to fail, but it succeeded.
+[32m[1m✔ [22m[39m Script exited successfully (code 0)
+[36m[1mi  emulators:[22m[39m Shutting down emulators.
+[36m[1mi  firestore:[22m[39m Stopping Firestore Emulator
+[36m[1mi  hub:[22m[39m Stopping emulator hub
+[36m[1mi  logging:[22m[39m Stopping Logging Emulator

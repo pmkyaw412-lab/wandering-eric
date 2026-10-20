@@ -1,0 +1,188 @@
+{
+ "label": "new",
+ "rules": "qa/rules/new.rules",
+ "pass": 30,
+ "total": 30,
+ "results": [
+  {
+   "name": "student creates own record (site shape)",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "student updates one saved school (updateDoc path)",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "student removes a saved school (field delete via whole save)",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "student reads own record",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "student cannot read another student",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "student cannot write another student's record",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "unknown field refused",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "target must be a number",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "essay must be text",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "saved must be a map",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "anonymous account cannot create a record",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "signed-out visitor cannot read a record",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "student deletes own record",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "anyone reads posts",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "Eric (account 1) publishes a post",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "Eric (account 2) updates a post",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "bad post address refused",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "a student cannot write posts",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "email/password account with Eric's address cannot write posts",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "unverified Google email cannot write posts",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "Eric writes a draft",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "Eric reads drafts",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "a student cannot read drafts",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "a visitor cannot read a draft",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "Eric uploads a photo",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "photo data must be text",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "anyone opens a photo by id",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "nobody else can list photos",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "Eric lists photos",
+   "expect": "allow",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "name": "other collections closed, even to Eric",
+   "expect": "deny",
+   "ok": true,
+   "err": ""
+  }
+ ]
+}
