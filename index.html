@@ -291,16 +291,12 @@ p.more{margin:8px 0 56px;padding-top:18px;border-top:1px solid var(--rule);color
 .ditem .dn{font-weight:500}
 .ditem input:checked~.dt .dn{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--lead)}
 .ditem .dd{font-size:14.5px;color:var(--lead);margin-top:2px}
-.writer .sect{padding:26px 0;border-bottom:1px solid var(--rule);transition:opacity .2s}
-.writer:has(textarea:focus) .sect:not(:focus-within){opacity:.38}
+.writer .sect{padding:26px 0;border-bottom:1px solid var(--rule)}
 .writer .sect h3{display:flex;gap:12px;align-items:baseline}
 .writer .sect h3 .i{color:var(--lead);font-weight:500}
 .writer .hint{color:var(--lead);font-size:15.5px;margin:6px 0 4px}
 .writer .trap{font-size:14.5px;color:var(--lead);margin:0 0 12px}
 .writer .trap b{color:var(--ink);font-weight:500;background:var(--hl2);padding:0 3px;border-radius:3px}
-.write{width:100%;min-height:120px;border:0;border-left:3px solid var(--rule);border-radius:0;padding:4px 0 4px 18px;font:400 18px/1.75 var(--f);color:var(--ink);background:transparent;resize:vertical}
-.write:focus-visible{box-shadow:none;border-left-color:var(--ink);outline:0}
-.cnt{font-size:13.5px;color:var(--lead);margin-top:6px;padding-left:21px}
 .qlist{list-style:none;margin:0;padding:0;counter-reset:q}
 .qlist li{counter-increment:q;display:grid;grid-template-columns:2em 1fr;column-gap:10px;padding:18px 0 19px;border-bottom:1px solid var(--rule)}
 .qlist li::before{content:counter(q);grid-row:1/span 3;color:var(--lead);font-weight:500;font-variant-numeric:tabular-nums;line-height:1.95}
@@ -1225,7 +1221,7 @@ body.blog .ahead .ameta{font-size:15px}
     <div>
       <h4>About this guide</h4>
       <p>Made by Eric, who teaches EJU maths in Osaka. Dates and rules are checked against JASSO's own pages, last on 26 September 2026, the university list on 27 September 2026 and the scholarships on 6 October 2026. Always confirm with each university's <span lang="ja">募集要項</span> before you apply.</p>
-      <p>Your saved schools and scholarships, ticks, drafts and formula progress stay in this browser. Sign in with Google and they are kept in your account instead, so your phone and laptop show the same. <a href="#/privacy">Privacy</a></p>
+      <p>Your saved schools and scholarships, ticks and formula progress stay in this browser. Sign in with Google and they are kept in your account instead, so your phone and laptop show the same. <a href="#/privacy">Privacy</a></p>
       <p><a href="https://www.facebook.com/p/Wandering-Eric-61559440529169/" target="_blank" rel="noopener">Wandering Eric on Facebook<span class="sr"> (opens in a new tab)</span></a></p>
     </div>
     <div>
@@ -3462,12 +3458,14 @@ function docs(){
 }
 function wc(s){var t=(s||"").replace(/\s/g,"");var w=(s||"").trim()?(s.trim().split(/\s+/).length):0;return /[぀-ヿ㐀-鿿]/.test(s||"")?t.length+" 字":w+" word"+(w===1?"":"s")}
 function statement(){
-  var all=STATEMENT_SECTIONS.map(function(x){return S.stmt[x.id]||""}).join("\n\n");
-  return '<div class="read">'+storeWarn()+'<p class="intro">Five short parts, in this order. Write in the language your university asks for; Japanese is counted in characters (字). While you type, the other parts fade so you can think about one thing at a time.</p>'+
+  /* the writing boxes were removed in v17; parts typed before then are still kept, so they can be copied out */
+  var old=STATEMENT_SECTIONS.map(function(x){return (S.stmt[x.id]||"").trim()}).filter(Boolean).join("\n\n");
+  return '<div class="read"><p class="intro">Five short parts, in this order. Answer each question in a few sentences, in the language your university asks for. Together they make your statement.</p>'+
   '<div class="writer">'+STATEMENT_SECTIONS.map(function(x,i){
-    return '<div class="sect"><h3><span class="i">'+(i+1)+'</span>'+esc(x.title)+'</h3><p class="hint">'+mix(x.hint)+'</p><p class="trap"><b>Watch out</b> '+mix(x.trap)+'</p>'+
-      '<label class="sr" for="w'+x.id+'">'+esc(x.title)+'</label><textarea class="write" id="w'+x.id+'" data-stmt="'+x.id+'">'+esc(S.stmt[x.id]||"")+'</textarea><div class="cnt" id="c'+x.id+'">'+wc(S.stmt[x.id])+'</div></div>';
-  }).join("")+'</div><div class="acts" style="margin-top:22px"><button class="btn" data-act="copystmt">Copy the whole draft</button><span class="small muted" id="stot">Total '+wc(all)+'</span></div></div>';
+    return '<div class="sect"><h3><span class="i">'+(i+1)+'</span>'+esc(x.title)+'</h3><p class="hint">'+mix(x.hint)+'</p><p class="trap"><b>Watch out</b> '+mix(x.trap)+'</p></div>';
+  }).join("")+'</div>'+
+    (old?'<p class="small muted" style="margin-top:22px">Your earlier statement draft ('+wc(old)+') is still saved here. <button class="linkbtn" data-act="copystmt">Copy it</button> <span id="scopy" role="status"></span></p>':'')+
+    '</div>';
 }
 function interview(){
   var qs=INTERVIEW.filter(function(q){return q[0]===U.icat});
@@ -3914,7 +3912,7 @@ function signInDlg(){
   if(fbOn()&&!FB.m)fbLoad().catch(function(){});
   openDlg("signin",'<div class="dlgbg"><div class="dlg signin" role="dialog" aria-modal="true" aria-labelledby="sit" aria-describedby="sid"><h2 id="sit">Keep your saved items on every device</h2>'+
     '<p id="sid">Sign in with your Google account and this site remembers you on your phone and your laptop. What comes along:</p>'+
-    '<ul class="syncs"><li>'+oval(true)+'<span>Your list of universities, with statuses and compare ticks</span></li><li>'+oval(true)+'<span>Saved scholarships</span></li><li>'+oval(true)+'<span>Formula progress, the review list and starred words</span></li><li>'+oval(true)+'<span>Document ticks, your statement draft and the JASSO checker</span></li></ul>'+
+    '<ul class="syncs"><li>'+oval(true)+'<span>Your list of universities, with statuses and compare ticks</span></li><li>'+oval(true)+'<span>Saved scholarships</span></li><li>'+oval(true)+'<span>Formula progress, the review list and starred words</span></li><li>'+oval(true)+'<span>Document ticks and the JASSO checker</span></li></ul>'+
     '<p class="fine">Nothing you save is shown to anyone else. This site keeps only your name, email and photo from Google, and you can delete it all from the account menu. <a href="#/privacy" data-act="dlgclose">Privacy</a></p>'+
     '<div class="acts"><button class="btn" data-act="signin" id="dlgbtn"'+(FB.busy?' disabled':'')+'>'+(FB.busy?'Opening Google':'Continue with Google')+'</button><button class="btn ghost" data-act="dlgclose">Not now</button></div>'+
     '<p class="fine" id="dlgerr" role="alert" style="color:var(--no)">'+esc(FB.err||"")+'</p></div></div>','#dlgbtn');
@@ -4893,7 +4891,9 @@ function rerenderKeep(focusSel){
 var SYNCWAIT=false,SYNCPREV=null;
 function keepPrev(){SYNCPREV={stmt:clone(S.stmt)||{}}}
 /* While the redraw waits, text boxes still show what arrived, so nobody types on top of an older version.
-   The box being typed in changes only if the student hasn't touched it since. */
+   The box being typed in changes only if the student hasn't touched it since.
+   (Since v17 no synced text box is on the site: statement and essay drafts can only be copied out. So this finds
+   nothing today; it is kept for any synced text box that comes back.) */
 function refreshFields(){var p=SYNCPREV||{},a=document.activeElement,st=false;
   $$('#main textarea[data-stmt]').forEach(function(el){
     var id=el.getAttribute("data-stmt"),now=S.stmt[id]||"",was=p.stmt?(p.stmt[id]||""):now;
@@ -5025,9 +5025,9 @@ document.addEventListener("click",function(ev){
     case "icat":U.icat=v;rerenderKeep();break;
     case "eshape":U.eshape=+v;rerenderKeep();break;
     case "elig":{var ek=el.getAttribute("data-k");S.elig[ek]=S.elig[ek]===v?undefined:v;save();rerenderKeep('[data-act="elig"][data-k="'+ek+'"][data-v="'+v+'"]');break}
-    case "copystmt":{var tx=STATEMENT_SECTIONS.map(function(x){return (S.stmt[x.id]||"").trim()}).filter(Boolean).join("\n\n");var t5=$("#stot");
+    case "copystmt":{var tx=STATEMENT_SECTIONS.map(function(x){return (S.stmt[x.id]||"").trim()}).filter(Boolean).join("\n\n");var t5=$("#scopy");
       if(!tx){if(t5)t5.textContent="Nothing to copy yet.";break}
-      copyText(tx,function(ok){if(t5)t5.textContent=ok?"Copied to your clipboard.":"Couldn't copy here. Select the text in each part and copy it yourself."});break}
+      copyText(tx,function(ok){if(t5)t5.textContent=ok?"Copied to your clipboard.":"Couldn't copy here. Try another browser."});break}
     case "copyessay":copyText((S.essay||"").trim(),function(ok){var t=$("#ecopy");if(t)t.textContent=ok?"Copied to your clipboard.":"Couldn't copy here. Try another browser."});break;
     case "search":openSearch();break;
     /* ---- account ---- */
@@ -5054,7 +5054,6 @@ document.addEventListener("click",function(ev){
 document.addEventListener("mousedown",function(ev){if(ev.target.closest&&ev.target.closest(".edtools button,.edtbl button"))ev.preventDefault()});
 document.addEventListener("input",function(ev){
   var el=ev.target, k=el.getAttribute("data-in");
-  if(el.hasAttribute("data-stmt")){var id=el.getAttribute("data-stmt");S.stmt[id]=el.value;save();var c=document.getElementById("c"+id);if(c)c.textContent=wc(el.value);var t=$("#stot");if(t)t.textContent="Total "+wc(STATEMENT_SECTIONS.map(function(x){return S.stmt[x.id]||""}).join("\n\n"));return}
   if(!k)return;
   switch(k){
     case "fq":U.fq=el.value;U.fc=0;U.fshow=false;U.fdeck=null;if(U.fmode==="quiz")U.quiz=null;repaint("fout",fOut);break;
@@ -5146,7 +5145,7 @@ function openSearch(){
 }
 function closeSearch(nav){document.getElementById("ovl").innerHTML="";if(!nav&&LASTFOCUS&&LASTFOCUS.focus)LASTFOCUS.focus({preventScroll:true})}
 var PAGESX=[["Formulas","Maths, physics, chemistry, with flashcards and quizzes","#/study"],["EJU practice","Exam dates, the answer sheet, free past papers","#/study/eju"],["Exam dates","Applications, vouchers, results","#/study/eju/dates"],["The answer sheet","Practise EJU-style answers","#/study/eju/answers"],["Past papers","Twenty free sittings","#/study/eju/papers"],["Words","Japanese for admissions and science","#/study/terms"],
-  ["Documents checklist","What to prepare","#/study/apply"],["Statement of purpose","Write it in five parts","#/study/apply/statement"],["Interview practice","Real questions with tips","#/study/apply/interview"],["Essay practice","小論文 shapes and a time plan","#/study/apply/essay"],
+  ["Documents checklist","What to prepare","#/study/apply"],["Statement of purpose","Five parts to answer, with tips","#/study/apply/statement"],["Interview practice","Real questions with tips","#/study/apply/interview"],["Essay practice","小論文 shapes and a time plan","#/study/apply/essay"],
   ["Universities and schools","Search every university in Japan","#/schools"],["Admits you from abroad","Pre-arrival admission","#/schools/pre"],["Your list","Saved schools, status and compare","#/schools/list"],["Find your fit","Seven questions","#/schools/match"],["Schools guide","Types of school, where international students go, the QS top 30","#/schools/guide"],["QS ranking","Top 30 universities in Japan, QS 2027","#/schools/guide"],
   ["Scholarships",SCHOL.length+" open to students from Myanmar","#/scholarships"],["Saved scholarships","The ones you marked Save","#/scholarships/saved"],["JASSO scholarship checker","Six questions on the criteria","#/scholarships/check"],["Scholarships guide","MEXT from Myanmar, where to start","#/scholarships/guide"],["Seven steps","The whole route","#/home/steps"],["EJU maths classes","Eric's classes in Burmese, a sample class, his Facebook page","#/class"],
   ["Blog","Eric's posts on EJU maths, universities and life in Japan","#/blog"],["Privacy and your account","What is kept, where, and how to delete it","#/privacy"]];

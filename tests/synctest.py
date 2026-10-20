@@ -64,6 +64,16 @@ def toggle_school(pg, k):
     pg.click(f'[data-act="save"][data-k="{k}"]')
 
 
+def tick_doc(pg, i):
+    """Tick or untick document i on #/study/apply, the way a student does: by tapping its oval."""
+    pg.click(f'label.ditem:has(input[data-doc="{i}"]) .ov')
+
+
+def docs_on(d):
+    """The document ticks in a stored or synced record, as a set of index strings."""
+    return {k for k, v in (d or {}).items() if v}
+
+
 def saved_ui(pg):
     pg.goto(BASE + "#/schools/list")
     pg.wait_for_timeout(300)
@@ -170,58 +180,51 @@ with sync_playwright() as p:
         check("race: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
-    # ---------- typing a statement while signed in ----------
+    # ---------- typing in a search box while a change arrives from another device ----------
+    # (Since v17 no text box on the site syncs; a search box is where a redraw could still interrupt typing.)
     if want("typing"):
         server("/__fake/reset", {})
         errs = []
-        A, pa = device(p, b, "iPhone 14", errs=errs)
-        pa.goto(BASE); pa.wait_for_timeout(300); sign_in(pa); pa.wait_for_timeout(1500)
-        pa.goto(BASE + "#/study/apply/statement"); pa.wait_for_timeout(400)
-        ta = pa.locator("textarea[data-stmt]").first
-        ta.click()
-        sid = ta.get_attribute("data-stmt")
+        X, ta = device(p, b, None, errs=errs); ta.set_viewport_size({"width": 1280, "height": 800})
+        ta.goto(BASE); ta.wait_for_timeout(300); sign_in(ta); ta.wait_for_timeout(1200)
+        Y, py = device(p, b, "iPhone 14", errs=errs); py.goto(BASE); py.wait_for_timeout(300); sign_in(py); py.wait_for_timeout(1200)
+        ks = school_keys(py, 2)
+        ta.goto(BASE + "#/study/terms"); ta.wait_for_timeout(400)
+        ta.locator("#tq").click()
+        ta.evaluate("()=>{document.getElementById('tq').__same=1}")  # a redraw would replace the box with a new one
         typed = ""
-        focus_lost = 0
-        for chunk in ["When I was fifteen ", "my village had no bridge, ", "so I wanted to build one. "]:
-            pa.keyboard.type(chunk, delay=25); typed += chunk
-            pa.wait_for_timeout(2600)  # pause to think; the save goes to the cloud
-            still = pa.evaluate("(id)=>{const a=document.activeElement;return !!a&&a.getAttribute('data-stmt')===id}", sid)
-            if not still:
-                focus_lost += 1
-                pa.locator(f'textarea[data-stmt="{sid}"]').click()
-                pa.keyboard.press("End")
-        val = pa.locator(f'textarea[data-stmt="{sid}"]').input_value()
-        check("typing while signed in: the text box keeps focus while the draft syncs", focus_lost == 0, f"focus lost {focus_lost} times")
-        check("typing while signed in: the text is intact", val == typed, repr(val))
-        check("typing while signed in: the draft reaches the account", ((cloud() or {}).get("stmt") or {}).get(sid) == typed, (cloud() or {}).get("stmt"))
-        writes = [x for x in server("/__fake/dump")["log"] if x["op"] == "set"]
+        for i, chunk in enumerate(["kan", "sei"]):
+            ta.keyboard.type(chunk, delay=60); typed += chunk
+            toggle_school(py, ks[i]); ta.wait_for_timeout(2600)  # the phone's save arrives while the laptop types
+        foc = ta.evaluate("()=>!!document.activeElement&&document.activeElement.id==='tq'")
+        same = ta.evaluate("()=>document.getElementById('tq').__same===1")
+        val = ta.locator("#tq").input_value()
+        check("typing in a search box: it keeps focus while the account syncs", foc, foc)
+        check("typing in a search box: the text is intact", val == typed, repr(val))
+        check("typing in a search box: the box isn't redrawn mid-word (Japanese and Burmese input stay intact)", same, same)
         check("typing: no script errors", not real_errors(errs), real_errors(errs))
-        A.close()
+        X.close(); Y.close()
 
-    # ---------- typing before Firebase has arrived (slow connection, returning user) ----------
+    # ---------- a change made before Firebase has arrived (slow connection, returning user) ----------
     if want("slowboot"):
         server("/__fake/reset", {})
         errs = []
         A, pa = device(p, b, "iPhone 14", errs=errs)
         pa.goto(BASE); pa.wait_for_timeout(300); sign_in(pa); pa.wait_for_timeout(1500)
-        pa.goto(BASE + "#/study/apply/statement"); pa.wait_for_timeout(300)
-        sid = pa.locator("textarea[data-stmt]").first.get_attribute("data-stmt")
-        pa.locator(f'textarea[data-stmt="{sid}"]').fill("Old text from yesterday."); pa.wait_for_timeout(2600)
+        pa.goto(BASE + "#/study/apply"); pa.wait_for_timeout(300)
+        tick_doc(pa, 0); pa.wait_for_timeout(2600)
         state = A.storage_state(); A.close()
         A3 = b.new_context(**D(p, "iPhone 14"), storage_state=state)
         install_routes(A3)
         A3.add_init_script("window.__FAKE_SLOWLOAD=4000;")
         pa3 = A3.new_page(); pa3.on("pageerror", lambda e: errs.append(str(e)))
-        pa3.goto(BASE + "#/study/apply/statement"); pa3.wait_for_timeout(300)
-        t = pa3.locator(f'textarea[data-stmt="{sid}"]')
-        t.click(); pa3.keyboard.press("End"); pa3.keyboard.type(" New line typed today.", delay=20)
-        pa3.wait_for_timeout(1200); pa3.keyboard.type(" More.", delay=60)
-        pa3.wait_for_timeout(6000)
-        val = t.input_value()
-        foc = pa3.evaluate("(id)=>document.activeElement&&document.activeElement.getAttribute('data-stmt')===id", sid)
-        check("slow connection: text typed before sign-in finished is kept", val.endswith("New line typed today. More."), repr(val))
-        check("slow connection: the text box still has focus after sign-in finished", foc, foc)
-        check("slow connection: today's text reaches the account", (((cloud() or {}).get("stmt") or {}).get(sid) or "").endswith("New line typed today. More."), (cloud() or {}).get("stmt"))
+        pa3.goto(BASE + "#/study/apply"); pa3.wait_for_timeout(300)
+        tick_doc(pa3, 1)
+        pa3.wait_for_timeout(7000)
+        dl = docs_on(local(pa3).get("docs")); dc = docs_on((cloud() or {}).get("docs"))
+        check("slow connection: a tick made before sign-in finished is kept", {"0", "1"} <= dl, sorted(dl))
+        check("slow connection: the tick still shows after sign-in finished", pa3.locator('input[data-doc="1"]').is_checked(), sorted(dl))
+        check("slow connection: today's tick reaches the account", {"0", "1"} <= dc, sorted(dc))
         check("slowboot: no script errors", not real_errors(errs), real_errors(errs))
         A3.close()
 
@@ -318,19 +321,13 @@ with sync_playwright() as p:
         la = set(local(pa).get("saved", {}).keys()); lb = set(local(pb).get("saved", {}).keys()); c = set(((cloud() or {}).get("saved") or {}).keys())
         ok = {ks[0], ks[1]} <= la and {ks[0], ks[1]} <= lb and {ks[0], ks[1]} <= c
         check("both devices save at once: both schools end up everywhere", ok, (sorted(la), sorted(lb), sorted(c)))
-        # statements: phone writes part 1 while the laptop writes part 2
-        pa.goto(BASE + "#/study/apply/statement"); pb.goto(BASE + "#/study/apply/statement"); pa.wait_for_timeout(400)
-        ids = pa.eval_on_selector_all("textarea[data-stmt]", "t=>t.map(x=>x.getAttribute('data-stmt'))")
-        pa.locator(f'textarea[data-stmt="{ids[0]}"]').click(); pa.keyboard.type("Phone part one.", delay=15)
-        pb.locator(f'textarea[data-stmt="{ids[1]}"]').click(); pb.keyboard.type("Laptop part two.", delay=15)
-        pa.wait_for_timeout(1000)
-        foc = pa.evaluate("(id)=>document.activeElement&&document.activeElement.getAttribute('data-stmt')===id", ids[0])
-        pa.wait_for_timeout(4000)
-        st = (cloud() or {}).get("stmt") or {}
-        check("statement parts written on two devices are both kept", st.get(ids[0]) == "Phone part one." and st.get(ids[1]) == "Laptop part two.", st)
-        check("the phone kept its text box while the laptop's part arrived", foc)
-        pa.locator("h1").first.click(); pa.wait_for_timeout(500)
-        check("after leaving the box, the phone shows the laptop's part", pa.locator(f'textarea[data-stmt="{ids[1]}"]').input_value() == "Laptop part two.", pa.locator(f'textarea[data-stmt="{ids[1]}"]').input_value())
+        # document ticks: the phone ticks one document while the laptop ticks another
+        pa.goto(BASE + "#/study/apply"); pb.goto(BASE + "#/study/apply"); pa.wait_for_timeout(400)
+        tick_doc(pa, 0); tick_doc(pb, 1)
+        pa.wait_for_timeout(5000)
+        dc = docs_on((cloud() or {}).get("docs"))
+        check("document ticks made on two devices are both kept", {"0", "1"} <= dc, sorted(dc))
+        check("the phone shows the laptop's tick", pa.locator('input[data-doc="1"]').is_checked(), sorted(docs_on(local(pa).get("docs"))))
         n0 = len([x for x in server("/__fake/dump")["log"] if x["op"] == "set"]); pa.wait_for_timeout(5000)
         n1 = len([x for x in server("/__fake/dump")["log"] if x["op"] == "set"])
         check("no endless writing back and forth when nothing changes", n1 == n0, f"{n1 - n0} writes in 5 idle seconds")
@@ -392,26 +389,6 @@ with sync_playwright() as p:
         check("otheruser: no script errors", not real_errors(errs), real_errors(errs))
         A.close()
 
-    # ---------- review 1: an idle text box must not overwrite newer text from another device ----------
-    if want("stalebox"):
-        server("/__fake/reset", {})
-        errs = []
-        A, pa = device(p, b, "iPhone 14", errs=errs)
-        Bc, pb = device(p, b, None, errs=errs); pb.set_viewport_size({"width": 1280, "height": 800})
-        pa.goto(BASE); pa.wait_for_timeout(300); sign_in(pa); pa.wait_for_timeout(1200)
-        pb.goto(BASE); pb.wait_for_timeout(300); sign_in(pb); pb.wait_for_timeout(1200)
-        pa.goto(BASE + "#/study/apply/statement"); pb.goto(BASE + "#/study/apply/statement"); pa.wait_for_timeout(500)
-        sid = pa.locator("textarea[data-stmt]").first.get_attribute("data-stmt")
-        pb.locator(f'textarea[data-stmt="{sid}"]').click(); pb.wait_for_timeout(300)   # laptop: caret in part 1, idle
-        pa.locator(f'textarea[data-stmt="{sid}"]').click(); pa.keyboard.type("Written on the phone.", delay=10); pa.wait_for_timeout(3500)
-        shown = pb.locator(f'textarea[data-stmt="{sid}"]').input_value()
-        check("idle box on the laptop shows the phone's newer text", shown == "Written on the phone.", repr(shown))
-        pb.keyboard.press("End"); pb.keyboard.type(" Laptop adds this.", delay=10); pb.wait_for_timeout(3500)
-        st = ((cloud() or {}).get("stmt") or {}).get(sid)
-        check("typing on the laptop builds on the phone's text instead of replacing it", st == "Written on the phone. Laptop adds this.", repr(st))
-        check("stalebox: no script errors", not real_errors(errs), real_errors(errs))
-        A.close(); Bc.close()
-
     # ---------- review 2: deleted account data must not come back from another open device ----------
     if want("delete2"):
         server("/__fake/reset", {})
@@ -460,30 +437,30 @@ with sync_playwright() as p:
         check("retry: no script errors", not real_errors(errs), real_errors(errs))
         A2.close()
 
-    # ---------- review 2.1: two tabs on one laptop, typing in one while the other merges a change ----------
+    # ---------- review 2.1: two tabs on one laptop, ticking in one while the other merges a change ----------
     if want("twotabs"):
         server("/__fake/reset", {})
         errs = []
         X, ta = device(p, b, None, errs=errs); ta.set_viewport_size({"width": 1280, "height": 800})
         ta.goto(BASE); ta.wait_for_timeout(300); sign_in(ta); ta.wait_for_timeout(1200)
         tb = X.new_page(); tb.set_viewport_size({"width": 1280, "height": 800}); tb.on("pageerror", lambda e: errs.append(str(e)))
-        tb.goto(BASE + "#/study/apply/statement"); tb.wait_for_timeout(2000)
+        tb.goto(BASE + "#/study/apply"); tb.wait_for_timeout(2000)
         Y, py = device(p, b, "iPhone 14", errs=errs); py.goto(BASE); py.wait_for_timeout(300); sign_in(py); py.wait_for_timeout(1200)
         ks = school_keys(py, 2)
         ta.goto(BASE + "#/schools"); ta.wait_for_timeout(300)
-        tb.bring_to_front(); tb.locator('[data-stmt="trigger"]').click()
-        text = "日本の大学で学びたい理由は三つある。" * 3
+        tb.bring_to_front()
         toggle_school(py, ks[0])
         ta.goto(BASE + "#/schools"); ta.wait_for_timeout(300)
         aks = ta.eval_on_selector_all('[data-act="save"]', "els=>els.map(e=>e.getAttribute('data-k'))")[2:11]
-        # the student types in tab B while tab A keeps saving schools (each save rewrites the stored copy)
+        # the student ticks documents in tab B while tab A keeps saving schools (each save rewrites the stored copy)
         for i in range(9):
-            tb.keyboard.type(text[i * 6:(i + 1) * 6], delay=45)
+            tick_doc(tb, i); tb.wait_for_timeout(120)
             ta.click(f'[data-act="save"][data-k="{aks[i]}"]')
         tb.wait_for_timeout(3500)
-        v = tb.locator('[data-stmt="trigger"]').input_value()
-        check("two tabs: nothing typed in one tab is lost when the other tab syncs", v == text, f"{len(v)} of {len(text)} characters: {v!r}")
-        check("two tabs: the statement reaches the account", (((cloud() or {}).get("stmt") or {}).get("trigger") or "") == text, len(((cloud() or {}).get("stmt") or {}).get("trigger") or ""))
+        want_docs = {str(i) for i in range(9)}
+        dl = docs_on(local(tb).get("docs")); dc = docs_on((cloud() or {}).get("docs"))
+        check("two tabs: no tick made in one tab is lost when the other tab syncs", want_docs <= dl, sorted(want_docs - dl))
+        check("two tabs: the ticks reach the account", want_docs <= dc, sorted(want_docs - dc))
         check("two tabs: the phone's save shows in both tabs", ks[0] in local(tb).get("saved", {}), list(local(tb).get("saved", {}).keys()))
         lb = set(local(tb).get("saved", {}).keys()); cs = set(((cloud() or {}).get("saved") or {}).keys())
         check("two tabs: every school saved in tab A is kept, on the device and in the account", set(aks) <= lb and set(aks) <= cs, (sorted(set(aks) - lb), sorted(set(aks) - cs)))
@@ -498,15 +475,15 @@ with sync_playwright() as p:
         ta.goto(BASE); ta.wait_for_timeout(300); sign_in(ta); ta.wait_for_timeout(1200)
         Y, py = device(p, b, "iPhone 14", errs=errs); py.goto(BASE); py.wait_for_timeout(300); sign_in(py); py.wait_for_timeout(1200)
         ks = school_keys(py, 1)
-        ta.goto(BASE + "#/study/apply/statement"); ta.wait_for_timeout(400)
-        ta.locator('[data-stmt="trigger"]').click(); ta.keyboard.type("A first line.", delay=20)
-        toggle_school(py, ks[0]); ta.wait_for_timeout(2800)  # the phone's save arrives while the laptop is in the box
-        link = ta.locator('#main a[href="#/study/apply/interview"]').first
+        ta.goto(BASE + "#/study/terms"); ta.wait_for_timeout(400)
+        ta.locator("#tq").click(); ta.keyboard.type("kansei", delay=20)
+        toggle_school(py, ks[0]); ta.wait_for_timeout(2800)  # the phone's save arrives while the laptop is in the search box
+        link = ta.locator('#main a[href="#/study/apply"]').first
         link.evaluate("e=>e.scrollIntoView({block:'center'})"); ta.wait_for_timeout(100)
         box = link.bounding_box()
         ta.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2); ta.mouse.down(); ta.wait_for_timeout(120); ta.mouse.up()
         ta.wait_for_timeout(500)
-        check("first click after typing still works when a sync was waiting", ta.evaluate("location.hash") == "#/study/apply/interview", ta.evaluate("location.hash"))
+        check("first click after typing still works when a sync was waiting", ta.evaluate("location.hash") == "#/study/apply", ta.evaluate("location.hash"))
         check("clickafter: no script errors", not real_errors(errs), real_errors(errs))
         X.close(); Y.close()
 
@@ -515,13 +492,13 @@ with sync_playwright() as p:
         errs = []
         X, ta = device(p, b, None, errs=errs); ta.set_viewport_size({"width": 1280, "height": 800})
         tb = X.new_page(); tb.on("pageerror", lambda e: errs.append(str(e)))
-        ta.goto(BASE + "#/schools"); tb.goto(BASE + "#/study/apply/statement"); ta.wait_for_timeout(500); tb.wait_for_timeout(500)
-        tb.locator('[data-stmt="trigger"]').click(); tb.keyboard.type("最初の一文。", delay=30); tb.wait_for_timeout(600)
+        ta.goto(BASE + "#/schools"); tb.goto(BASE + "#/study/apply"); ta.wait_for_timeout(500); tb.wait_for_timeout(500)
+        tick_doc(tb, 0); tb.wait_for_timeout(600)
         k = ta.eval_on_selector_all('[data-act="save"]', "els=>els.map(e=>e.getAttribute('data-k'))")[0]
         ta.click(f'[data-act="save"][data-k="{k}"]'); ta.wait_for_timeout(800)
-        tb.keyboard.type("次の文。", delay=30); tb.wait_for_timeout(800)
-        v = tb.locator('[data-stmt="trigger"]').input_value(); st = local(tb)
-        check("fresh tabs: the statement typed in one tab survives the other tab's first save", v == "最初の一文。次の文。" and (st.get("stmt") or {}).get("trigger") == v, (v, st.get("stmt")))
+        tick_doc(tb, 1); tb.wait_for_timeout(800)
+        st = local(tb); dl = docs_on(st.get("docs"))
+        check("fresh tabs: ticks made in one tab survive the other tab's first save", {"0", "1"} <= dl and tb.locator('input[data-doc="0"]').is_checked(), sorted(dl))
         check("fresh tabs: the other tab's saved school is kept", k in st.get("saved", {}), list(st.get("saved", {}).keys()))
         check("freshtabs: no script errors", not real_errors(errs), real_errors(errs))
         X.close()
