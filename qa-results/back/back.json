@@ -1,0 +1,306 @@
+{
+ "live": "https://pmkyaw412-lab.github.io/wandering-eric/",
+ "when": "2026-10-20T05:46:22Z",
+ "back": {
+  "iphone14-webkit": {
+   "#/faq": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/faq",
+    "h1": "Questions and answers"
+   },
+   "#/schools": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/schools",
+    "h1": "Universities and schools"
+   },
+   "#/study/terms": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/study/terms",
+    "h1": "Study"
+   }
+  },
+  "iphoneSE-webkit": {
+   "#/faq": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/faq",
+    "h1": "Questions and answers"
+   },
+   "#/schools": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/schools",
+    "h1": "Universities and schools"
+   },
+   "#/study/terms": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/study/terms",
+    "h1": "Study"
+   }
+  },
+  "pixel7-chromium": {
+   "#/faq": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/faq",
+    "h1": "Questions and answers"
+   },
+   "#/schools": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/schools",
+    "h1": "Universities and schools"
+   },
+   "#/study/terms": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/study/terms",
+    "h1": "Study"
+   }
+  },
+  "desktop-chromium": {
+   "#/faq": {
+    "scrolled_to": 910,
+    "after_move": 0,
+    "after_back": 910,
+    "hash": "#/faq",
+    "h1": "Questions and answers"
+   },
+   "#/schools": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/schools",
+    "h1": "Universities and schools"
+   },
+   "#/study/terms": {
+    "scrolled_to": 1200,
+    "after_move": 0,
+    "after_back": 1200,
+    "hash": "#/study/terms",
+    "h1": "Study"
+   }
+  }
+ },
+ "after_desk": {
+  "iphone14-webkit": {
+   "still_open_after_15s": [],
+   "requests_in_15s": 9,
+   "started": [
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js"
+    ],
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js"
+    ],
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js"
+    ],
+    [
+     0.0,
+     "font",
+     "https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a7du3mhPy0.woff2"
+    ],
+    [
+     0.5,
+     "script",
+     "https://apis.google.com/js/api.js?onload=__iframefcb882143"
+    ],
+    [
+     0.7,
+     "script",
+     "https://apis.google.com/_/scs/abc-static/_/js/k=gapi.lb.en.etOqPKhAhvg.O/m=gapi_iframes/rt=j/sv=1/d=1/ed=1/rs=AHpOoo-l5JrVgGKVELwC844E6riBHX86-w/cb=gapi.loaded_"
+    ],
+    [
+     0.8,
+     "document",
+     "https://wandering-eric.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&appName=%5BDEFAULT%5D&v=13.0.0&eid=p&usegapi=1&jsh=m%3B%2F_"
+    ],
+    [
+     1.0,
+     "script",
+     "https://wandering-eric.firebaseapp.com/__/auth/iframe.js"
+    ],
+    [
+     1.3,
+     "xhr",
+     "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getProjectConfig?key=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&cb=1792475208400"
+    ]
+   ],
+   "frames": [
+    "https://pmkyaw412-lab.github.io/wandering-eric/#/write",
+    "https://wandering-eric.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&appName=%5BDEFAULT%5D&v=13.0.0&eid=p&usegapi=1&jsh=m%3B%2F_"
+   ]
+  },
+  "iphoneSE-webkit": {
+   "still_open_after_15s": [],
+   "requests_in_15s": 9,
+   "started": [
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js"
+    ],
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js"
+    ],
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js"
+    ],
+    [
+     0.0,
+     "font",
+     "https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a7du3mhPy0.woff2"
+    ],
+    [
+     0.4,
+     "script",
+     "https://apis.google.com/js/api.js?onload=__iframefcb166305"
+    ],
+    [
+     0.7,
+     "script",
+     "https://apis.google.com/_/scs/abc-static/_/js/k=gapi.lb.en.etOqPKhAhvg.O/m=gapi_iframes/rt=j/sv=1/d=1/ed=1/rs=AHpOoo-l5JrVgGKVELwC844E6riBHX86-w/cb=gapi.loaded_"
+    ],
+    [
+     0.8,
+     "document",
+     "https://wandering-eric.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&appName=%5BDEFAULT%5D&v=13.0.0&eid=p&usegapi=1&jsh=m%3B%2F_"
+    ],
+    [
+     0.8,
+     "script",
+     "https://wandering-eric.firebaseapp.com/__/auth/iframe.js"
+    ],
+    [
+     0.8,
+     "xhr",
+     "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getProjectConfig?key=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&cb=1792475239788"
+    ]
+   ],
+   "frames": [
+    "https://pmkyaw412-lab.github.io/wandering-eric/#/write",
+    "https://wandering-eric.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&appName=%5BDEFAULT%5D&v=13.0.0&eid=p&usegapi=1&jsh=m%3B%2F_"
+   ]
+  },
+  "pixel7-chromium": {
+   "still_open_after_15s": [
+    "https://www.google.com/images/cleardot.gif"
+   ],
+   "requests_in_15s": 11,
+   "started": [
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js"
+    ],
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js"
+    ],
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js"
+    ],
+    [
+     0.0,
+     "font",
+     "https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a7du3mhPy0.woff2"
+    ],
+    [
+     0.4,
+     "script",
+     "https://apis.google.com/js/api.js?onload=__iframefcb468406"
+    ],
+    [
+     0.6,
+     "script",
+     "https://apis.google.com/_/scs/abc-static/_/js/k=gapi.lb.en.gh7qIZtzO5w.O/m=gapi_iframes/rt=j/sv=1/d=1/ed=1/rs=AHpOoo84YKT1RVy0T6hcXi5rH3LooB1WCw/cb=gapi.loaded_"
+    ],
+    [
+     0.7,
+     "fetch",
+     "https://apis.google.com/js/gen_204?c=50%3A1"
+    ],
+    [
+     0.7,
+     "document",
+     "https://wandering-eric.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&appName=%5BDEFAULT%5D&v=13.0.0&eid=p&usegapi=1&jsh=m%3B%2F_"
+    ],
+    [
+     0.8,
+     "script",
+     "https://wandering-eric.firebaseapp.com/__/auth/iframe.js"
+    ],
+    [
+     0.9,
+     "xhr",
+     "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getProjectConfig?key=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&cb=1792475271296"
+    ],
+    [
+     0.9,
+     "fetch",
+     "https://www.google.com/images/cleardot.gif"
+    ]
+   ],
+   "frames": [
+    "https://pmkyaw412-lab.github.io/wandering-eric/#/write",
+    "https://wandering-eric.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyAV3MhZb9M9zV6DwfrsD-9qSXCDBj9g4fA&appName=%5BDEFAULT%5D&v=13.0.0&eid=p&usegapi=1&jsh=m%3B%2F_"
+   ]
+  },
+  "desktop-chromium": {
+   "still_open_after_15s": [],
+   "requests_in_15s": 4,
+   "started": [
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js"
+    ],
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js"
+    ],
+    [
+     0.0,
+     "script",
+     "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js"
+    ],
+    [
+     0.0,
+     "font",
+     "https://fonts.gstatic.com/s/notosans/v42/o-0bIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjc5a7duw.woff2"
+    ]
+   ],
+   "frames": [
+    "https://pmkyaw412-lab.github.io/wandering-eric/#/write"
+   ]
+  }
+ }
+}
