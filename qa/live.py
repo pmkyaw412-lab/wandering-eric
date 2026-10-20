@@ -44,14 +44,16 @@ with sync_playwright() as p:
                 ov = page.evaluate(OVERFLOW_JS)
                 fonts = page.evaluate("() => [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family + ' ' + f.weight)")
                 h1 = page.evaluate("() => (document.querySelector('main h1') || {}).textContent || ''")
+                page.wait_for_timeout(600 if r in ("", "#/study", "#/study/eju") else 0)
+                kx = page.evaluate("() => [document.querySelectorAll('#main .katex').length, document.querySelectorAll('#main .rawtex').length]")
             except Exception as e:  # noqa
-                ov, fonts, h1 = {"err": str(e)[:200]}, [], ""
+                ov, fonts, h1, kx = {"err": str(e)[:200]}, [], "", [0, 0]
             name = r.replace("#/", "").replace("/", "_") or "home"
             try:
                 page.screenshot(path=f"{OUT}/{key}__{name}.jpg", type="jpeg", quality=50, full_page=False)
             except Exception as e:  # noqa
                 ev.append(["screenshot", str(e)[:200]])
-            res["pages"][key + " " + (r or "/")] = {"ms": int((time.time() - t0) * 1000), "h1": h1[:120], "overflow": ov, "events": list(ev), "fonts": sorted(set(fonts))[:40]}
+            res["pages"][key + " " + (r or "/")] = {"ms": int((time.time() - t0) * 1000), "h1": h1[:120], "overflow": ov, "events": list(ev), "fonts": sorted(set(fonts))[:40], "katex": kx}
         if key == "desktop-chromium":
             # open the Google sign-in window, never sign in
             ev.clear()

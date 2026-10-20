@@ -1,0 +1,56 @@
+name: QA live check (temporary)
+
+# Runs only on the temporary qa/link-check branch. TARGET=preview builds the v16 branch and serves it
+# locally with the real CDNs; TARGET=live opens the published site. Results are saved to this branch.
+on:
+  push:
+    branches: ["qa/link-check"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qa-live
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Which site
+        run: echo "TARGET=$(cat qa/target 2>/dev/null || echo live)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+        if: env.TARGET == 'preview'
+        with:
+          ref: v16
+          path: site
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build the preview
+        if: env.TARGET == 'preview'
+        run: cd site && npm ci --ignore-scripts --no-audit --no-fund && npm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright
+        run: |
+          pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium webkit
+      - name: Open the site on phones and desktop
+        continue-on-error: true
+        run: |
+          if [ "$TARGET" = "preview" ]; then (cd site/dist && python -m http.server 8080 >/dev/null 2>&1 &) ; sleep 2; export LIVE_URL=http://localhost:8080/; fi
+          python qa/live.py "qa-results-$TARGET"
+      - name: Save the results to this branch
+        if: always()
+        run: |
+          mkdir -p qa-results
+          [ -d "qa-results-$TARGET" ] && rm -rf "qa-results/$TARGET" && mv "qa-results-$TARGET" "qa-results/$TARGET"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add qa-results
+          git commit -m "QA $TARGET results" || echo "nothing to commit"
+          git push origin HEAD:qa/link-check
