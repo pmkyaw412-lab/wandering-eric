@@ -1,6 +1,6 @@
 {
   "name": "wandering-eric",
-  "version": "15.0.0",
+  "version": "16.0.0",
   "private": true,
   "description": "Wandering Eric: the EJU and admission guide, with Eric's blog",
   "type": "module",
@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "myanmar-tools": "1.1.3",
-    "yaml": "^2.6.0"
+    "yaml": "2.9.1"
   }
 }

@@ -5,7 +5,7 @@
 media:
   input: media
   output: media
-  extensions: [png, jpg, jpeg, webp, gif, svg]
+  extensions: [png, jpg, jpeg, webp, gif]
 
 content:
   - name: posts
