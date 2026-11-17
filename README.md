@@ -2,7 +2,7 @@
 
 The EJU and admission guide for students from Myanmar, with Eric's blog. One HTML file, no framework, published on GitHub Pages.
 
-- `index.html` is the whole site (v17). Routes are hash routes: `#/study` (with tabs `eju` and `apply`), `#/schools`, `#/scholarships`, `#/blog`, `#/faq`, `#/class`, `#/privacy`, and `#/write` (Eric's writing desk). The old `#/exam` and `#/apply` addresses redirect to their new homes (see `oldRoute` in `index.html`).
+- `index.html` is the whole site (v18). Routes are hash routes: `#/study` (with tabs `eju` and `apply`), `#/schools`, `#/scholarships`, `#/blog`, `#/faq`, `#/class`, `#/privacy`, and `#/write` (Eric's writing desk). The old `#/exam` and `#/apply` addresses redirect to their new homes (see `oldRoute` in `index.html`).
 - The school list is sorted by default by QS 2027 place, then by each university's highest-faculty 偏差値 (河合塾, from 日本の学校 and Kei-Net, collected October 2026; the `HEN` table in `index.html`), then north to south. The 偏差値 is used only for ordering and is never shown.
 - Study › Application has the documents checklist and three practice pages that are questions only: Statement (the five parts with tips, v17), Interview (every question in a set, v16) and Essay (shapes, a typical prompt and a time plan, v16). They have no typing boxes; a statement or essay typed before then stays in the student's record (`stmt`, `essay`) and the page offers to copy it out.
 - `posts/` holds blog posts written as Markdown files (empty since v15; posts are written in the site's writing desk). `media/` holds their images.
@@ -53,3 +53,7 @@ How syncing works (v14): each device keeps a copy of the account's record as it 
 - `package-lock.json` is committed and the workflows run `npm ci --ignore-scripts`, so a build always uses the same, checked versions of its two packages. Only the deploy job can publish to Pages.
 - KaTeX and marked load from their CDNs with Subresource Integrity, so the browser refuses any file that isn't the exact published version. When upgrading either, update the `integrity` values too.
 - Blog posts are cleaned before they are shown: no scripts, event handlers, styles, classes or ids from a post reach the page.
+
+## Visit counter (v18)
+
+Page visits are counted with GoatCounter (dashboard: https://wanderingeric.goatcounter.com, Eric's login only). No cookies, nothing stored in the browser. `gcTrack()` in `index.html` sends one count per page as a path (`/`, `/study/eju`, `/schools/list`, `/blog/<post>`); search words and filters are never sent. Not counted: the writing desk, devices where an admin account has signed in (flag `wandering-eric:nocount` in local storage), automated browsers, and any host other than `*.github.io` or `wanderingeric.net`. The privacy page describes this.

@@ -3709,6 +3709,7 @@ function fbLoad(){
       FB.retry=0;
       if(u){lsSet(AUTHKEY,"1");cloudAttach()}else{FB.deleting=false;cloudDetach();if(was||lsGet(AUTHKEY))lsSet(AUTHKEY,"")}
       paintAcct();if(u||was||R.r==="write")syncRender();
+      GCWAIT=false;gcTrack();
     });
     return m;
   });
@@ -4798,11 +4799,12 @@ function edClick(el,ev){
 function privacyPage(){
   return head("Privacy and your account","Short and plain: what this site keeps, where, and how to delete it.")+
   '<div class="wrap read" style="padding-bottom:60px">'+
-  '<div class="block" style="border-top:0"><h2>Without an account</h2><p>Everything on this site works without signing in. Your saved universities and scholarships, formula progress, starred words, ticks and drafts are stored in this browser only (its local storage). They are not sent anywhere. Like any web page, the site loads its fonts from Google Fonts and its maths display from cdnjs, and the blog reads its posts from Firebase; there are no analytics or advertising trackers.</p></div>'+
+  '<div class="block" style="border-top:0"><h2>Without an account</h2><p>Everything on this site works without signing in. Your saved universities and scholarships, formula progress, starred words, ticks and drafts are stored in this browser only (its local storage). They are not sent anywhere. Like any web page, the site loads its fonts from Google Fonts and its maths display from cdnjs, and the blog reads its posts from Firebase.</p>'+
+  '<p>To know how many people use the site, it counts page visits with GoatCounter. The count uses no cookies and stores nothing in your browser. It records which page was opened, the site you came from, your country, and your kind of device and browser. It does not record your name, your email or anything you type or save here. Only Eric can see the totals. There are no advertising trackers.</p></div>'+
   '<div class="block"><h2>If you sign in with Google</h2><p>Signing in is optional. It exists so the same saved items appear on your phone and your laptop. When you sign in, Google tells this site your name, email address and profile photo; Firebase Authentication, a Google service, keeps them so you stay signed in. The items listed on the sign-in screen are kept in a single record in Firebase, in a data centre in Tokyo, that only you can read or change on this site. Eric, who runs the project, can see records in the Firebase console, but nothing in it is visible to other students, and it is not used for anything else.</p>'+
   '<p>The site never sees your Google password. Sign-in happens on Google\'s own page.</p></div>'+
   '<div class="block"><h2>Deleting your data</h2><p>Open the account menu (your photo at the top of the page) and choose Delete account data. Google asks you to choose your account once more, then your record and your sign-in are removed. What was already on this device stays in this browser until you clear the site\'s data in your browser settings.</p></div>'+
-  '<div class="block"><h2>Questions</h2><p>Write to Eric on <a href="https://www.facebook.com/p/Wandering-Eric-61559440529169/" target="_blank" rel="noopener">Wandering Eric on Facebook</a>.</p><p class="src">Last updated 20 October 2026.</p></div></div>';
+  '<div class="block"><h2>Questions</h2><p>Write to Eric on <a href="https://www.facebook.com/p/Wandering-Eric-61559440529169/" target="_blank" rel="noopener">Wandering Eric on Facebook</a>.</p><p class="src">Last updated 17 November 2026.</p></div></div>';
 }
 
 /* ================= router ================= */
@@ -4852,6 +4854,37 @@ function render(){
   if(hs&&typeof hs.y==="number"){window.scrollTo(0,hs.y)}
   else if(target){target.scrollIntoView({block:"start"})}else{window.scrollTo(0,0)}
   var h1=$("#main h1");if(h1&&booted){h1.setAttribute("tabindex","-1");h1.focus({preventScroll:true})}
+  gcTrack();
+}
+/* ================= v18: visit counter =================
+   GoatCounter (wanderingeric.goatcounter.com): no cookies, nothing stored in the browser, no personal data.
+   One count per page a visitor opens, sent as "/study/eju", "/schools/list", "/blog/<post>" and so on. Search words,
+   filters and anything typed are never sent. Not counted: the writing desk, Eric's own devices (once an admin
+   account has signed in on them), and local or test copies of the site. Only Eric can see the numbers. */
+var GC="wanderingeric",NOCOUNT="wandering-eric:nocount",GCLAST=null,GCWAIT=true;
+var GCON=/(^|\.)github\.io$|(^|\.)wanderingeric\.net$/.test(location.hostname)&&!navigator.webdriver;
+function gcPath(){
+  if(R.r==="home")return "/";
+  if(R.r==="blog")return "/blog"+(R.sub?"/"+R.sub:"");
+  return "/"+R.r+(R.sub?"/"+R.sub:"");
+}
+function gcTrack(){
+  if(!GCON||!booted)return;
+  if(isAdmin())lsSet(NOCOUNT,"1");
+  if(lsGet(NOCOUNT)==="1"||R.r==="write")return;
+  /* someone who was signed in last time: wait until the sign-in is known, so Eric's first page isn't counted */
+  if(GCWAIT&&lsGet(AUTHKEY)==="1"&&!FB.user)return;
+  if(!window.goatcounter||!window.goatcounter.count)return;
+  var path=gcPath();if(path===GCLAST)return;GCLAST=path;
+  try{window.goatcounter.count({path:path,title:TITLES[R.r]||"",event:false})}catch(e){}
+}
+function gcStart(){
+  if(!GCON||lsGet(NOCOUNT)==="1")return;
+  window.goatcounter={no_onload:true,allow_frame:false};
+  var sc=document.createElement("script");sc.async=true;sc.src="https://gc.zgo.at/count.js";
+  sc.setAttribute("data-goatcounter","https://"+GC+".goatcounter.com/count");
+  sc.onload=gcTrack;document.head.appendChild(sc);
+  setTimeout(function(){GCWAIT=false;gcTrack()},6000);
 }
 /* long formulas shrink to fit a narrow screen instead of hiding their ends (scrolling stays as a fallback) */
 function fitMath(){
@@ -5185,7 +5218,7 @@ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.c
 (function(){var d=document.getElementById("dlg"),o=document.getElementById("ovl"),h=document.documentElement;
   function sync(){h.classList.toggle("lock",!!(d.firstElementChild||o.firstElementChild))}
   if(window.MutationObserver){var mo=new MutationObserver(sync);mo.observe(d,{childList:true});mo.observe(o,{childList:true})}})();
-function boot(){loadState();render();booted=true;paintAcct();if(fbOn()&&lsGet(AUTHKEY)==="1")fbLoad().catch(function(){});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fitMath()})}
+function boot(){loadState();render();booted=true;paintAcct();gcStart();if(fbOn()&&lsGet(AUTHKEY)==="1")fbLoad().catch(function(){});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fitMath()})}
 /* The page starts as soon as it can. If KaTeX is not here yet it waits a moment for it (so formulas don't flash
    as plain text on a good connection), then starts anyway and redraws the maths when KaTeX arrives. */
 var bootGo=false,bootT=0;
